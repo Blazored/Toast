@@ -1,0 +1,13 @@
+﻿@inherits ToastsBase
+
+@if (ToastList.Any())
+{
+    <div class="toast-container">
+        <CascadingValue Value=this>
+            @foreach (var toast in ToastList)
+            {
+                @toast.Value
+            }
+        </CascadingValue>
+    </div>
+}
