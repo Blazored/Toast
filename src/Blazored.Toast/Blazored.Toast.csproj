@@ -14,8 +14,10 @@
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/39194025</PackageIconUrl>
     <RepositoryUrl>https://github.com/Blazored/Toast</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>Blazored Blazor Razor Components Toast Popup</PackageTags>
+    <PackageTags>Blazored Blazor Razor Components Toast Popup Notification</PackageTags>
     <Description>A JavaScript free Toast library for Blazor and Razor Components applications.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

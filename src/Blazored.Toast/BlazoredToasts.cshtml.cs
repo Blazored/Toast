@@ -7,7 +7,7 @@ using System.Timers;
 
 namespace Blazored.Toast
 {
-    public class ToastsBase : BlazorComponent
+    public class BlazoredToastsBase : BlazorComponent
     {
         protected Dictionary<Guid, RenderFragment> ToastList { get; set; } = new Dictionary<Guid, RenderFragment>();
         [Inject] private IToastService ToastService { get; set; }
@@ -50,7 +50,7 @@ namespace Blazored.Toast
             var toastId = Guid.NewGuid();
             var toast = new RenderFragment(b =>
             {
-                b.OpenComponent<Toast>(0);
+                b.OpenComponent<BlazoredToast>(0);
                 b.AddAttribute(1, "ToastSettings", settings);
                 b.AddAttribute(2, "ToastId", toastId);
                 b.CloseComponent();

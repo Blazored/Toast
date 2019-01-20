@@ -35,7 +35,7 @@ Second, add the following to your *_ViewImports.cshtml*
 ```
 
 ### 3. Register Toasts Component
-Third and finally you will need to register the `<Toasts />` component in your applications *MainLayout.cshtml*.
+Third and finally you will need to register the `<BlazoredToasts />` component in your applications *MainLayout.cshtml*.
 
 ## Usage
 In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call the `ShowToast` method passing in the toast level you require along with the message to display and an optional heading. 
