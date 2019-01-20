@@ -1,23 +1,23 @@
 # Blazored Toast
-This is a JavaScript free toast implementation for [Blazor](https://blazor.net) and Razor Components application.
+This is a JavaScript free toast implementation for [Blazor](https://blazor.net) and Razor Components applications.
 
 ## Getting Setup
 You can install the package via the nuget package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
 
-```
+```powershell
 Install-Package Blazored.Toast
 ```
 
 Or via the dotnet CLI.
 
-```
+```bash
 dotnet add package Blazored.Toast
 ```
 
 ### 1. Register Services
 First, you will need to add the following line to your applications `Startup.ConfigureServices` method.
 
-```
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddBlazoredToast();
@@ -27,7 +27,7 @@ public void ConfigureServices(IServiceCollection services)
 ### 2. Add Imports
 Second, add the following to your *_ViewImports.cshtml*
 
-```
+```csharp
 @using Blazored
 @using Blazored.Toast.Services
 
@@ -40,7 +40,7 @@ Third and finally you will need to register the `<BlazoredToasts />` component i
 ## Usage
 In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call the `ShowToast` method passing in the toast level you require along with the message to display and an optional heading. 
 
-```
+```html
 @page "/toastdemo"
 @inject IToastService toastService
 
