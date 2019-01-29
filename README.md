@@ -1,6 +1,10 @@
 # Blazored Toast
 This is a JavaScript free toast implementation for [Blazor](https://blazor.net) and Razor Components applications.
 
+[![Build Status](https://dev.azure.com/blazored/Toast/_apis/build/status/Blazored.Toast?branchName=master)](https://dev.azure.com/blazored/Toast/_build/latest?definitionId=3&branchName=master)
+
+![Nuget](https://img.shields.io/nuget/v/blazored.toast.svg)
+
 ## Getting Setup
 You can install the package via the nuget package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
 
