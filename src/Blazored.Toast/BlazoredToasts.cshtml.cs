@@ -1,13 +1,12 @@
 ﻿using Blazored.Toast.Services;
-using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Timers;
 
 namespace Blazored.Toast
 {
-    public class BlazoredToastsBase : BlazorComponent
+    public class BlazoredToastsBase : ComponentBase
     {
         protected Dictionary<Guid, RenderFragment> ToastList { get; set; } = new Dictionary<Guid, RenderFragment>();
         [Inject] private IToastService ToastService { get; set; }
