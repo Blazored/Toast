@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Blazor.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System;
 
 namespace Blazored.Toast
 {
-    public class BlazoredToastBase : BlazorComponent
+    public class BlazoredToastBase : ComponentBase
     {
         [Parameter] protected Guid ToastId { get; set; }
         [Parameter] protected ToastSettings ToastSettings { get; set; }
