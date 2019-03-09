@@ -8,19 +8,20 @@ namespace Blazored.Toast
 {
     public class BlazoredToastsBase : ComponentBase
     {
-        protected Dictionary<Guid, RenderFragment> ToastList { get; set; } = new Dictionary<Guid, RenderFragment>();
         [Inject] private IToastService ToastService { get; set; }
+
+        protected Dictionary<Guid, RenderFragment> ToastList { get; set; } = new Dictionary<Guid, RenderFragment>();
+
+        protected override void OnInit()
+        {
+            ToastService.OnShow += ShowToast;
+        }
 
         public void RemoveToast(Guid toastId)
         {
             ToastList.Remove(toastId);
 
             StateHasChanged();
-        }
-
-        protected override void OnInit()
-        {
-            ToastService.OnShow += ShowToast;
         }
 
         private ToastSettings BuildToastSettings(ToastLevel level, string message, string heading)
