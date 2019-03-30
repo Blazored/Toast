@@ -1,4 +1,5 @@
-﻿using Blazored.Toast.Services;
+﻿using Blazored.Toast.Configuration;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Blazored.Toast
     {
         [Inject] private IToastService ToastService { get; set; }
 
+        protected string Css { get; set; } = string.Empty;
         protected Dictionary<Guid, RenderFragment> ToastList { get; set; } = new Dictionary<Guid, RenderFragment>();
 
         protected override void OnInit()
@@ -47,6 +49,7 @@ namespace Blazored.Toast
         private void ShowToast(ToastLevel level, string message, string heading)
         {
             var settings = BuildToastSettings(level, message, heading);
+            var options = ToastService.ToastOptions;
             var toastId = Guid.NewGuid();
             var toast = new RenderFragment(b =>
             {
@@ -56,9 +59,11 @@ namespace Blazored.Toast
                 b.CloseComponent();
             });
 
+            Css = $"position-{options.Position.ToString().ToLower()}";
             ToastList.Add(toastId, toast);
 
-            var toastTimer = new Timer(5000);
+            var timeout = options.Timout * 1000;
+            var toastTimer = new Timer(timeout);
             toastTimer.Elapsed += (sender, args) => { RemoveToast(toastId); };
             toastTimer.AutoReset = false;
             toastTimer.Start();

@@ -2,9 +2,27 @@
     display: flex;
     flex-direction: column;
     position: absolute;
+    z-index: 1;
+}
+
+.position-topleft {
+    top: 2rem;
+    left: 2rem;
+}
+
+.position-topright {
     top: 2rem;
     right: 2rem;
-    z-index: 1;
+}
+
+.position-bottomleft {
+    bottom: 2rem;
+    left: 2rem;
+}
+
+.position-bottomright {
+    bottom: 2rem;
+    right: 2rem;
 }
 
 .toast {
