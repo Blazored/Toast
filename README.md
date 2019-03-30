@@ -26,14 +26,19 @@ dotnet add package Blazored.Toast
 ```
 
 ### 1. Register Services
-First, you will need to add the following line to your applications `Startup.ConfigureServices` method.
+First, you will need to register the Blazored Toast service in your applications `Startup.ConfigureServices` method.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddBlazoredToast();
+    services.AddBlazoredToast(options => {
+        options.Timeout = 10; // default: 5
+        options.Position = ToastPosition.BottomRight; // default: ToastPosition.TopRight
+    });
 }
 ```
+
+
 
 ### 2. Add Imports
 Second, add the following to your *_ViewImports.cshtml*
@@ -59,8 +64,8 @@ In order to show a toast you have to inject the `IToastService` into the compone
 
 To show a toast just click one of the buttons below.
 
-<button class="btn btn-info" onclick="@(() => toastService.ShowToast(ToastLevel.Info, "I'm an INFO message"))">Info Toast</button>
-<button class="btn btn-success" onclick="@(() => toastService.ShowToast(ToastLevel.Success, "I'm a SUCCESS message with a custom title", "Congratulations!"))">Success Toast</button>
-<button class="btn btn-warning" onclick="@(() => toastService.ShowToast(ToastLevel.Warning, "I'm a WARNING message"))">Warning Toast</button>
-<button class="btn btn-danger" onclick="@(() => toastService.ShowToast(ToastLevel.Error, "I'm an ERROR message"))">Error Toast</button>
+<button class="btn btn-info" onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+<button class="btn btn-success" onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom title", "Congratulations!"))">Success Toast</button>
+<button class="btn btn-warning" onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
+<button class="btn btn-danger" onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 ```

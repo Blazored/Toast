@@ -1,4 +1,5 @@
 using Blazored.Toast;
+using Blazored.Toast.Configuration;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +14,10 @@ namespace BlazorSample
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddBlazoredToast();
+            services.AddBlazoredToast(options => {
+                options.Timout = 10;
+                options.Position = ToastPosition.BottomRight;
+            });
         }
     }
 }
