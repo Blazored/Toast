@@ -62,7 +62,7 @@ namespace Blazored.Toast
             Css = $"position-{options.Position.ToString().ToLower()}";
             ToastList.Add(toastId, toast);
 
-            var timeout = options.Timout * 1000;
+            var timeout = options.Timeout * 1000;
             var toastTimer = new Timer(timeout);
             toastTimer.Elapsed += (sender, args) => { RemoveToast(toastId); };
             toastTimer.AutoReset = false;
