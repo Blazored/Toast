@@ -21,9 +21,12 @@ namespace Blazored.Toast
 
         public void RemoveToast(Guid toastId)
         {
-            ToastList.Remove(toastId);
+            Invoke(() =>
+            {
+                ToastList.Remove(toastId);
 
-            StateHasChanged();
+                StateHasChanged();
+            });
         }
 
         private ToastSettings BuildToastSettings(ToastLevel level, string message, string heading)
