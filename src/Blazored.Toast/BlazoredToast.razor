@@ -1,0 +1,18 @@
+﻿@inherits BlazoredToastBase
+
+<div class="toast @ToastSettings.BackgroundClass">
+    @if (!string.IsNullOrWhiteSpace(ToastSettings.IconClass))
+    {
+        <div class="toast-icon">
+            <i class="fa fa-@ToastSettings.IconClass" aria-hidden="true"></i>
+        </div>
+    }
+    <div class="toast-body">
+        <div class="toast-header">
+            <h5>@ToastSettings.Heading</h5>
+            <button onclick=@Close>x</button>
+        </div>
+
+        <p>@ToastSettings.Message</p>
+    </div>
+</div>
