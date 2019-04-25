@@ -16,7 +16,7 @@ namespace BlazorServerSideSample
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddBlazoredToast(options => {
-                options.Timeout = 10; // default: 5
+                options.Timeout = 20; // default: 5
                 options.Position = ToastPosition.BottomRight; // default: ToastPosition.TopRight
             });
         }
@@ -42,7 +42,7 @@ namespace BlazorServerSideSample
 
             app.UseEndpoints(routes =>
             {
-                routes.MapBlazorHub<App>("app");
+                routes.MapBlazorHub();
                 routes.MapFallbackToPage("/_Host");
             });
         }

@@ -13,11 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\styles.css" />
+    <Content Remove="wwwroot\css\blazored-toast.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\css\styles.css">
+    <EmbeddedResource Include="wwwroot\css\blazored-toast.css">
       <LogicalName>blazor:css:%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>

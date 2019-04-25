@@ -2,7 +2,7 @@
 
 @if (ToastList.Any())
 {
-    <div class="toast-container @Css">
+    <div class="blazored-toast-container @Css">
         <CascadingValue Value=this>
             @foreach (var toast in ToastList.OrderBy(x=>x.TimeStamp))
             {

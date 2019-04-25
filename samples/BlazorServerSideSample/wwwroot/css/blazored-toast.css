@@ -1,4 +1,4 @@
-﻿.toast-container {
+﻿.blazored-toast-container {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -25,7 +25,7 @@
     right: 2rem;
 }
 
-.toast {
+.blazored-toast {
     display: flex;
     flex-direction: row;
     animation: fadein 1.5s;
@@ -38,23 +38,23 @@
     box-shadow: rgba(0,0,0,0.25) 0px 10px 40px;
 }
 
-.toast-info {
+.blazored-toast-info {
     background-color: #34a9ad;
 }
 
-.toast-success {
+.blazored-toast-success {
     background-color: #5fba7d;
 }
 
-.toast-warning {
+.blazored-toast-warning {
     background-color: #c1c13e;
 }
 
-.toast-error {
+.blazored-toast-error {
     background-color: #ba5e5e;
 }
 
-.toast-icon {
+.blazored-toast-icon {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,19 +62,19 @@
     font-size: 2.5rem;
 }
 
-.toast-body {
+.blazored-toast-body {
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
-    .toast-body .toast-header {
+    .blazored-toast-body .blazored-toast-header {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
     }
 
-        .toast-body .toast-header h5 {
+        .blazored-toast-body .blazored-toast-header h5 {
             font-weight: bold;
             text-transform: uppercase;
             font-size: 1.5rem;
@@ -82,7 +82,7 @@
             line-height: 32px;
         }
 
-        .toast-body .toast-header button {
+        .blazored-toast-body .blazored-toast-header button {
             background-color: transparent;
             border: 0;
             -webkit-appearance: none;
@@ -91,7 +91,7 @@
             font-size: 1.25rem;
         }
 
-    .toast-body p {
+    .blazored-toast-body p {
         margin-bottom: 0;
         font-size: 1rem;
     }
