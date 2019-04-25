@@ -5,8 +5,8 @@ This is a JavaScript free toast implementation for [Blazor](https://blazor.net) 
 
 ![Nuget](https://img.shields.io/nuget/v/blazored.toast.svg)
 
-## Important Notice For ASP.NET Core Razor Components Apps
-There is currently an issue with [ASP.NET Core Razor Components apps](https://devblogs.microsoft.com/aspnet/aspnet-core-3-preview-2/#sharing-component-libraries) (not Blazor). They are unable to import static assets from component libraries such as this one. 
+## Important Notice For Blazor server-side Apps
+There is currently an issue with [Blazor server-side apps](https://devblogs.microsoft.com/aspnet/aspnet-core-3-preview-2/#sharing-component-libraries) (not Blazor). They are unable to import static assets from component libraries such as this one. 
 
 You can still use this package, however, you will need to manually add the CSS to your apps `wwwroot` folder. You will then need to add a reference to it in the `head` tag of your apps `index.html` page.
 
@@ -38,23 +38,25 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-
-
 ### 2. Add Imports
-Second, add the following to your *_ViewImports.cshtml*
+Second, add the following to your *_Imports.razor*
 
 ```csharp
 @using Blazored
 @using Blazored.Toast.Services
-
-@addTagHelper *, Blazored.Toast
 ```
 
 ### 3. Register Toasts Component
 Third and finally you will need to register the `<BlazoredToasts />` component in your applications *MainLayout.cshtml*.
 
 ## Usage
-In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call the `ShowToast` method passing in the toast level you require along with the message to display and an optional heading. 
+In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call one of the following methods depending on what kind of toast you want to display, passing in a message and an optional heading.
+
+- `ShowInfo`
+- `ShowSuccess`
+- `ShowWarning`
+- `ShowError`
+
 
 ```html
 @page "/toastdemo"
