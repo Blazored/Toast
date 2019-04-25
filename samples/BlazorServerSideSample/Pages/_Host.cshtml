@@ -1,4 +1,7 @@
-﻿@page "{*clientPath}"
+﻿@page "/"
+@namespace BlazorServerSideSample.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +19,12 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
-    <link href="css/site.css" rel="stylesheet" />
-    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/blazored-toast.css" rel="stylesheet" />
 </head>
 <body>
     <app>@(await Html.RenderComponentAsync<App>())</app>
 
-    <script src="_framework/components.server.js"></script>
+    <script src="_framework/blazor.server.js"></script>
 </body>
 </html>
