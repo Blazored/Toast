@@ -19,7 +19,7 @@
     <PackageTags>Blazored Blazor Razor Components Toast Popup Notification</PackageTags>
     <Description>A JavaScript free Toast library for Blazor and Razor Components applications.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +27,12 @@
     <EmbeddedResource Include="content\**\*.js" LogicalName="blazor:js:%(RecursiveDir)%(Filename)%(Extension)" />
     <EmbeddedResource Include="content\**\*.css" LogicalName="blazor:css:%(RecursiveDir)%(Filename)%(Extension)" />
     <EmbeddedResource Include="content\**" Exclude="**\*.js;**\*.css" LogicalName="blazor:file:%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="*.razor">
+      <Pack>false</Pack>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
