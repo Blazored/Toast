@@ -1,7 +1,7 @@
 ﻿.blazored-toast-container {
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     z-index: 1;
 }
 
