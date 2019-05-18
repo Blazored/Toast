@@ -34,7 +34,7 @@
 .position-bottomcenter {
     bottom: 2rem;
     left: 50%;
-    margin-left: -15em;
+    margin-left: -15rem;
 }
 .blazored-toast {
     display: flex;
