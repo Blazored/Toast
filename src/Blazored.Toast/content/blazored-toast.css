@@ -15,6 +15,12 @@
     right: 2rem;
 }
 
+.position-topcenter {
+    top: 2rem;
+    left: 50%;
+    margin-left: -15em;
+}
+
 .position-bottomleft {
     bottom: 2rem;
     left: 2rem;
@@ -25,6 +31,11 @@
     right: 2rem;
 }
 
+.position-bottomcenter {
+    bottom: 2rem;
+    left: 50%;
+    margin-left: -15em;
+}
 .blazored-toast {
     display: flex;
     flex-direction: row;

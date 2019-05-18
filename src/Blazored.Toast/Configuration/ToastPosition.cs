@@ -4,7 +4,9 @@ namespace Blazored.Toast.Configuration
     {
         TopLeft,
         TopRight,
+        TopCenter,
         BottomLeft,
-        BottomRight
+        BottomRight,
+        BottomCenter
     }
 }
