@@ -15,8 +15,8 @@ namespace BlazorSample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBlazoredToast(options => {
-                options.Timeout = 5;
-                options.Position = ToastPosition.BottomRight;
+                options.Timeout = 120;
+                options.Position = ToastPosition.TopCenter;
             });
         }
     }
