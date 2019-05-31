@@ -11,7 +11,7 @@
     <Authors>Chris Sainty</Authors>
     <Company></Company>
     <Copyright>Copyright 2018 (c) Chris Sainty. All rights reserved.</Copyright>
-    <PackageLicenseUrl>https://github.com/Blazored/Toast/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Blazored/Toast</PackageProjectUrl>
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/39194025</PackageIconUrl>
     <RepositoryUrl>https://github.com/Blazored/Toast</RepositoryUrl>
@@ -19,7 +19,7 @@
     <PackageTags>Blazored Blazor Razor Components Toast Popup Notification</PackageTags>
     <Description>A JavaScript free Toast library for Blazor and Razor Components applications.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.4</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
