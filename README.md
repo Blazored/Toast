@@ -47,7 +47,7 @@ Second, add the following to your *_Imports.razor*
 ```
 
 ### 3. Register Toasts Component
-Third and finally you will need to register the `<BlazoredToasts />` component in your applications *MainLayout.cshtml*.
+Third and finally you will need to register the `<BlazoredToasts />` component in your applications *MainLayout.razor*.
 
 ## Usage
 In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call one of the following methods depending on what kind of toast you want to display, passing in a message and an optional heading.
