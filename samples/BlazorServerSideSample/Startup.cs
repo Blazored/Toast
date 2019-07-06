@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blazored.Toast;
-using Blazored.Toast.Configuration;
 
 namespace BlazorServerSideSample
 {
@@ -15,10 +14,7 @@ namespace BlazorServerSideSample
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddBlazoredToast(options => {
-                options.Timeout = 20; // default: 5
-                options.Position = ToastPosition.BottomRight; // default: ToastPosition.TopRight
-            });
+            services.AddBlazoredToast();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
