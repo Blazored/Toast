@@ -84,6 +84,10 @@ app {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+.success-toast-override {
+    background-color: coral !important;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;

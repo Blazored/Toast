@@ -1,13 +1,11 @@
 ﻿using System;
-using Blazored.Toast.Configuration;
 
-namespace Blazored.Toast
+namespace Blazored.Toast.Configuration
 {
-    internal class Toast
+    internal class ToastInstance
     {
         public Guid Id { get; set; }
         public DateTime TimeStamp { get; set; }
         public ToastSettings ToastSettings { get; set; }
-        public ToastOptions Options { get; internal set; }
     }
 }

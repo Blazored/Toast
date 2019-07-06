@@ -1,10 +1,10 @@
 ﻿@inherits BlazoredToastBase
 
-<div class="blazored-toast @ToastSettings.BackgroundClass">
+<div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses">
     @if (!string.IsNullOrWhiteSpace(ToastSettings.IconClass))
     {
         <div class="blazored-toast-icon">
-            <i class="fa fa-@ToastSettings.IconClass" aria-hidden="true"></i>
+            <i class="@ToastSettings.IconClass" aria-hidden="true"></i>
         </div>
     }
     <div class="blazored-toast-body">

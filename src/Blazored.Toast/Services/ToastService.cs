@@ -1,16 +1,10 @@
 ﻿using System;
-using Blazored.Toast.Configuration;
 
 namespace Blazored.Toast.Services
 {
     public class ToastService : IToastService
     {
-        public ToastOptions ToastOptions { get; private set; }
-
-        public ToastService(ToastOptions toastOptions)
-        {
-            ToastOptions = toastOptions;
-        }
+        public ToastService() { }
 
         /// <summary>
         /// A event that will be invoked when showing a toast
