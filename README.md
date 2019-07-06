@@ -31,10 +31,7 @@ First, you will need to register the Blazored Toast service in your applications
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddBlazoredToast(options => {
-        options.Timeout = 10; // default: 5
-        options.Position = ToastPosition.BottomRight; // default: ToastPosition.TopRight
-    });
+    services.AddBlazoredToast();
 }
 ```
 
@@ -46,8 +43,29 @@ Second, add the following to your *_Imports.razor*
 @using Blazored.Toast.Services
 ```
 
-### 3. Register Toasts Component
+### 3. Register and Configure Toasts Component
 Third and finally you will need to register the `<BlazoredToasts />` component in your applications *MainLayout.razor*.
+
+With version 2 configuration of toasts is now done using parameters on the `<BlazoredToasts />` component. The following options are available.
+
+- InfoClass
+- InfoIconClass
+- SuccessClass
+- SuccessIconClass
+- WarningClass
+- WarningIconClass
+- ErrorClass
+- ErrorIconClass
+- Position (Default: ToastPosition.TopRight)
+- Timeout (Default: 5)
+
+By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
+
+For example, to add a icon from Font Awesome to all success toasts you can do the following.
+
+```html
+<BlazoredToasts SuccessIconClass="fa fa-thumbs-up"/>
+```
 
 ## Usage
 In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call one of the following methods depending on what kind of toast you want to display, passing in a message and an optional heading.
