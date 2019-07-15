@@ -39,7 +39,7 @@ public void ConfigureServices(IServiceCollection services)
 Second, add the following to your *_Imports.razor*
 
 ```csharp
-@using Blazored
+@using Blazored.Toast
 @using Blazored.Toast.Services
 ```
 
