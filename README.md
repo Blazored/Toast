@@ -5,12 +5,26 @@ This is a JavaScript free toast implementation for [Blazor](https://blazor.net) 
 
 ![Nuget](https://img.shields.io/nuget/v/blazored.toast.svg)
 
-## Important Notice For Blazor server-side Apps
-There is currently an issue with [Blazor server-side apps](https://devblogs.microsoft.com/aspnet/aspnet-core-3-preview-2/#sharing-component-libraries) (not Blazor). They are unable to import static assets from component libraries such as this one. 
+## Important Notice for Blazor Apps Regarding the CSS Content in Blazored Toast
 
-You can still use this package, however, you will need to manually add the CSS to your apps `wwwroot` folder. You will then need to add a reference to it in the `head` tag of your apps `index.html` page.
+As of ASP.Net Core Preview 6 content can be embedded in a Razor class Library. However there are two outstanding issues
+ that prevent easy use of said content. You should be able to add &lt;link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
+to your index.html (client side) or \_Host.cshtml (server side). This is what is included in both the BlazorSample project as well as the BlazorServerSideSample project.
 
-Alternatively, there is a great package by [Mister Magoo](https://github.com/SQL-MisterMagoo/BlazorEmbedLibrary) which offers a solution to this problem without having to manually copy files.
+##### Client side Blazor
+
+Client side Blazor depends upon an ASP.Net Server setting to properly resolve the \_content tag in the include.
+Unfortunately that was left out of the stand-alone Blazor server settings for Preview 6.
+See https://github.com/aspnet/AspNetCore/issues/10986 which is scheduled to be fixed in Preview 7. Alternatively you can host a client side project in a full ASP.Net Core project.
+
+##### Server side Blazor
+
+Server side Blazor mangles the name of the library
+See https://github.com/aspnet/AspNetCore/issues/11174 which is also scheduled to be fixed in Preview 7.
+
+##### Common work-around for Preview 6
+
+The sample applications have under the wwwroot folder a directory \_content\Blazored.Toast with a copy of blazored-toast.css placed there (to reflect the proper name of the resource as of Preview 7). You can place the resource where you like.
 
 ## Getting Setup
 You can install the package via the nuget package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
