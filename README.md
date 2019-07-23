@@ -7,24 +7,9 @@ This is a JavaScript free toast implementation for [Blazor](https://blazor.net) 
 
 ## Important Notice for Blazor Apps Regarding the CSS Content in Blazored Toast
 
-As of ASP.Net Core Preview 6 content can be embedded in a Razor class Library. However there are two outstanding issues
- that prevent easy use of said content. You should be able to add &lt;link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
+As of ASP.Net Core Preview 6 content can be embedded in a Razor class Library. However there were two outstanding issues
+ that prevent easy use of said content. These were resolved in Preview7. You should add &lt;link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
 to your index.html (client side) or \_Host.cshtml (server side). This is what is included in both the BlazorSample project as well as the BlazorServerSideSample project.
-
-##### Client side Blazor
-
-Client side Blazor depends upon an ASP.Net Server setting to properly resolve the \_content tag in the include.
-Unfortunately that was left out of the stand-alone Blazor server settings for Preview 6.
-See https://github.com/aspnet/AspNetCore/issues/10986 which is scheduled to be fixed in Preview 7. Alternatively you can host a client side project in a full ASP.Net Core project.
-
-##### Server side Blazor
-
-Server side Blazor mangles the name of the library
-See https://github.com/aspnet/AspNetCore/issues/11174 which is also scheduled to be fixed in Preview 7.
-
-##### Common work-around for Preview 6
-
-The sample applications have under the wwwroot folder a directory \_content\Blazored.Toast with a copy of blazored-toast.css placed there (to reflect the proper name of the resource as of Preview 7). You can place the resource where you like.
 
 ## Getting Setup
 You can install the package via the nuget package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
