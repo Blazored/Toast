@@ -8,8 +8,11 @@ This is a JavaScript free toast implementation for [Blazor](https://blazor.net) 
 ## Important Notice for Blazor Apps Regarding the CSS Content in Blazored Toast
 
 As of ASP.Net Core Preview 6 content can be embedded in a Razor class Library. However there were two outstanding issues
- that prevent easy use of said content. These were resolved in Preview7. You should add &lt;link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
-to your index.html (client side) or \_Host.cshtml (server side). This is what is included in both the BlazorSample project as well as the BlazorServerSideSample project.
+ that prevent easy use of said content. These were resolved in Preview7. You should add:
+ 
+ `<link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />`
+ 
+to your `index.html` (client side) or `_Host.cshtml` (server side). This is what is included in both the BlazorSample project as well as the BlazorServerSideSample project.
 
 ## Getting Setup
 You can install the package via the nuget package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
