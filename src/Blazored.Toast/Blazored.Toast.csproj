@@ -10,7 +10,7 @@
     
     <Authors>Chris Sainty</Authors>
     <Company></Company>
-    <Copyright>Copyright 2018 (c) Chris Sainty. All rights reserved.</Copyright>
+    <Copyright>Copyright 2018 - 2019 (c) Chris Sainty. All rights reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Blazored/Toast</PackageProjectUrl>
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/39194025</PackageIconUrl>
@@ -20,14 +20,8 @@
     <Description>A JavaScript free Toast library for Blazor and Razor Components applications.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>2.0.0</Version>
+    <AssemblyName>Blazored.Toast</AssemblyName>
   </PropertyGroup>
-
-  <ItemGroup>
-    <!-- .js/.css files will be referenced via <script>/<link> tags; other content files will just be included in the app's 'dist' directory without any tags referencing them -->
-    <EmbeddedResource Include="content\**\*.js" LogicalName="blazor:js:%(RecursiveDir)%(Filename)%(Extension)" />
-    <EmbeddedResource Include="content\**\*.css" LogicalName="blazor:css:%(RecursiveDir)%(Filename)%(Extension)" />
-    <EmbeddedResource Include="content\**" Exclude="**\*.js;**\*.css" LogicalName="blazor:file:%(RecursiveDir)%(Filename)%(Extension)" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Update="*.razor">
@@ -36,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="3.0.0-preview6.19307.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="3.0.0-preview7.19365.7" />
   </ItemGroup>
 
 </Project>
