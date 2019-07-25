@@ -6,16 +6,16 @@ This is a JavaScript free toast implementation for [Blazor](https://blazor.net) 
 ![Nuget](https://img.shields.io/nuget/v/blazored.toast.svg)
 
 ## Important Notice for Blazor Apps Regarding the CSS Content in Blazored Toast
+If you are using server-side Blazor you will need to add a reference to the Blazored Toast CSS file in your _Host.cshtml file.
 
-As of ASP.Net Core Preview 6 content can be embedded in a Razor class Library. However there were two outstanding issues
- that prevent easy use of said content. These were resolved in Preview7. You should add:
- 
- `<link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />`
- 
-to your `index.html` (client side) or `_Host.cshtml` (server side). This is what is included in both the BlazorSample project as well as the BlazorServerSideSample project.
+```
+<link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
+```
+
+If you are using client-side Blazor this reference will be added automatically for you.
 
 ## Getting Setup
-You can install the package via the nuget package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
+You can install the package via the NuGet package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
 
 ```powershell
 Install-Package Blazored.Toast
