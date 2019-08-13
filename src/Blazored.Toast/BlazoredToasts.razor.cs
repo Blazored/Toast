@@ -12,21 +12,21 @@ namespace Blazored.Toast
     {
         [Inject] private IToastService ToastService { get; set; }
 
-        [Parameter] protected string InfoClass { get; set; }
-        [Parameter] protected string InfoIconClass { get; set; }
-        [Parameter] protected string SuccessClass { get; set; }
-        [Parameter] protected string SuccessIconClass { get; set; }
-        [Parameter] protected string WarningClass { get; set; }
-        [Parameter] protected string WarningIconClass { get; set; }
-        [Parameter] protected string ErrorClass { get; set; }
-        [Parameter] protected string ErrorIconClass { get; set; }
-        [Parameter] protected ToastPosition Position { get; set; } = ToastPosition.TopRight;
-        [Parameter] protected int Timeout { get; set; } = 5;
+        [Parameter] public string InfoClass { get; set; }
+        [Parameter] public string InfoIconClass { get; set; }
+        [Parameter] public string SuccessClass { get; set; }
+        [Parameter] public string SuccessIconClass { get; set; }
+        [Parameter] public string WarningClass { get; set; }
+        [Parameter] public string WarningIconClass { get; set; }
+        [Parameter] public string ErrorClass { get; set; }
+        [Parameter] public string ErrorIconClass { get; set; }
+        [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
+        [Parameter] public int Timeout { get; set; } = 5;
 
         protected string PositionClass { get; set; } = string.Empty;
         internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
 
-        protected override void OnInit()
+        protected override void OnInitialized()
         {
             ToastService.OnShow += ShowToast;
 
@@ -35,7 +35,7 @@ namespace Blazored.Toast
 
         public void RemoveToast(Guid toastId)
         {
-            Invoke(() =>
+            InvokeAsync(() =>
             {
                 var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
                 ToastList.Remove(toastInstance);

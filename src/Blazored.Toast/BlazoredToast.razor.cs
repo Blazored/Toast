@@ -8,8 +8,8 @@ namespace Blazored.Toast
     {
         [CascadingParameter] private BlazoredToasts ToastsContainer { get; set; }
 
-        [Parameter] protected Guid ToastId { get; set; }
-        [Parameter] protected ToastSettings ToastSettings { get; set; }
+        [Parameter] public Guid ToastId { get; set; }
+        [Parameter] public ToastSettings ToastSettings { get; set; }
 
         protected void Close()
         {
