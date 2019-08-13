@@ -19,7 +19,7 @@ dotnet add package Blazored.Toast
 ```
 
 ### 1. Register Services
-First, you will need to register the Blazored Toast service in your applications `Startup.ConfigureServices` method.
+You will need to register the Blazored Toast service in your applications `Startup.ConfigureServices` method.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -29,7 +29,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 ### 2. Add Imports
-Second, add the following to your *_Imports.razor*
+Add the following to your *_Imports.razor*
 
 ```csharp
 @using Blazored.Toast
@@ -37,9 +37,9 @@ Second, add the following to your *_Imports.razor*
 ```
 
 ### 3. Register and Configure Toasts Component
-Third and finally you will need to register the `<BlazoredToasts />` component in your applications *MainLayout.razor*.
+Add the `<BlazoredToasts />` tag into your applications *MainLayout.razor*.
 
-With version 2 configuration of toasts is now done using parameters on the `<BlazoredToasts />` component. The following options are available.
+Toasts are configured using parameters on the `<BlazoredToasts />` component. The following options are available.
 
 - InfoClass
 - InfoIconClass
