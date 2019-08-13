@@ -5,15 +5,6 @@ This is a JavaScript free toast implementation for [Blazor](https://blazor.net) 
 
 ![Nuget](https://img.shields.io/nuget/v/blazored.toast.svg)
 
-## Important Notice for Blazor Apps Regarding the CSS Content in Blazored Toast
-If you are using server-side Blazor you will need to add a reference to the Blazored Toast CSS file in your _Host.cshtml file.
-
-```
-<link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
-```
-
-If you are using client-side Blazor this reference will be added automatically for you.
-
 ## Getting Setup
 You can install the package via the NuGet package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
 
@@ -67,6 +58,13 @@ For example, to add a icon from Font Awesome to all success toasts you can do th
 
 ```html
 <BlazoredToasts SuccessIconClass="fa fa-thumbs-up"/>
+```
+
+### 4. Add reference to style sheet
+Add the following line to the `head` tag of your `index.html` (Blazor WebAssembly App) or `_Host.cshtml` (Blazor Server app).
+
+```
+<link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
 ```
 
 ## Usage
