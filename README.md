@@ -103,3 +103,8 @@ To show a toast just click one of the buttons below.
 <button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 ```
 Full examples for client and server-side Blazor are included in the [samples](https://github.com/Blazored/Toast/tree/master/samples).
+
+## FAQ
+### The toasts are not showing
+1. Check the `z-index` of your other `DOM Elements`, make sure that the `.blazored-toast-container` has a higher `z-index` than the other components.
+
