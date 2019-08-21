@@ -73,7 +73,7 @@
             line-height: 32px;
         }
 
-        .blazored-toast-body .blazored-toast-header button.blazored-toast-close {
+        .blazored-toast-body .blazored-toast-header .blazored-toast-close {
             background-color: transparent;
             border: 0;
             -webkit-appearance: none;
