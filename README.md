@@ -60,6 +60,19 @@ For example, to add a icon from Font Awesome to all success toasts you can do th
 <BlazoredToasts SuccessIconClass="fa fa-thumbs-up"/>
 ```
 
+Setting the position also requires a reference to `Blazored.Toast.Configuration`, for example:
+
+```html
+@using Blazored.Toast.Configuration
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="10"
+                SuccessClass="success-toast-override"
+                SuccessIconClass="fa fa-thumbs-up"
+                ErrorIconClass="fa fa-bug" />
+```
+The example above is from the [samples](https://github.com/Blazored/Toast/tree/master/samples).
+
 ### 4. Add reference to style sheet
 Add the following line to the `head` tag of your `index.html` (Blazor WebAssembly App) or `_Host.cshtml` (Blazor Server app).
 
@@ -89,3 +102,4 @@ To show a toast just click one of the buttons below.
 <button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
 <button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 ```
+Full examples for client and server-side Blazor are included in the [samples](https://github.com/Blazored/Toast/tree/master/samples).
