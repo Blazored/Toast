@@ -73,15 +73,13 @@
             line-height: 32px;
         }
 
-        .blazored-toast-body .blazored-toast-header button {
+        .blazored-toast-body .blazored-toast-header .blazored-toast-close {
             background-color: transparent;
             border: 0;
             -webkit-appearance: none;
-            cursor: pointer;
-            color: #fff;
+            color:inherit;
             font-size: 1.25rem;
         }
-
     .blazored-toast-body p {
         margin-bottom: 0;
         font-size: 1rem;
