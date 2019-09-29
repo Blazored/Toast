@@ -23,26 +23,28 @@
     animation: fadein 1.5s;
     margin-bottom: 1rem;
     padding: 1rem 1.25rem;
-    color: #fff;
     width: 100vw;
-    font-family: monospace;
     box-shadow: rgba(0,0,0,0.25) 0px 10px 40px;
 }
 
 .blazored-toast-info {
-    background-color: #34a9ad;
+	background-color: #34a9ad;
+	color: #fff;
 }
 
 .blazored-toast-success {
-    background-color: #5fba7d;
+	background-color: #5fba7d;
+	color: #fff;
 }
 
 .blazored-toast-warning {
-    background-color: #c1c13e;
+	background-color: #c1c13e;
+	color: #fff;
 }
 
 .blazored-toast-error {
-    background-color: #ba5e5e;
+	background-color: #ba5e5e;
+	color: #fff;
 }
 
 .blazored-toast-icon {
