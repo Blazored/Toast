@@ -24,7 +24,7 @@
     margin-bottom: 1rem;
     padding: 1rem 1.25rem;
     width: 100vw;
-    box-shadow: rgba(0,0,0,0.25) 0px 10px 40px;
+    box-shadow: rgba(0,0,0,0.25) 0px 1px 4px;
 }
 
 .blazored-toast-info {
