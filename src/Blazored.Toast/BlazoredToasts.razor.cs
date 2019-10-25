@@ -65,23 +65,27 @@ namespace Blazored.Toast
 
         private void ShowToast(ToastLevel level, string message, string heading)
         {
-            var settings = BuildToastSettings(level, message, heading);
-            var toast = new ToastInstance
+            InvokeAsync(() =>
             {
-                Id = Guid.NewGuid(),
-                TimeStamp = DateTime.Now,
-                ToastSettings = settings
-            };
+                var settings = BuildToastSettings(level, message, heading);
+                var toast = new ToastInstance
+                {
+                    Id = Guid.NewGuid(),
+                    TimeStamp = DateTime.Now,
+                    ToastSettings = settings
+                };
 
-            ToastList.Add(toast);
+                ToastList.Add(toast);
 
-            var timeout = Timeout * 1000;
-            var toastTimer = new Timer(timeout);
-            toastTimer.Elapsed += (sender, args) => { RemoveToast(toast.Id); };
-            toastTimer.AutoReset = false;
-            toastTimer.Start();
+                var timeout = Timeout * 1000;
+                var toastTimer = new Timer(timeout);
+                toastTimer.Elapsed += (sender, args) => { RemoveToast(toast.Id); };
+                toastTimer.AutoReset = false;
+                toastTimer.Start();
 
-            StateHasChanged();
+                StateHasChanged();
+            });
+
         }
     }
 }
