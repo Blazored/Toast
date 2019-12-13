@@ -8,7 +8,7 @@ using System.Timers;
 
 namespace Blazored.Toast
 {
-    public class BlazoredToastsBase : ComponentBase
+    public partial class BlazoredToasts
     {
         [Inject] private IToastService ToastService { get; set; }
 
@@ -23,7 +23,7 @@ namespace Blazored.Toast
         [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
         [Parameter] public int Timeout { get; set; } = 5;
 
-        protected string PositionClass { get; set; } = string.Empty;
+        private string PositionClass { get; set; } = string.Empty;
         internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
 
         protected override void OnInitialized()
