@@ -76,7 +76,7 @@ Setting the position also requires a reference to `Blazored.Toast.Configuration`
 The example above is from the [samples](https://github.com/Blazored/Toast/tree/master/samples).
 
 ### 4. Add reference to style sheet
-Add the following line to the `head` tag of your `_Host.cshtml` (Blazor Server app).
+Add the following line to the `head` tag of your `_Host.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
 
 ```
 <link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
