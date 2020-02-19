@@ -21,13 +21,23 @@ dotnet add package Blazored.Toast
 ```
 
 ### 1. Register Services
-You will need to register the Blazored Toast service in your applications `Startup.ConfigureServices` method.
+You will need to register the Blazored Toast service in your application
+
+#### Blazor Server
+Add the following line to your applications `Startup.ConfigureServices` method.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddBlazoredToast();
 }
+```
+
+#### Blazor WebAssembly
+Add the following line to your applications `Program.Main` method.
+
+```csharp
+builder.Services.AddBlazoredToast();
 ```
 
 ### 2. Add Imports
