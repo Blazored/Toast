@@ -14,12 +14,17 @@ namespace Blazored.Toast
 
         [Parameter] public string InfoClass { get; set; }
         [Parameter] public string InfoIconClass { get; set; }
+        [Parameter] public string InfoIconName { get; set; }
         [Parameter] public string SuccessClass { get; set; }
         [Parameter] public string SuccessIconClass { get; set; }
+        [Parameter] public string SuccessIconName { get; set; }
         [Parameter] public string WarningClass { get; set; }
         [Parameter] public string WarningIconClass { get; set; }
+        [Parameter] public string WarningIconName { get; set; }
         [Parameter] public string ErrorClass { get; set; }
         [Parameter] public string ErrorIconClass { get; set; }
+        [Parameter] public string ErrorIconName { get; set; }
+        [Parameter] public string IconClass { get; set; }
         [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
         [Parameter] public int Timeout { get; set; } = 5;
 
@@ -45,19 +50,27 @@ namespace Blazored.Toast
 
         private ToastSettings BuildToastSettings(ToastLevel level, string message, string heading)
         {
+            if (!string.IsNullOrWhiteSpace(IconClass))
+            {
+                ErrorIconClass = IconClass;
+                InfoIconClass = IconClass;
+                SuccessIconClass = IconClass;
+                WarningIconClass = IconClass;
+            }
+
             switch (level)
             {
+                case ToastLevel.Error:
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, "blazored-toast-error", ErrorClass, ErrorIconClass, ErrorIconName);
+
                 case ToastLevel.Info:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, "blazored-toast-info", InfoClass, InfoIconClass);
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, "blazored-toast-info", InfoClass, InfoIconClass, InfoIconName);
 
                 case ToastLevel.Success:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, "blazored-toast-success", SuccessClass, SuccessIconClass);
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, "blazored-toast-success", SuccessClass, SuccessIconClass, SuccessIconName);
 
                 case ToastLevel.Warning:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, "blazored-toast-warning", WarningClass, WarningIconClass);
-
-                case ToastLevel.Error:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, "blazored-toast-error", ErrorClass, ErrorIconClass);
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, "blazored-toast-warning", WarningClass, WarningIconClass, WarningIconName);
             }
 
             throw new InvalidOperationException();
