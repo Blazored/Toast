@@ -43,7 +43,7 @@ namespace Blazored.Toast
             });
         }
 
-        private ToastSettings BuildToastSettings(ToastLevel level, string message, string heading)
+        private ToastSettings BuildToastSettings(ToastLevel level, RenderFragment message, string heading)
         {
             switch (level)
             {
@@ -63,7 +63,7 @@ namespace Blazored.Toast
             throw new InvalidOperationException();
         }
 
-        private void ShowToast(ToastLevel level, string message, string heading)
+        private void ShowToast(ToastLevel level, RenderFragment message, string heading)
         {
             InvokeAsync(() =>
             {

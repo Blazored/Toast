@@ -1,8 +1,10 @@
-﻿namespace Blazored.Toast.Configuration
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Blazored.Toast.Configuration
 {
     public class ToastSettings
     {
-        public ToastSettings(string heading, string message, string baseClass, string additionalClasses, string iconClass)
+        public ToastSettings(string heading, RenderFragment message, string baseClass, string additionalClasses, string iconClass)
         {
             Heading = heading;
             Message = message;
@@ -12,7 +14,7 @@
         }
 
         public string Heading { get; set; }
-        public string Message { get; set; }
+        public RenderFragment Message { get; set; }
         public string BaseClass { get; set; }
         public string AdditionalClasses { get; set; }
         public string IconClass { get; set; }
