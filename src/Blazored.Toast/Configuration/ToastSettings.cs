@@ -2,21 +2,27 @@
 {
     public class ToastSettings
     {
-        public ToastSettings(string heading, string message, string baseClass, string additionalClasses, string iconClass, string iconName)
+        public ToastSettings(
+            string heading, 
+            string message,
+            IconType iconType,
+            string baseClass,
+            string additionalClasses,
+            string iconName)
         {
             Heading = heading;
             Message = message;
+            IconType = iconType;
             BaseClass = baseClass;
             AdditionalClasses = additionalClasses;
-            IconClass = iconClass;
-            IconName = iconName;
+            IconSelector = iconName;
         }
 
         public string Heading { get; set; }
         public string Message { get; set; }
         public string BaseClass { get; set; }
         public string AdditionalClasses { get; set; }
-        public string IconClass { get; set; }
-        public string IconName { get; set; }
+        public string IconSelector { get; set; }
+        public IconType IconType { get; set; }
     }
 }
