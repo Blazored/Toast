@@ -2,16 +2,16 @@
 
 <div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses">
     
-    @if (!string.IsNullOrWhiteSpace(ToastSettings.IconSelector))
+    @if (!string.IsNullOrWhiteSpace(ToastSettings.Icon))
     {
         <div class="blazored-toast-icon">
             @if (@ToastSettings.IconType == IconType.FontAwesome)
             {
-                <i class="@ToastSettings.IconSelector" aria-hidden="true"></i>
+                <i class="@ToastSettings.Icon" aria-hidden="true"></i>
             }
             @if (@ToastSettings.IconType == IconType.Material)
             {
-                <i class="material-icons" aria-hidden="true">@ToastSettings.IconSelector</i>
+                <i class="material-icons" aria-hidden="true">@ToastSettings.Icon</i>
             }
         </div>
     }

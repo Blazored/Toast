@@ -8,21 +8,21 @@
             IconType iconType,
             string baseClass,
             string additionalClasses,
-            string iconName)
+            string icon)
         {
             Heading = heading;
             Message = message;
             IconType = iconType;
             BaseClass = baseClass;
             AdditionalClasses = additionalClasses;
-            IconSelector = iconName;
+            Icon = icon;
         }
 
         public string Heading { get; set; }
         public string Message { get; set; }
         public string BaseClass { get; set; }
         public string AdditionalClasses { get; set; }
-        public string IconSelector { get; set; }
+        public string Icon { get; set; }
         public IconType IconType { get; set; }
     }
 }
