@@ -14,7 +14,7 @@ namespace Blazored.Toast
     {
         [Inject] private IToastService ToastService { get; set; }
 
-        [Parameter] public IconType IconType { get; set; } = IconType.FontAwesome;
+        [Parameter] public IconType? IconType { get; set; }
         [Parameter] public string InfoClass { get; set; }
         [Parameter] public string InfoIcon { get; set; }
         [Parameter] public string SuccessClass { get; set; }
@@ -34,6 +34,15 @@ namespace Blazored.Toast
             ToastService.OnShow += ShowToast;
 
             PositionClass = $"position-{Position.ToString().ToLower()}";
+
+            if ((   !string.IsNullOrEmpty(InfoIcon)
+                 || !string.IsNullOrEmpty(SuccessIcon)
+                 || !string.IsNullOrEmpty(WarningIcon)
+                 || !string.IsNullOrEmpty(ErrorIcon)
+                ) && IconType == null)
+            {
+                throw new ArgumentException("If an icon is specified then IconType is a required parameter.");
+            }
         }
 
         public void RemoveToast(Guid toastId)

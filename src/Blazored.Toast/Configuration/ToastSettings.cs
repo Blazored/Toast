@@ -5,7 +5,7 @@
         public ToastSettings(
             string heading, 
             string message,
-            IconType iconType,
+            IconType? iconType,
             string baseClass,
             string additionalClasses,
             string icon)
@@ -23,6 +23,6 @@
         public string BaseClass { get; set; }
         public string AdditionalClasses { get; set; }
         public string Icon { get; set; }
-        public IconType IconType { get; set; }
+        public IconType? IconType { get; set; }
     }
 }

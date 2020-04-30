@@ -80,6 +80,7 @@ Setting the position also requires a reference to `Blazored.Toast.Configuration`
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="10"
+                IconType="IconType.FontAwesome"
                 SuccessClass="success-toast-override"
                 SuccessIcon="fa fa-thumbs-up"
                 ErrorIcon="fa fa-bug" />
@@ -135,6 +136,7 @@ Full examples for client and server-side Blazor are included in the [samples](ht
 ### The toasts are not showing
 - Check the `z-index` of your other `DOM Elements`, make sure that the `.blazored-toast-container` has a higher `z-index` than the other components.
 ### I upgraded my version of Blazored Toasts and I have errors in my razor file where I declare the BlazoredToasts component.
+- The parameter IconType is a mandatory parameter. An exception will be thrown if any icon is specified.
 - Check the icon parameter names if you have upgraded from a version prior to 2.0.10. Previous to this version the icons supported were specified by class and the parameters were of the form SuccessIconClass. With the addition of Material icon support the parameter form is now simply SuccessIcon.
 
 
