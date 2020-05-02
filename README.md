@@ -1,5 +1,5 @@
 # Blazored Toast
-This is a JavaScript free toast implementation for [Blazor](https://blazor.net) and Razor Components applications.
+This is a JavaScript free toast implementation for [Blazor](https://blazor.net) and Razor Components applications. It supports icons that are either specified by class name (such as fontawesome) or by a specified element (Material Design).
 
 [![Build Status](https://dev.azure.com/blazored/Toast/_apis/build/status/Blazored.Toast?branchName=master)](https://dev.azure.com/blazored/Toast/_build/latest?definitionId=3&branchName=master)
 
@@ -54,13 +54,14 @@ Add the `<BlazoredToasts />` tag into your applications *MainLayout.razor*.
 Toasts are configured using parameters on the `<BlazoredToasts />` component. The following options are available.
 
 - InfoClass
-- InfoIconClass
+- InfoIcon
 - SuccessClass
-- SuccessIconClass
+- SuccessIcon
 - WarningClass
-- WarningIconClass
+- WarningIcon
 - ErrorClass
-- ErrorIconClass
+- ErrorIcon
+- IconType (Default: IconType.FontAwesome)
 - Position (Default: ToastPosition.TopRight)
 - Timeout (Default: 5)
 
@@ -69,7 +70,7 @@ By default, you don't need to provide any settings everything will just work. Bu
 For example, to add a icon from Font Awesome to all success toasts you can do the following.
 
 ```html
-<BlazoredToasts SuccessIconClass="fa fa-thumbs-up"/>
+<BlazoredToasts SuccessIcon="fa fa-thumbs-up"/>
 ```
 
 Setting the position also requires a reference to `Blazored.Toast.Configuration`, for example:
@@ -79,18 +80,33 @@ Setting the position also requires a reference to `Blazored.Toast.Configuration`
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="10"
+                IconType="IconType.FontAwesome"
                 SuccessClass="success-toast-override"
-                SuccessIconClass="fa fa-thumbs-up"
-                ErrorIconClass="fa fa-bug" />
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug" />
 ```
-The example above is from the [samples](https://github.com/Blazored/Toast/tree/master/samples).
+The example above is from the [client side samples](https://github.com/Blazored/Toast/tree/master/samples).
 
-### 4. Add reference to style sheet
+```html
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="10"
+                IconType="IconType.Material"
+                ErrorIcon="error_outline"
+                InfoIcon="school"
+                SuccessIcon="done_outline"
+                WarningIcon="warning" />
+```
+The example above is from the [server side samples](https://github.com/Blazored/Toast/tree/master/samples) and demonstrates the use of Material Design icons.
+
+
+### 4. Add reference to style sheet(s)
 Add the following line to the `head` tag of your `_Host.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
+The blazored-toast.css includes the open-iconic-bootstrap.min.css.
 
 ```
 <link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
 ```
+Presumably, if you want to use the Material Icons your project already includes some form of the icons. If not see [Material Design Icons](https://dev.materialdesignicons.com/getting-started/webfont) for the available alternatives.
 
 ## Usage
 In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call one of the following methods depending on what kind of toast you want to display, passing in a message and an optional heading.
@@ -118,5 +134,9 @@ Full examples for client and server-side Blazor are included in the [samples](ht
 
 ## FAQ
 ### The toasts are not showing
-1. Check the `z-index` of your other `DOM Elements`, make sure that the `.blazored-toast-container` has a higher `z-index` than the other components.
+- Check the `z-index` of your other `DOM Elements`, make sure that the `.blazored-toast-container` has a higher `z-index` than the other components.
+### I upgraded my version of Blazored Toasts and I have errors in my razor file where I declare the BlazoredToasts component.
+- The parameter IconType is a mandatory parameter. An exception will be thrown if any icon is specified.
+- Check the icon parameter names if you have upgraded from a version prior to 2.0.10. Previous to this version the icons supported were specified by class and the parameters were of the form SuccessIconClass. With the addition of Material icon support the parameter form is now simply SuccessIcon.
+
 

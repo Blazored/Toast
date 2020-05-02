@@ -1,12 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 
 <div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses">
-    @if (!string.IsNullOrWhiteSpace(ToastSettings.IconClass))
+    
+    @if (!string.IsNullOrWhiteSpace(ToastSettings.Icon))
     {
         <div class="blazored-toast-icon">
-            <i class="@ToastSettings.IconClass" aria-hidden="true"></i>
+            @if (@ToastSettings.IconType == IconType.FontAwesome)
+            {
+                <i class="@ToastSettings.Icon" aria-hidden="true"></i>
+            }
+            @if (@ToastSettings.IconType == IconType.Material)
+            {
+                <i class="material-icons" aria-hidden="true">@ToastSettings.Icon</i>
+            }
         </div>
     }
+
     <div class="blazored-toast-body">
         <div class="blazored-toast-header">
             <h5 class="blazored-toast-heading">@ToastSettings.Heading</h5>
