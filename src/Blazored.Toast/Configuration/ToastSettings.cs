@@ -5,8 +5,8 @@ namespace Blazored.Toast.Configuration
     public class ToastSettings
     {
         public ToastSettings(
-            string heading, 
-            string message,
+            string heading,
+            RenderFragment message,
             IconType? iconType,
             string baseClass,
             string additionalClasses,
