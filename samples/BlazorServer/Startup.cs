@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blazored.Toast;
 
-namespace BlazorServerSideSample
+namespace BlazorServer
 {
     public class Startup
     {
