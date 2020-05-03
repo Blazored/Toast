@@ -1,8 +1,8 @@
 ﻿using Blazored.Toast;
-using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Threading.Tasks;
 
-namespace BlazorClientSideSample
+namespace BlazorWebAssembly
 {
     public class Program
     {
