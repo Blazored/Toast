@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 
 <div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses">
-    
+
     @if (!string.IsNullOrWhiteSpace(ToastSettings.Icon))
     {
         <div class="blazored-toast-icon">
@@ -30,4 +30,11 @@
         </div>
         <p class="blazored-toast-message">@ToastSettings.Message</p>
     </div>
+
+    @if (ToastSettings.ShowProgressBar)
+    {
+        <div class="blazored-toast-progressbar">
+            <span style="width: @(_progress)%;"></span>
+        </div>
+    }
 </div>
