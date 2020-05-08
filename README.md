@@ -103,9 +103,19 @@ The example above is from the [server side samples](https://github.com/Blazored/
 Add the following line to the `head` tag of your `_Host.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
 The blazored-toast.css includes the open-iconic-bootstrap.min.css.
 
+We ship both minified and unminified CSS.
+
+For minifed use:
+
+```
+<link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
+```
+
+For unminifed use:
 ```
 <link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
 ```
+
 Presumably, if you want to use the Material Icons your project already includes some form of the icons. If not see [Material Design Icons](https://dev.materialdesignicons.com/getting-started/webfont) for the available alternatives.
 
 ## Usage
