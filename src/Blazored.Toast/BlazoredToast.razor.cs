@@ -1,7 +1,7 @@
 ﻿using Blazored.Toast.Configuration;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Timers;
+using System.Threading.Tasks;
 
 namespace Blazored.Toast
 {
@@ -13,14 +13,21 @@ namespace Blazored.Toast
         [Parameter] public ToastSettings ToastSettings { get; set; }
         [Parameter] public int Timeout { get; set; }
 
-        private Timer _timer;
+        private CountdownTimer _countdownTimer;
+        private int _progress = 100;
 
         protected override void OnInitialized()
         {
-            _timer = new Timer(Timeout * 1000);
-            _timer.Elapsed += (sender, args) => { Close(); };
-            _timer.AutoReset = false;
-            _timer.Start();
+            _countdownTimer = new CountdownTimer(Timeout);
+            _countdownTimer.OnTick += CalculateProgress;
+            _countdownTimer.OnElapsed += () => { Close(); };
+            _countdownTimer.Start();
+        }
+
+        private async void CalculateProgress(int percentComplete)
+        {
+            _progress = 100 - percentComplete;
+            await InvokeAsync(StateHasChanged);
         }
 
         private void Close()
@@ -30,8 +37,8 @@ namespace Blazored.Toast
 
         public void Dispose()
         {
-            _timer.Dispose();
-            _timer = null;
+            _countdownTimer.Dispose();
+            _countdownTimer = null;
         }
     }
 }

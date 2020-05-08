@@ -19,6 +19,7 @@
 
 .blazored-toast {
     display: flex;
+    position: relative;
     flex-direction: row;
     animation: fadein 1.5s;
     margin-bottom: 1rem;
@@ -76,13 +77,47 @@
             background-color: transparent;
             border: 0;
             -webkit-appearance: none;
-            color:inherit;
+            color: inherit;
             font-size: 1.25rem;
         }
+
     .blazored-toast-body p {
         margin-bottom: 0;
         font-size: 1rem;
     }
+
+.blazored-toast-progressbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.blazored-toast-info .blazored-toast-progressbar > span {
+    background-color: #34a9ad;
+}
+
+.blazored-toast-success .blazored-toast-progressbar > span {
+    background-color: #5fba7d;
+}
+
+.blazored-toast-warning .blazored-toast-progressbar > span {
+    background-color: #c1c13e;
+}
+
+.blazored-toast-error .blazored-toast-progressbar > span {
+    background-color: #ba5e5e;
+}
+
+.blazored-toast-progressbar > span {
+    position: absolute;
+    filter: brightness(75%);
+    height: 8px;
+    border-bottom-left-radius: .25rem;
+}
 
 @keyframes fadein {
     from {

@@ -10,7 +10,8 @@ namespace Blazored.Toast.Configuration
             IconType? iconType,
             string baseClass,
             string additionalClasses,
-            string icon)
+            string icon,
+            bool showProgressBar)
         {
             Heading = heading;
             Message = message;
@@ -18,6 +19,7 @@ namespace Blazored.Toast.Configuration
             BaseClass = baseClass;
             AdditionalClasses = additionalClasses;
             Icon = icon;
+            ShowProgressBar = showProgressBar;
         }
 
         public string Heading { get; set; }
@@ -26,5 +28,6 @@ namespace Blazored.Toast.Configuration
         public string AdditionalClasses { get; set; }
         public string Icon { get; set; }
         public IconType? IconType { get; set; }
+        public bool ShowProgressBar { get; set; }
     }
 }
