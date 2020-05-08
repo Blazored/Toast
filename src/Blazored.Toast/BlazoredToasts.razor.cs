@@ -27,7 +27,6 @@ namespace Blazored.Toast
         [Parameter] public string ErrorIcon { get; set; }
         [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
         [Parameter] public int Timeout { get; set; } = 5;
-        [Parameter] public bool RemoveToastsOnNavigation { get; set; }
 
         private string PositionClass { get; set; } = string.Empty;
         internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
@@ -35,11 +34,6 @@ namespace Blazored.Toast
         protected override void OnInitialized()
         {
             ToastService.OnShow += ShowToast;
-
-            if (RemoveToastsOnNavigation)
-            {
-                NavigationManager.LocationChanged += ClearToasts;
-            }
 
             PositionClass = $"position-{Position.ToString().ToLower()}";
 
@@ -59,15 +53,6 @@ namespace Blazored.Toast
             {
                 var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
                 ToastList.Remove(toastInstance);
-                StateHasChanged();
-            });
-        }
-
-        private void ClearToasts(object sender, LocationChangedEventArgs args)
-        {
-            InvokeAsync(() =>
-            {
-                ToastList.Clear();
                 StateHasChanged();
             });
         }
