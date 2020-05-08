@@ -1,6 +1,7 @@
 ﻿using Blazored.Toast.Configuration;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Blazored.Toast
     public partial class BlazoredToasts
     {
         [Inject] private IToastService ToastService { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter] public IconType? IconType { get; set; }
         [Parameter] public string InfoClass { get; set; }
@@ -88,12 +90,6 @@ namespace Blazored.Toast
                 };
 
                 ToastList.Add(toast);
-
-                var timeout = Timeout * 1000;
-                var toastTimer = new Timer(timeout);
-                toastTimer.Elapsed += (sender, args) => { RemoveToast(toast.Id); };
-                toastTimer.AutoReset = false;
-                toastTimer.Start();
 
                 StateHasChanged();
             });
