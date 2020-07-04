@@ -34,7 +34,7 @@
     @if (ToastSettings.ShowProgressBar)
     {
         <div class="blazored-toast-progressbar">
-            <span style="width: @(_progress)%;"></span>
+            <span style="width: @(_progress)%; @(ToastSettings.RTL ? "left:0" : "")"></span>
         </div>
     }
 </div>
