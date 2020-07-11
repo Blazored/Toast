@@ -64,6 +64,7 @@ Toasts are configured using parameters on the `<BlazoredToasts />` component. Th
 - IconType (Default: IconType.FontAwesome)
 - Position (Default: ToastPosition.TopRight)
 - Timeout (Default: 5)
+- CloseDelay
 
 By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
 
@@ -85,7 +86,7 @@ Setting the position also requires a reference to `Blazored.Toast.Configuration`
                 SuccessIcon="fa fa-thumbs-up"
                 ErrorIcon="fa fa-bug" />
 ```
-The example above is from the [client side samples](https://github.com/Blazored/Toast/tree/master/samples).
+The example above demonstrates the use of Font Awesome icons and a custom class for success toasts.
 
 ```html
 <BlazoredToasts Position="ToastPosition.BottomRight"
@@ -96,7 +97,7 @@ The example above is from the [client side samples](https://github.com/Blazored/
                 SuccessIcon="done_outline"
                 WarningIcon="warning" />
 ```
-The example above is from the [server side samples](https://github.com/Blazored/Toast/tree/master/samples) and demonstrates the use of Material Design icons.
+The example above demonstrates the use of Material Design icons.
 
 
 ### 4. Add reference to style sheet(s)
@@ -153,6 +154,27 @@ You can display a progress bar which gives a visual indicator of the time remain
 
 ### Remove Toasts When Navigating
 If you wish to clear any visible toasts when the user navigates to a new page you can enable the `RemoveToastsOnNavigation` parameter. Setting this to true will remove any visible toasts whenever the `LocationChanged` event fires.
+
+### Delay Closing While Transitioning Out
+You can use the `CloseDelay` property to introduce a delay between _closing_ and physically _removing_ toasts so that you can perform tasks such as transitioning out. Typically you'll want to set the value of `CloseDelay` to the same value you're using for your transition.
+
+This example produces a fade-in and fade-out effect:
+
+```html
+<BlazoredToasts CloseDelay="@TimeSpan.FromMilliseconds(500)" />"
+
+<style>
+    .blazored-toast {
+        animation: none; /* Remove the default animation so we can use our own custom transition instead. */
+        transition: opacity 500ms;
+        opacity: 0;
+    }
+
+    .blazored-toast.blazored-toast-open {
+        opacity: 1;
+    }
+</style>
+```
 
 ## FAQ
 ### The toasts are not showing
