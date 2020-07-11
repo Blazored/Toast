@@ -16,6 +16,7 @@ namespace Blazored.Toast
         [Parameter] public int Timeout { get; set; }
 
         private string StateCssClass { get; set; }
+        private System.Timers.Timer OpenTimer { get; set; }
 
         private CountdownTimer _countdownTimer;
         private int _progress = 100;
@@ -23,18 +24,20 @@ namespace Blazored.Toast
 
         protected override void OnInitialized()
         {
+            OpenTimer = new System.Timers.Timer(1) { AutoReset = false };
+            OpenTimer.Elapsed += HandleOpenTimerElapsed;
+            OpenTimer.Start();
+
             _countdownTimer = new CountdownTimer(Timeout);
             _countdownTimer.OnTick += CalculateProgress;
             _countdownTimer.OnElapsed += () => { Close(); };
             _countdownTimer.Start();
         }
 
-        protected override void OnAfterRender(bool firstRender)
+        private void HandleOpenTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (firstRender)
-            {
-                StateCssClass = "blazored-toast-open";
-            }
+            StateCssClass = "blazored-toast-open";
+            InvokeAsync(StateHasChanged);
         }
 
         private async void CalculateProgress(int percentComplete)
@@ -67,6 +70,10 @@ namespace Blazored.Toast
 
         public void Dispose()
         {
+            OpenTimer.Elapsed -= HandleOpenTimerElapsed;
+            OpenTimer.Dispose();
+            OpenTimer = null;
+
             _countdownTimer.Dispose();
             _countdownTimer = null;
         }
