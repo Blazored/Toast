@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 
-<div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses">
+<div class="@JoinCssClasses("blazored-toast", StateCssClass, ToastSettings.BaseClass, ToastSettings.AdditionalClasses)">
 
     @if (!string.IsNullOrWhiteSpace(ToastSettings.Icon))
     {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 
 namespace Blazored.Toast.Configuration
 {
@@ -11,7 +12,8 @@ namespace Blazored.Toast.Configuration
             string baseClass,
             string additionalClasses,
             string icon,
-            bool showProgressBar)
+            bool showProgressBar,
+            TimeSpan? closeDelay)
         {
             Heading = heading;
             Message = message;
@@ -20,6 +22,7 @@ namespace Blazored.Toast.Configuration
             AdditionalClasses = additionalClasses;
             Icon = icon;
             ShowProgressBar = showProgressBar;
+            CloseDelay = closeDelay;
         }
 
         public string Heading { get; set; }
@@ -29,5 +32,6 @@ namespace Blazored.Toast.Configuration
         public string Icon { get; set; }
         public IconType? IconType { get; set; }
         public bool ShowProgressBar { get; set; }
+        public TimeSpan? CloseDelay { get; set; }
     }
 }

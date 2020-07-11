@@ -16,6 +16,8 @@ namespace Blazored.Toast
         [Inject] private IToastService ToastService { get; set; }
         [Inject] private NavigationManager NavigationManager { get; set; }
 
+        private ToastPosition _position = ToastPosition.TopRight;
+
         [Parameter] public IconType? IconType { get; set; }
         [Parameter] public string InfoClass { get; set; }
         [Parameter] public string InfoIcon { get; set; }
@@ -25,10 +27,25 @@ namespace Blazored.Toast
         [Parameter] public string WarningIcon { get; set; }
         [Parameter] public string ErrorClass { get; set; }
         [Parameter] public string ErrorIcon { get; set; }
-        [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
+
+        [Parameter]
+        public ToastPosition Position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+                PositionClass = $"position-{Position.ToString().ToLowerInvariant()}";
+            }
+        }
+
         [Parameter] public int Timeout { get; set; } = 5;
         [Parameter] public bool RemoveToastsOnNavigation { get; set; }
         [Parameter] public bool ShowProgressBar { get; set; }
+        [Parameter] public TimeSpan? CloseDelay { get; set; }
 
         private string PositionClass { get; set; } = string.Empty;
         internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
@@ -41,8 +58,6 @@ namespace Blazored.Toast
             {
                 NavigationManager.LocationChanged += ClearToasts;
             }
-
-            PositionClass = $"position-{Position.ToString().ToLower()}";
 
             if ((   !string.IsNullOrEmpty(InfoIcon)
                  || !string.IsNullOrEmpty(SuccessIcon)
@@ -78,16 +93,16 @@ namespace Blazored.Toast
             switch (level)
             {
                 case ToastLevel.Error:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType, "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar);
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType, "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, CloseDelay);
 
                 case ToastLevel.Info:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType, "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar);
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType, "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, CloseDelay);
 
                 case ToastLevel.Success:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType, "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar);
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType, "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, CloseDelay);
 
                 case ToastLevel.Warning:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType, "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar);
+                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType, "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, CloseDelay);
             }
 
             throw new InvalidOperationException();

@@ -1,6 +1,8 @@
 ﻿using Blazored.Toast.Configuration;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Blazored.Toast
@@ -13,8 +15,11 @@ namespace Blazored.Toast
         [Parameter] public ToastSettings ToastSettings { get; set; }
         [Parameter] public int Timeout { get; set; }
 
+        private string StateCssClass { get; set; }
+
         private CountdownTimer _countdownTimer;
         private int _progress = 100;
+        private int _isClosing = 0;
 
         protected override void OnInitialized()
         {
@@ -24,15 +29,40 @@ namespace Blazored.Toast
             _countdownTimer.Start();
         }
 
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (firstRender)
+            {
+                StateCssClass = "blazored-toast-open";
+            }
+        }
+
         private async void CalculateProgress(int percentComplete)
         {
             _progress = 100 - percentComplete;
             await InvokeAsync(StateHasChanged);
         }
 
-        private void Close()
+        private async void Close()
         {
-            ToastsContainer.RemoveToast(ToastId);
+            if (Interlocked.Exchange(ref _isClosing, 1) == 0)
+            {
+                StateCssClass = "blazored-toast-closing";
+
+                await InvokeAsync(StateHasChanged);
+
+                await Task
+                    .Delay(ToastSettings.CloseDelay ?? TimeSpan.FromSeconds(0))
+                    .ContinueWith((task) =>
+                    {
+                        ToastsContainer.RemoveToast(ToastId);
+                    });
+            }
+        }
+
+        private string JoinCssClasses(params string[] cssClasses)
+        {
+            return string.Join(" ", cssClasses.Where(c => !string.IsNullOrEmpty(c)));
         }
 
         public void Dispose()
