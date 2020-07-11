@@ -1,12 +1,19 @@
 @inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
 
-<BlazoredToasts Position="ToastPosition.BottomRight"
-                Timeout="10"
+<BlazoredToasts Position="@settings.Position"
+                Timeout="@settings.TimeoutSeconds"
                 IconType="IconType.FontAwesome"
-                SuccessClass="success-toast-override"
-                ErrorIcon="fa fa-bug" 
-                SuccessIcon="fa fa-thumbs-up" />
+                InfoIcon="fa fa-info-circle"
+                SuccessIcon="fa fa-thumbs-up"
+                WarningIcon="fa fa-exclamation-triangle"
+                ErrorIcon="fa fa-bug"
+                InfoClass="@settings.CustomCssClass"
+                SuccessClass="@settings.CustomCssClass"
+                WarningClass="@settings.CustomCssClass"
+                ErrorClass="@settings.CustomCssClass"
+                ShowProgressBar="@settings.ShowProgressBar"
+                CloseDelay="@settings.CloseDelay" />
 
 <div class="sidebar">
     <NavMenu />
@@ -15,5 +22,16 @@
 <div class="main">
     <div class="content px-4">
         @Body
+        <SampleSettings Settings="@settings" OnSettingsUpdated="@HandleSettingsUpdated" />
     </div>
 </div>
+
+@code
+{
+    Settings settings = new Settings();
+
+    void HandleSettingsUpdated()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+}

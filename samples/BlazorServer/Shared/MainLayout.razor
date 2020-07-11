@@ -1,14 +1,19 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
 
-<BlazoredToasts Position="ToastPosition.BottomRight"
-                Timeout="10"
+<BlazoredToasts Position="@settings.Position"
+                Timeout="@settings.TimeoutSeconds"
                 IconType="IconType.Material"
-                ErrorIcon="error_outline"
                 InfoIcon="school"
                 SuccessIcon="done_outline"
                 WarningIcon="warning"
-                ShowProgressBar="@true"/>
+                ErrorIcon="error_outline"
+                InfoClass="@settings.CustomCssClass"
+                SuccessClass="@settings.CustomCssClass"
+                WarningClass="@settings.CustomCssClass"
+                ErrorClass="@settings.CustomCssClass"
+                ShowProgressBar="@settings.ShowProgressBar"
+                CloseDelay="@settings.CloseDelay" />
 
 <div class="sidebar">
     <NavMenu />
@@ -17,5 +22,16 @@
 <div class="main">
     <div class="content px-4">
         @Body
+        <SampleSettings Settings="@settings" OnSettingsUpdated="@HandleSettingsUpdated" />
     </div>
 </div>
+
+@code
+{
+    Settings settings = new Settings();
+
+    void HandleSettingsUpdated()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+}

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Blazored.Toast\Blazored.Toast.csproj" />
+    <ProjectReference Include="..\SharedComponents\SharedComponents.csproj" />
   </ItemGroup>
 
 </Project>

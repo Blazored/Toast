@@ -1,0 +1,150 @@
+﻿@using Blazored.Toast.Configuration
+
+<style>
+    @TransitionCss
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <form class="col pl-0" style="min-width:360px;">
+            <fieldset class="border p-3 mt-3 mb-3">
+                <legend class="w-auto mb-0">Settings</legend>
+                <div class="mb-3">
+                    <div class="mb-2">
+                        Position
+                    </div>
+                    @foreach (var position in Enum.GetValues(typeof(ToastPosition)).Cast<ToastPosition>())
+                    {
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" name="position" checked="@(Settings.Position == position)" @onchange="() => HandlePositionChanged(position)" />
+                                @position
+                            </label>
+                        </div>
+                    }
+                </div>
+                <hr />
+                <div class="mb-3">
+                    <label>
+                        Timeout (seconds):
+                        <br />
+                        <input type="number" @bind-value="TimeoutSeconds" min="1" max="100" />
+                    </label>
+                </div>
+                <hr />
+                <div>
+                    <label class="form-check-label">
+                        <input type="checkbox" checked="@(Settings.ShowProgressBar)" @onchange="(args) => HandleShowProgressBarChanged(bool.Parse(args.Value.ToString()))" />
+                        ShowProgressBar
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="border p-3 mb-4">
+                <legend class="w-auto mb-0">Custom CSS transition demo</legend>
+                <div class="border alert alert-light" role="alert">
+                    <p class="mb-2">This demonstrates some ways you can vary how toasts are displayed by using your own CSS transitions. These examples use the <code>CloseDelay</code> property, which introduces a delay between <em>closing</em> and physically <em>removing</em> toasts so that you can perform tasks such as transitioning out.</p>
+                    <p class="mb-0">Note that if <code>None</code> is selected and the default <code>blazored-toast.css</code> is being used then toasts will still fade in (but not out), because the default CSS uses a fade in animation. This has been done intentionally to avoid introducing breaking changes.</p>
+                </div>
+                <div class="mb-2">
+                    Transition
+                </div>
+                @foreach (var transitionType in Enum.GetValues(typeof(TransitionType)).Cast<TransitionType>())
+                {
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" name="transitionType" checked="@(TransitionType == transitionType)" @onchange="() => HandleTransitionTypeChanged(transitionType)" />
+                            @transitionType
+                        </label>
+                    </div>
+                }
+                <br />
+            </fieldset>
+        </form>
+        <div class="col pl-0">
+            <fieldset class="border p-3 mt-3 mb-4">
+                <legend class="w-auto mb-0">Example Markup</legend>
+                <div class="border alert alert-secondary mb-0" role="alert">
+                    <pre class="mb-0 pb-1" style="line-height: 170%">@ExampleMarkup@ExampleCssMarkup</pre>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public Settings Settings { get; set; }
+
+    [Parameter]
+    public EventCallback OnSettingsUpdated { get; set; }
+
+    private int TimeoutSeconds
+    {
+        get
+        {
+            return (int)Settings.TimeoutSeconds;
+        }
+
+        set
+        {
+            Settings.TimeoutSeconds = Math.Max(value, 1);
+            OnSettingsUpdated.InvokeAsync(null);
+        }
+    }
+
+    private string TransitionCss { get; set; } = Transition.GetDemoCss();
+
+    private TransitionType TransitionType { get; set; } = TransitionType.None;
+
+    private RenderFragment ExampleMarkup
+    {
+        get
+        {
+            // In most circumstances it would be more elegant to use @<div>...</div> syntax rather than a builder, but because this is being
+            // rendered in a <pre> element we need to avoid unwanted whitespace characters, so on this occassion a builder makes more sense:
+            return b =>
+            {
+                b.AddMarkupContent(0, $"&lt;BlazoredToasts Position=\"<mark>ToastPosition.{Settings.Position}</mark>\"\n");
+                b.AddMarkupContent(0, $"                Timeout=\"<mark>{TimeoutSeconds}</mark>\"\n");
+                b.AddMarkupContent(0, $"                ShowProgressBar=\"<mark>@{Settings.ShowProgressBar.ToString().ToLowerInvariant()}</mark>\"");
+
+                if (Settings.CloseDelay != null)
+                {
+                    b.AddMarkupContent(0, $"\n                CloseDelay=\"<mark>@TimeSpan.FromMilliseconds({Settings.CloseDelay?.TotalMilliseconds.ToString("0")})</mark>\"");
+                }
+
+                b.AddContent(0, " />");
+            };
+        }
+    }
+
+    private RenderFragment ExampleCssMarkup { get; set; }
+
+    private void HandlePositionChanged(ToastPosition position)
+    {
+        Settings.Position = position;
+        OnSettingsUpdated.InvokeAsync(null);
+    }
+
+    private void HandleShowProgressBarChanged(bool showProgressBar)
+    {
+        Settings.ShowProgressBar = showProgressBar;
+        OnSettingsUpdated.InvokeAsync(null);
+    }
+
+    private void HandleTransitionTypeChanged(TransitionType transitionType)
+    {
+        TransitionType = transitionType;
+
+        var transition = Transition.GetByType(TransitionType);
+
+        ExampleCssMarkup = transition != null
+            ? (RenderFragment)(b => b.AddContent(0, $"\n\n<style>\n{transition.Css}\n</style>"))
+            : null;
+
+        Settings.CloseDelay = transition?.CloseDelay;
+        Settings.CustomCssClass = transition?.CssClass;
+        OnSettingsUpdated.InvokeAsync(null);
+    }
+}
