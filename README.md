@@ -1,7 +1,7 @@
 # Blazored Toast
 This is a JavaScript free toast implementation for [Blazor](https://blazor.net) and Razor Components applications. It supports icons that are either specified by class name (such as fontawesome) or by a specified element (Material Design).
 
-[![Build Status](https://dev.azure.com/blazored/Toast/_apis/build/status/Blazored.Toast?branchName=master)](https://dev.azure.com/blazored/Toast/_build/latest?definitionId=3&branchName=master)
+![Build & Test Main](https://github.com/Blazored/Toast/workflows/Build%20&%20Test%20Main/badge.svg)
 
 ![Nuget](https://img.shields.io/nuget/v/blazored.toast.svg)
 
