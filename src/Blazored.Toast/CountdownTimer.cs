@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Timers;
-using Microsoft.AspNetCore.Components;
 
 namespace Blazored.Toast
 {
     internal class CountdownTimer : IDisposable
     {
         private Timer _timer;
-        private int _timeout;
-        private int _countdownTotal;
         private int _percentComplete;
 
         internal Action<int> OnTick;
@@ -17,22 +13,19 @@ namespace Blazored.Toast
 
         internal CountdownTimer(int timeout)
         {
-            _countdownTotal = timeout;
-            _timeout = (_countdownTotal * 1000) / 100;
             _percentComplete = 0;
-            SetupTimer();
+            _timer = new Timer()
+            {
+                Interval = timeout * 1000 / 100,
+                AutoReset = true
+            };
+
+            _timer.Elapsed += HandleTick;
         }
 
         internal void Start()
         {
             _timer.Start();
-        }
-
-        private void SetupTimer()
-        {
-            _timer = new Timer(_timeout);
-            _timer.Elapsed += HandleTick;
-            _timer.AutoReset = false;
         }
 
         private void HandleTick(object sender, ElapsedEventArgs args)
@@ -42,12 +35,8 @@ namespace Blazored.Toast
 
             if (_percentComplete == 100)
             {
+                _timer.Stop();
                 OnElapsed?.Invoke();
-            }
-            else
-            {
-                SetupTimer();
-                Start();
             }
         }
 
