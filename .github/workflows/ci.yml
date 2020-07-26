@@ -1,8 +1,8 @@
-name: Build & Test Main
+name: Build
 
 on:
   push:
-    branches: [ main ]
+  pull_request:
   release:
     types: [ published ]
 
@@ -44,24 +44,6 @@ jobs:
     - name: Pack
       run: dotnet pack -v normal -c Release --no-restore --include-symbols --include-source -p:PackageVersion=$GITHUB_RUN_ID src/Blazored.$PROJECT_NAME/Blazored.$PROJECT_NAME.*proj
 
-    - name: Publish Sample Site
-      run: dotnet publish -c Release samples/BlazorWebAssembly/BlazorWebAssembly.csproj
-
-    - name: Rewrite base href
-      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
-      with:
-        html_path: samples/BlazorWebAssembly/bin/Release/netstandard2.1/publish/wwwroot/index.html
-        base_href: /${{ env.PROJECT_NAME }}/
-    
-    - name: Deploy to Github Pages
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        ACCESS_TOKEN: $GITHUB_TOKEN
-        BASE_BRANCH: main # The branch the action should deploy from.
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: samples/BlazorWebAssembly/bin/Release/netstandard2.1/publish/wwwroot # The folder the action should deploy.
-        SINGLE_COMMIT: true
-
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
@@ -69,7 +51,7 @@ jobs:
         path: ./src/Blazored.${{ env.PROJECT_NAME }}/bin/Release/*.nupkg
   prerelease:
     needs: build
-    if: github.event_name != 'release'
+    if: github.ref == 'refs/heads/development'
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
@@ -108,3 +90,18 @@ jobs:
           done
       - name: Push to NuGet Feed
         run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_FEED --skip-duplicate --api-key $NUGET_KEY
+      - name: Publish Sample Site
+        run: dotnet publish -c Release samples/BlazorWebAssembly/BlazorWebAssembly.csproj
+      - name: Rewrite base href
+        uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+        with:
+          html_path: samples/BlazorWebAssembly/bin/Release/netstandard2.1/publish/wwwroot/index.html
+          base_href: /${{ env.PROJECT_NAME }}/
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: $GITHUB_TOKEN
+          BASE_BRANCH: main # The branch the action should deploy from.
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: samples/BlazorWebAssembly/bin/Release/netstandard2.1/publish/wwwroot # The folder the action should deploy.
+          SINGLE_COMMIT: true
