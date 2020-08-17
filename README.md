@@ -67,7 +67,7 @@ Toasts are configured using parameters on the `<BlazoredToasts />` component. Th
 
 By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
 
-For example, to add a icon from Font Awesome to all success toasts you can do the following.
+For example, to add an icon from Font Awesome to all success toasts you can do the following.
 
 ```html
 <BlazoredToasts SuccessIcon="fa fa-thumbs-up"/>
