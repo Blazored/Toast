@@ -9,6 +9,7 @@
 <button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
 <button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 <button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
+<button class="btn btn-info" @onclick="@(() => toastService.ShowToast(ToastLevel.Info, "I'm an INFO message and will fire a event callback when closing",closeAction: (e) => OnClose(e)))">Info Toast with close event</button>
 
 @code
 {
@@ -16,5 +17,13 @@
     {
         RenderFragment message = @<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>;
         toastService.ShowToast(ToastLevel.Info, message);
+    }
+
+    private void OnClose(Blazored.Toast.CloseEventArgs e)
+    {
+        if(e != null)
+        {
+            toastService.ShowToast(ToastLevel.Info, $"Toast {e.Toast.ToastId} closed {(e.AutoClose ? "automatically" : "manually")}", "Toast closed");
+        }
     }
 }

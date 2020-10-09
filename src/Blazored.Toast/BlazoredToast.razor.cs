@@ -12,6 +12,7 @@ namespace Blazored.Toast
         [Parameter] public Guid ToastId { get; set; }
         [Parameter] public ToastSettings ToastSettings { get; set; }
         [Parameter] public int Timeout { get; set; }
+        [Parameter] public EventCallback<CloseEventArgs> OnClose { get; set; }
 
         private CountdownTimer _countdownTimer;
         private int _progress = 100;
@@ -20,7 +21,7 @@ namespace Blazored.Toast
         {
             _countdownTimer = new CountdownTimer(Timeout);
             _countdownTimer.OnTick += CalculateProgress;
-            _countdownTimer.OnElapsed += () => { Close(); };
+            _countdownTimer.OnElapsed += async () => { await Close(new CloseEventArgs() {Toast = this, AutoClose = true}); };
             _countdownTimer.Start();
         }
 
@@ -30,8 +31,12 @@ namespace Blazored.Toast
             await InvokeAsync(StateHasChanged);
         }
 
-        private void Close()
+        private async Task Close(CloseEventArgs e)
         {
+            if (e != null && OnClose.HasDelegate)
+            {
+                await OnClose.InvokeAsync(e);
+            }
             ToastsContainer.RemoveToast(ToastId);
         }
 

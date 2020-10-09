@@ -8,7 +8,7 @@ namespace Blazored.Toast.Services
         /// <summary>
         /// A event that will be invoked when showing a toast
         /// </summary>
-        event Action<ToastLevel, RenderFragment, string> OnShow;
+        event Action<ToastLevel, RenderFragment, string, Action<CloseEventArgs>> OnShow;
 
         /// <summary>
         /// Shows a information toast 
@@ -72,7 +72,7 @@ namespace Blazored.Toast.Services
         /// <param name="level">Toast level to display</param>
         /// <param name="message">Text to display on the toast</param>
         /// <param name="heading">The text to display as the toasts heading</param>
-        void ShowToast(ToastLevel level, string message, string heading = "");
+        void ShowToast(ToastLevel level, string message, string heading = "", Action<CloseEventArgs> closeAction = null);
 
         /// <summary>
         /// Shows a toast using the supplied settings
@@ -80,6 +80,6 @@ namespace Blazored.Toast.Services
         /// <param name="level">Toast level to display</param>
         /// <param name="message">RenderFragment to display on the toast</param>
         /// <param name="heading">The text to display as the toasts heading</param>
-        void ShowToast(ToastLevel level, RenderFragment message, string heading = "");
+        void ShowToast(ToastLevel level, RenderFragment message, string heading = "", Action<CloseEventArgs> closeAction = null);
     }
 }
