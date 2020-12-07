@@ -26,5 +26,5 @@ jobs:
     - name: Publish
       uses: brandedoutcast/publish-nuget@v2.5.2  
       with:   
-        PROJECT_FILE_PATH: Extensions/Extensions.csproj  
+        PROJECT_FILE_PATH: src/Blazored.Toast/Blazored.Toast.csproj 
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}    
