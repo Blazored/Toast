@@ -11,6 +11,7 @@
     <Description>A JavaScript free Toast library for Blazor and Razor Components applications.</Description>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <version>1.0.0</version>
 
     <!-- NuGet settings -->
     <PackageId>Blazored.Toast</PackageId>
