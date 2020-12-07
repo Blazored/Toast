@@ -14,7 +14,7 @@
     <Version>1.0.0</Version>
 
     <!-- NuGet settings -->
-    <PackageId>Blazored.Toast</PackageId>
+    <PackageId>ANM.Blazored.Toast</PackageId>
     <PackageTags>Blazored;Blazor;Razor;Components;Toast;Popup;Notification;ASP.NET Core;CSharp;Web</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Blazored/Toast</PackageProjectUrl>
