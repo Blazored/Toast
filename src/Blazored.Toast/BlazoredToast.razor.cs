@@ -35,7 +35,7 @@ namespace Blazored.Toast
         {
             if (e != null && OnClose.HasDelegate)
             {
-                await OnClose.InvokeAsync(e);
+                InvokeAsync(() => OnClose.InvokeAsync(e));
             }
             ToastsContainer.RemoveToast(ToastId);
         }
