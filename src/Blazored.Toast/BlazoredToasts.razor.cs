@@ -78,16 +78,16 @@ namespace Blazored.Toast
             switch (level)
             {
                 case ToastLevel.Error:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType, "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar);
+                    return new ToastSettings(heading, message, IconType, "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar);
 
                 case ToastLevel.Info:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType, "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar);
+                    return new ToastSettings( heading, message, IconType, "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar);
 
                 case ToastLevel.Success:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType, "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar);
+                    return new ToastSettings(heading, message, IconType, "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar);
 
                 case ToastLevel.Warning:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType, "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar);
+                    return new ToastSettings(heading, message, IconType, "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar);
             }
 
             throw new InvalidOperationException();

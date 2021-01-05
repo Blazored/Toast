@@ -18,7 +18,10 @@
 
     <div class="blazored-toast-body">
         <div class="blazored-toast-header">
-            <h5 class="blazored-toast-heading">@ToastSettings.Heading</h5>
+            @if(!string.IsNullOrWhiteSpace(ToastSettings.Heading))
+            {
+                 <h5 class="blazored-toast-heading">@ToastSettings.Heading</h5>
+            }
             <button class="blazored-toast-close" @onclick=@Close>
                 <i aria-label="icon: close" class="blazored-toast-close-icon">
                     <svg viewBox="64 64 896 896" focusable="false" width="1em" height="1em" fill="currentColor" aria-hidden="true">
