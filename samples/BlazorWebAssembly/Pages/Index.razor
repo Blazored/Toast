@@ -8,12 +8,18 @@
 <button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
 <button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 <button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
+<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", "Click me!", () => { NavigationManager.NavigateTo("/", true); }))">
+    Info Toast with custom action on click
+</button>
 
 @code
 {
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
     private void OnShowHtml()
     {
-        RenderFragment message = @<text>Info Toast with <strong>bold</strong> text</text>;
+        RenderFragment message =@<text>Info Toast with <strong>bold</strong> text</text>;
         toastService.ShowToast(ToastLevel.Info, message);
     }
 }

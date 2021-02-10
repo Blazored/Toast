@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 
-<div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses">
+<div class="blazored-toast @ToastSettings.BaseClass @ToastSettings.AdditionalClasses" @onclick="ToastClick">
 
     @if (!string.IsNullOrWhiteSpace(ToastSettings.Icon))
     {
