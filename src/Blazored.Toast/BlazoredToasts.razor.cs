@@ -85,35 +85,35 @@ namespace Blazored.Toast
             });
         }
 
-        private ToastSettings BuildToastSettings(ToastLevel level, RenderFragment message, string heading)
+        private ToastSettings BuildToastSettings(ToastLevel level, RenderFragment message, string heading, Action? onclick)
         {
             switch (level)
             {
                 case ToastLevel.Error:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType,
-                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, MaxItemsShown);
+                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, MaxItemsShown, onclick);
 
                 case ToastLevel.Info:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType,
-                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, MaxItemsShown);
+                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, MaxItemsShown, onclick);
 
                 case ToastLevel.Success:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType,
-                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, MaxItemsShown);
+                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, MaxItemsShown, onclick);
 
                 case ToastLevel.Warning:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType,
-                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, MaxItemsShown);
+                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, MaxItemsShown, onclick);
             }
 
             throw new InvalidOperationException();
         }
 
-        private void ShowToast(ToastLevel level, RenderFragment message, string heading)
+        private void ShowToast(ToastLevel level, RenderFragment message, string heading, Action? onClick)
         {
             InvokeAsync(() =>
             {
-                var settings = BuildToastSettings(level, message, heading);
+                var settings = BuildToastSettings(level, message, heading, onClick);
                 var toast = new ToastInstance
                 {
                     Id = Guid.NewGuid(),

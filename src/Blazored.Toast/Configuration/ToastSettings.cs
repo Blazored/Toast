@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System;
+using Microsoft.AspNetCore.Components;
 
 namespace Blazored.Toast.Configuration
 {
@@ -12,7 +13,8 @@ namespace Blazored.Toast.Configuration
             string additionalClasses,
             string icon,
             bool showProgressBar,
-            int maxItemsShown)
+            int maxItemsShown,
+            Action? onClick)
         {
             Heading = heading;
             Message = message;
@@ -22,6 +24,11 @@ namespace Blazored.Toast.Configuration
             Icon = icon;
             ShowProgressBar = showProgressBar;
             MaxItemsShown = maxItemsShown;
+            OnClick = onClick;
+            if (onClick != null)
+            {
+                AdditionalClasses += " blazored-toast-action";
+            }
         }
 
         public string Heading { get; set; }
@@ -32,5 +39,6 @@ namespace Blazored.Toast.Configuration
         public IconType? IconType { get; set; }
         public bool ShowProgressBar { get; set; }
         public int MaxItemsShown { get; set; }
+        public Action? OnClick { get; set; }
     }
 }

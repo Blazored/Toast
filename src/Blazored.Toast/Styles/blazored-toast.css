@@ -119,6 +119,10 @@
     border-bottom-left-radius: .25rem;
 }
 
+.blazored-toast-action {
+    cursor: pointer;
+}
+
 @keyframes fadein {
     from {
         opacity: 0;
