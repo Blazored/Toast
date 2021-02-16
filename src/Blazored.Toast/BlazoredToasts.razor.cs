@@ -27,11 +27,13 @@ namespace Blazored.Toast
         [Parameter] public string ErrorIcon { get; set; }
         [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
         [Parameter] public int Timeout { get; set; } = 5;
+        [Parameter] public int MaxItemsShown { get; set; } = int.MaxValue;
         [Parameter] public bool RemoveToastsOnNavigation { get; set; }
         [Parameter] public bool ShowProgressBar { get; set; }
 
         private string PositionClass { get; set; } = string.Empty;
         internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
+        internal Queue<ToastInstance> ToastWaitingQueue { get; set; } = new Queue<ToastInstance>();
 
         protected override void OnInitialized()
         {
@@ -61,6 +63,11 @@ namespace Blazored.Toast
                 var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
                 ToastList.Remove(toastInstance);
                 StateHasChanged();
+
+                if (ToastWaitingQueue.Any())
+                {
+                    ShowEnqueuedToast();
+                }
             });
         }
 
@@ -70,6 +77,11 @@ namespace Blazored.Toast
             {
                 ToastList.Clear();
                 StateHasChanged();
+
+                if (ToastWaitingQueue.Any())
+                {
+                    ShowEnqueuedToast();
+                }
             });
         }
 
@@ -79,19 +91,19 @@ namespace Blazored.Toast
             {
                 case ToastLevel.Error:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType,
-                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, onclick);
+                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, MaxItemsShown, onclick);
 
                 case ToastLevel.Info:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType,
-                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, onclick);
+                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, MaxItemsShown, onclick);
 
                 case ToastLevel.Success:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType,
-                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, onclick);
+                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, MaxItemsShown, onclick);
 
                 case ToastLevel.Warning:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType,
-                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, onclick);
+                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, MaxItemsShown, onclick);
             }
 
             throw new InvalidOperationException();
@@ -108,6 +120,25 @@ namespace Blazored.Toast
                     TimeStamp = DateTime.Now,
                     ToastSettings = settings
                 };
+
+                if (ToastList.Count < MaxItemsShown)
+                {
+                    ToastList.Add(toast);
+
+                    StateHasChanged();
+                }
+                else
+                {
+                    ToastWaitingQueue.Enqueue(toast);
+                }
+            });
+
+        }
+        private void ShowEnqueuedToast()
+        {
+            InvokeAsync(() =>
+            {
+                var toast = ToastWaitingQueue.Dequeue();
 
                 ToastList.Add(toast);
 
