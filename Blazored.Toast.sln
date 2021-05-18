@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazored.Toast.Tests", "tests\Blazored.Toast.Tests\Blazored.Toast.Tests.csproj", "{5E396684-2ED7-4D93-8AAA-B57291C6ABED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,18 @@ Global
 		{011F9D7D-38DC-436C-9597-CDF701683608}.Release|x64.Build.0 = Release|Any CPU
 		{011F9D7D-38DC-436C-9597-CDF701683608}.Release|x86.ActiveCfg = Release|Any CPU
 		{011F9D7D-38DC-436C-9597-CDF701683608}.Release|x86.Build.0 = Release|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Debug|x64.Build.0 = Debug|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Debug|x86.Build.0 = Debug|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Release|x64.ActiveCfg = Release|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Release|x64.Build.0 = Release|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Release|x86.ActiveCfg = Release|Any CPU
+		{5E396684-2ED7-4D93-8AAA-B57291C6ABED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
