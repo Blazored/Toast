@@ -1,7 +1,7 @@
 ﻿using AngleSharp.Dom;
 using Blazored.Toast;
-using Blazored.Toast.Extensions;
 using Blazored.Toast.Services;
+using Blazored.Toast.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -75,7 +75,7 @@ namespace Bunit
             var toasts = blazoredToasts.GetToasts();
 
             if (toasts.Count != 1)
-                throw new ToastsCountException(1, toasts.Count);
+                throw new ToastCountException(1, toasts.Count);
 
             return toasts.Single().ToastIsLevel(level);
         }
@@ -92,7 +92,7 @@ namespace Bunit
             var toasts = blazoredToasts.GetToasts();
 
             if (toasts.Count != 1)
-                throw new ToastsCountException(1, toasts.Count);
+                throw new ToastCountException(1, toasts.Count);
 
             return toasts.Single().ToastHasHeading(heading);
         }
@@ -109,7 +109,7 @@ namespace Bunit
             var toasts = blazoredToasts.GetToasts();
 
             if (toasts.Count != 1)
-                throw new ToastsCountException(1, toasts.Count);
+                throw new ToastCountException(1, toasts.Count);
 
             return toasts.Single().ToastHasMessage(message);
         }
