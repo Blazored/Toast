@@ -11,32 +11,32 @@ namespace bUnitExample
         public void DisplaysToast()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
 
             // Assert
-            Assert.True(blazoredToasts.ToastCountIsOne());
+            Assert.True(toastService.ToastCountIsOne());
         }
 
         [Fact]
         public void DisplaysZeroToasts()
         {
             // Arrange Act
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Assert
-            Assert.True(blazoredToasts.ToastCountIsZero());
+            Assert.True(toastService.ToastCountIsZero());
         }
 
         [Fact]
         public void DisplaysTwoToasts()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
@@ -45,56 +45,56 @@ namespace bUnitExample
             button.Click();
 
             // Assert
-            Assert.True(blazoredToasts.ToastCountIs(2));
+            Assert.True(toastService.ToastCountIs(2));
         }
 
         [Fact]
         public void DisplaysToastWithLevel()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
 
             // Assert
-            Assert.True(blazoredToasts.ToastCountIsOneWithLevel(ToastLevel.Info));
+            Assert.True(toastService.ToastCountIsOneWithLevel(ToastLevel.Info));
         }
 
         [Fact]
         public void DisplaysToastWithMessage()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
 
             // Assert
-            Assert.True(blazoredToasts.ToastCountIsOneWithMessage("I'm an INFO message"));
+            Assert.True(toastService.ToastCountIsOneWithMessage("I'm an INFO message"));
         }
 
         [Fact]
         public void DisplaysToastWithHeading()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
             cut.Find("#SuccessButton").Click();
 
             // Assert
-            Assert.True(blazoredToasts.ToastCountIsOneWithHeading("Congratulations!"));
+            Assert.True(toastService.ToastCountIsOneWithHeading("Congratulations!"));
         }
 
         [Fact]
         public void DisplaysTwoToastsWithLevel()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
@@ -102,16 +102,16 @@ namespace bUnitExample
             cut.Find("#SuccessButton").Click();
 
             // Assert
-            Assert.Collection(blazoredToasts.GetToasts(),
-                _ => Assert.True(_.ToastIsLevel(ToastLevel.Info)),
-                _ => Assert.True(_.ToastIsLevel(ToastLevel.Success)));
+            Assert.Collection(toastService.Toasts,
+                _ => Assert.True(_.HasLevel(ToastLevel.Info)),
+                _ => Assert.True(_.HasLevel(ToastLevel.Success)));
         }
 
         [Fact]
         public void DisplaysTwoToastsWithMessages()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
@@ -119,16 +119,16 @@ namespace bUnitExample
             cut.Find("#SuccessButton").Click();
 
             // Assert
-            Assert.Collection(blazoredToasts.GetToasts(),
-                _ => Assert.True(_.ToastHasMessage("I'm an INFO message")),
-                _ => Assert.True(_.ToastHasMessage("I'm a SUCCESS message with a custom heading")));
+            Assert.Collection(toastService.Toasts,
+                _ => Assert.True(_.HasMessage("I'm an INFO message")),
+                _ => Assert.True(_.HasMessage("I'm a SUCCESS message with a custom heading")));
         }
 
         [Fact]
         public void DisplaysTwoToastsWithHeading()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
@@ -136,16 +136,16 @@ namespace bUnitExample
             cut.Find("#SuccessButton").Click();
 
             // Assert
-            Assert.Collection(blazoredToasts.GetToasts(),
-                _ => Assert.True(_.ToastHasHeading("Info")),
-                _ => Assert.True(_.ToastHasHeading("Congratulations!")));
+            Assert.Collection(toastService.Toasts,
+                _ => Assert.True(_.HasHeading("Info")),
+                _ => Assert.True(_.HasHeading("Congratulations!")));
         }
 
         [Fact]
         public void DisplaysToasts()
         {
             // Arrange
-            var blazoredToasts = this.AddBlazoredToast();
+            var toastService = this.AddBlazoredToast();
             var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Act
@@ -153,8 +153,7 @@ namespace bUnitExample
             cut.Find("#SuccessButton").Click();
 
             // Assert
-            Assert.NotEmpty(blazoredToasts.GetToasts());
+            Assert.NotEmpty(toastService.Toasts);
         }
-
     }
 }

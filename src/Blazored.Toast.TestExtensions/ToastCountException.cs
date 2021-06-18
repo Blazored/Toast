@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blazored.Toast.Testing
+namespace Blazored.Toast.TestExtensions
 {
     public class ToastCountException : Exception
     {
