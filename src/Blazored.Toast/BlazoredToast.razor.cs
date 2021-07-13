@@ -12,6 +12,7 @@ namespace Blazored.Toast
         [Parameter] public Guid ToastId { get; set; }
         [Parameter] public ToastSettings ToastSettings { get; set; }
         [Parameter] public int Timeout { get; set; }
+        private RenderFragment CloseButtonContent => ToastsContainer.CloseButtonContent;
 
         private CountdownTimer _countdownTimer;
         private int _progress = 100;
@@ -20,7 +21,7 @@ namespace Blazored.Toast
         {
             _countdownTimer = new CountdownTimer(Timeout);
             _countdownTimer.OnTick += CalculateProgress;
-            _countdownTimer.OnElapsed += () => { Close(); };
+            _countdownTimer.OnElapsed += Close;
             _countdownTimer.Start();
 
         }
