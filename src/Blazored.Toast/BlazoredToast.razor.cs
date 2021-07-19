@@ -13,6 +13,7 @@ namespace Blazored.Toast
         [Parameter] public ToastSettings ToastSettings { get; set; }
         [Parameter] public int Timeout { get; set; }
         private RenderFragment CloseButtonContent => ToastsContainer.CloseButtonContent;
+        private bool ShowCloseButton => ToastsContainer.ShowCloseButton;
 
         private CountdownTimer _countdownTimer;
         private int _progress = 100;
