@@ -35,7 +35,7 @@ namespace Blazored.Toast.TestExtensions
             => ShowToast(level, builder => builder.AddContent(0, message), heading, onClick);
 
         public void ShowToast(ToastLevel level, RenderFragment message, string heading = "", Action onClick = null)
-            => Toasts.Add(new InMemoryToast(level, message, GetHeading(level, heading)));
+            => toasts.Add(new InMemoryToast(level, message, GetHeading(level, heading)));
 
         public void ShowWarning(string message, string heading = "", Action onClick = null)
             => ShowToast(ToastLevel.Warning, message, heading, onClick);
