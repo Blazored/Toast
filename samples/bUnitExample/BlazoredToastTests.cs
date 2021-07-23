@@ -1,6 +1,7 @@
 using Blazored.Toast;
 using Blazored.Toast.Services;
 using Bunit;
+using System.Linq;
 using Xunit;
 
 namespace bUnitExample
@@ -18,7 +19,7 @@ namespace bUnitExample
             cut.Find("#InfoButton").Click();
 
             // Assert
-            Assert.True(toastService.ToastCountIsOne());
+            Assert.Equal(1, toastService.Toasts.Count);
         }
 
         [Fact]
@@ -29,7 +30,7 @@ namespace bUnitExample
             RenderComponent<BlazorWebAssembly.Pages.Index>();
 
             // Assert
-            Assert.True(toastService.ToastCountIsZero());
+            Assert.Equal(0, toastService.Toasts.Count);
         }
 
         [Fact]
@@ -45,7 +46,7 @@ namespace bUnitExample
             button.Click();
 
             // Assert
-            Assert.True(toastService.ToastCountIs(2));
+            Assert.Equal(2, toastService.Toasts.Count);
         }
 
         [Fact]
@@ -59,21 +60,7 @@ namespace bUnitExample
             cut.Find("#InfoButton").Click();
 
             // Assert
-            Assert.True(toastService.ToastCountIsOneWithLevel(ToastLevel.Info));
-        }
-
-        [Fact]
-        public void DisplaysToastWithMessage()
-        {
-            // Arrange
-            var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
-
-            // Act
-            cut.Find("#InfoButton").Click();
-
-            // Assert
-            Assert.True(toastService.ToastCountIsOneWithMessage("I'm an INFO message"));
+            Assert.Equal(ToastLevel.Info, toastService.Toasts.Single().ToastLevel);
         }
 
         [Fact]
@@ -87,7 +74,7 @@ namespace bUnitExample
             cut.Find("#SuccessButton").Click();
 
             // Assert
-            Assert.True(toastService.ToastCountIsOneWithHeading("Congratulations!"));
+            Assert.Equal("Congratulations!", toastService.Toasts.Single().Heading);
         }
 
         [Fact]
@@ -103,25 +90,8 @@ namespace bUnitExample
 
             // Assert
             Assert.Collection(toastService.Toasts,
-                _ => Assert.True(_.HasLevel(ToastLevel.Info)),
-                _ => Assert.True(_.HasLevel(ToastLevel.Success)));
-        }
-
-        [Fact]
-        public void DisplaysTwoToastsWithMessages()
-        {
-            // Arrange
-            var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
-
-            // Act
-            cut.Find("#InfoButton").Click();
-            cut.Find("#SuccessButton").Click();
-
-            // Assert
-            Assert.Collection(toastService.Toasts,
-                _ => Assert.True(_.HasMessage("I'm an INFO message")),
-                _ => Assert.True(_.HasMessage("I'm a SUCCESS message with a custom heading")));
+                _ => Assert.Equal(ToastLevel.Info, _.ToastLevel),
+                _ => Assert.Equal(ToastLevel.Success, _.ToastLevel));
         }
 
         [Fact]
@@ -137,8 +107,8 @@ namespace bUnitExample
 
             // Assert
             Assert.Collection(toastService.Toasts,
-                _ => Assert.True(_.HasHeading("Info")),
-                _ => Assert.True(_.HasHeading("Congratulations!")));
+                _ => Assert.Equal("Info", _.Heading),
+                _ => Assert.Equal("Congratulations!", _.Heading));
         }
 
         [Fact]

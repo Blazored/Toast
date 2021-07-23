@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Blazored.Toast.TestExtensions
 {
     public class InMemoryToastService : IToastService
     {
-        private readonly List<InMemoryToast> toasts =  new();
+        private readonly List<InMemoryToast> toasts = new List<InMemoryToast>();
         public IReadOnlyList<InMemoryToast> Toasts => toasts;
 
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
@@ -56,64 +55,5 @@ namespace Blazored.Toast.TestExtensions
                 _ => throw new InvalidOperationException(),
             };
         }
-        /// <summary>
-        /// Checks a specific number of toasts are displayed.
-        /// </summary>
-        /// <param name="count">The number of toast elements expected.</param>
-        public bool ToastCountIs(int count)
-        {
-            if (count < 1)
-                throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} value must be greater than 0.");
-
-            return Toasts.Count == count;
-        }
-
-        /// <summary>
-        /// Checks a single toast is displayed.
-        /// </summary>
-        public bool ToastCountIsOne()
-            => Toasts.Count == 1;
-
-        /// <summary>
-        /// Checks a single toast is displayed with level.
-        /// </summary>
-        /// <param name="level">The toast level expected.</param>
-        public bool ToastCountIsOneWithLevel(ToastLevel level)
-        {
-            if (Toasts.Count != 1)
-                throw new ToastCountException(1, Toasts.Count);
-
-            return Toasts.Single().HasLevel(level);
-        }
-
-        /// <summary>
-        /// Checks a single toast is displayed with heading.
-        /// </summary>
-        /// <param name="heading">The toast heading expected.</param>
-        public bool ToastCountIsOneWithHeading(string heading)
-        {
-            if (Toasts.Count != 1)
-                throw new ToastCountException(1, Toasts.Count);
-
-            return Toasts.Single().HasHeading(heading);
-        }
-
-        /// <summary>
-        /// Checks a single toast is displayed with message.
-        /// </summary>
-        /// <param name="message">The toast message expected.</param>
-        public bool ToastCountIsOneWithMessage(string message)
-        {
-            if (Toasts.Count != 1)
-                throw new ToastCountException(1, Toasts.Count);
-
-            return Toasts.Single().HasMessage(message);
-        }
-
-        /// <summary>
-        /// Checks no toast elements are displayed.
-        /// </summary>
-        public bool ToastCountIsZero()
-            => Toasts.Count == 0;
     }
 }
