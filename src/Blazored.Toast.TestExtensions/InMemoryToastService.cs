@@ -8,7 +8,8 @@ namespace Blazored.Toast.TestExtensions
 {
     public class InMemoryToastService : IToastService
     {
-        public IList<InMemoryToast> Toasts = new List<InMemoryToast>();
+        private readonly List<InMemoryToast> toasts =  new();
+        public IReadOnlyList<InMemoryToast> Toasts => toasts;
 
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
