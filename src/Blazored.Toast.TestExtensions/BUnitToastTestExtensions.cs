@@ -14,10 +14,9 @@ namespace Bunit
             if (context is null)
                 throw new ArgumentNullException(nameof(context));
 
-            context.Services
-                .AddSingleton<IToastService, InMemoryToastService>();
-
-            return (InMemoryToastService)context.Services.GetService<IToastService>();
+            var toastService = new InMemoryToastService();
+            context.Services.AddSingleton<IToastService>(toastService);
+            return toastService;
         }
     }
 }
