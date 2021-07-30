@@ -1,7 +1,7 @@
 ﻿@if (ToastList.Any())
 {
     <div class="blazored-toast-container @PositionClass">
-        <CascadingValue Value=this>
+        <CascadingValue Value=this IsFixed="true">
             @foreach (var toast in ToastList.OrderBy(x=>x.TimeStamp))
             {
                 <BlazoredToast @key="toast" ToastSettings="toast.ToastSettings" ToastId="toast.Id" Timeout="Timeout"/>

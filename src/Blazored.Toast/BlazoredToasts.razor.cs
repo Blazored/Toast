@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Blazored.Toast
 {
@@ -29,9 +30,11 @@ namespace Blazored.Toast
         [Parameter] public int Timeout { get; set; } = 5;
         [Parameter] public bool RemoveToastsOnNavigation { get; set; }
         [Parameter] public bool ShowProgressBar { get; set; }
+        [Parameter] public RenderFragment CloseButtonContent { get; set; }
+        [Parameter] public bool ShowCloseButton { get; set; } = true;
 
         private string PositionClass { get; set; } = string.Empty;
-        internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
+        private List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
 
         protected override void OnInitialized()
         {
