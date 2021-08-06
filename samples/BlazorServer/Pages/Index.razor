@@ -1,8 +1,8 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Rendering
 @inject IToastService toastService
+@inject NavigationManager NavigationManager
 
-<h1>Hello, Blazor Toast!</h1>
+<h1>Blazored Toasts</h1>
 
 <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
 <button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom heading", "Congratulations!"))">Success Toast</button>
@@ -12,11 +12,24 @@
 <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", "Click me!", () => { NavigationManager.NavigateTo("/", true); }))">
     Info Toast with custom action on click
 </button>
+<hr />
+
+<h1>Blazored Toasts - Components</h1>
+
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastComponentSettings(2, true)))">Component Toast</button>
+<button class="btn btn-dark" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastComponentSettings(false)))">Component Toast with parameters</button>
 
 @code
 {
-    [Inject]
-    public NavigationManager NavigationManager { get; set; }
+    private ToastParameters _toastParameters;
+
+    protected override void OnInitialized()
+    {
+        _toastParameters = new ToastParameters();
+        _toastParameters.Add(nameof(MyToastComponent.Title), "Component with parameters");
+        _toastParameters.Add(nameof(MyToastComponent.ToastParam1), 20);
+        _toastParameters.Add(nameof(MyToastComponent.ToastParam2), 35);
+    }
 
     private void OnShowHtml()
     {

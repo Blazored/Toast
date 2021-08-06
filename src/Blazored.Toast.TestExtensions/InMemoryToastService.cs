@@ -12,6 +12,28 @@ namespace Blazored.Toast.TestExtensions
 
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
+        public event Action<Type, ToastParameters, ToastComponentSettings> OnShowComponent;
+        
+        public void ShowToast<TComponent>() where TComponent : IComponent
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowToast<TComponent>(ToastComponentSettings settings) where TComponent : IComponent
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowToast<TComponent>(ToastParameters parameters, ToastComponentSettings settings) where TComponent : IComponent
+        {
+            throw new NotImplementedException();
+        }
+
         public void ShowError(string message, string heading = "", Action onClick = null)
             => ShowToast(ToastLevel.Error, message, heading, onClick);
 

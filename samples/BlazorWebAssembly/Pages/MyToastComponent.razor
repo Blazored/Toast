@@ -1,0 +1,15 @@
+﻿@if (string.IsNullOrWhiteSpace(Title))
+{
+    <h3>Empty Component</h3>
+}
+else
+{
+    <h3>@Title</h3>
+    <h3>Total: @(ToastParam1 + ToastParam2)</h3>
+}
+
+@code{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public int ToastParam1 { get; set; }
+    [Parameter] public int ToastParam2 { get; set; }
+}

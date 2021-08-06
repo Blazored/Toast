@@ -11,6 +11,11 @@ namespace Blazored.Toast.Services
         event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
         /// <summary>
+        /// A event that will be invoked when showing a toast with a custom comonent
+        /// </summary>
+        event Action<Type, ToastParameters, ToastComponentSettings> OnShowComponent;
+
+        /// <summary>
         /// Shows a information toast 
         /// </summary>
         /// <param name="message">Text to display on the toast</param>
@@ -81,5 +86,29 @@ namespace Blazored.Toast.Services
         /// <param name="message">RenderFragment to display on the toast</param>
         /// <param name="heading">The text to display as the toasts heading</param>
         void ShowToast(ToastLevel level, RenderFragment message, string heading = "", Action? onClick = null);
+
+        /// <summary>
+        /// Shows a toast containing the specified <typeparamref name="TComponent"/>.
+        /// </summary>
+        void ShowToast<TComponent>() where TComponent : IComponent;
+
+        /// <summary>
+        /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="parameters"/>.
+        /// </summary>
+        /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
+        void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent;
+
+        /// <summary>
+        /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings"/>.
+        /// </summary>
+        /// <param name="settings">Key/Settings to pass to component being displayed</param>
+        void ShowToast<TComponent>(ToastComponentSettings settings) where TComponent : IComponent;
+
+        /// <summary>
+        /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings" and /> and <paramref name="parameters"/>.
+        /// </summary>
+        /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
+        /// <param name="settings">Key/Settings to pass to component being displayed</param>
+        void ShowToast<TComponent>(ToastParameters parameters, ToastComponentSettings settings) where TComponent : IComponent;
     }
 }

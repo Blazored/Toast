@@ -29,6 +29,11 @@
     box-shadow: rgba(0,0,0,0.25) 0px 10px 40px;
 }
 
+.blazored-toast-component {
+    display: initial;
+    color: #000000;
+}
+
 .blazored-toast-info {
     background-color: #34a9ad;
 }
@@ -110,6 +115,10 @@
 
 .blazored-toast-error .blazored-toast-progressbar > span {
     background-color: #ba5e5e;
+}
+
+.blazored-toast-component .blazored-toast-progressbar > span {
+    background-color: #000000;
 }
 
 .blazored-toast-progressbar > span {

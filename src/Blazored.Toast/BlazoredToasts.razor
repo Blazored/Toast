@@ -2,9 +2,18 @@
 {
     <div class="blazored-toast-container @PositionClass">
         <CascadingValue Value=this>
-            @foreach (var toast in ToastList.OrderBy(x=>x.TimeStamp))
+            @foreach (var toast in ToastList.OrderBy(x => x.TimeStamp))
             {
-                <BlazoredToast @key="toast" ToastSettings="toast.ToastSettings" ToastId="toast.Id" Timeout="Timeout"/>
+                if (toast.BlazoredToast is object)
+                {
+                    <BlazoredToast @key="toast" ToastComponentSettings="toast.ToastComponentSettings" ToastId="toast.Id" Timeout="toast.ToastComponentSettings.Timeout" >
+                        @toast.BlazoredToast
+                    </BlazoredToast>
+                }
+                else
+                {
+                    <BlazoredToast @key="toast" ToastSettings="toast.ToastSettings" ToastId="toast.Id" Timeout="Timeout" />
+                }
             }
         </CascadingValue>
     </div>
