@@ -12,13 +12,13 @@ namespace Blazored.Toast.Configuration
         public ToastInstance(RenderFragment blazoredToast, ToastInstanceSettings settings)
         {
             BlazoredToast = blazoredToast;
-            ToastComponentSettings = settings;
+            ToastInstanceSettings = settings;
         }
 
         public Guid Id { get; } = Guid.NewGuid();
         public DateTime TimeStamp { get; } = DateTime.Now;
         public ToastSettings ToastSettings { get; }
-        public ToastInstanceSettings ToastComponentSettings { get; }
+        public ToastInstanceSettings ToastInstanceSettings { get; }
         public RenderFragment BlazoredToast { get; }
     }
 }

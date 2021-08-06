@@ -64,6 +64,9 @@ Toasts are configured using parameters on the `<BlazoredToasts />` component. Th
 - IconType (Default: IconType.FontAwesome)
 - Position (Default: ToastPosition.TopRight)
 - Timeout (Default: 5)
+- ShowProgressBar (Default: false)
+- ShowCloseButton (Default: true)
+- CloseButtonContent (provide custom close button)
 
 By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
 
@@ -98,6 +101,18 @@ The example above is from the [client side samples](https://github.com/Blazored/
 ```
 The example above is from the [server side samples](https://github.com/Blazored/Toast/tree/master/samples) and demonstrates the use of Material Design icons.
 
+
+If you want to have your own custom close button:
+```html
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="10">
+    <CloseButtonContent>
+        <div>
+            <span>&times;</span>
+        </div>
+    </CloseButtonContent>
+</BlazoredToasts>
+```
 
 ### 4. Add reference to style sheet(s)
 Add the following line to the `head` tag of your `_Host.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
