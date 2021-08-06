@@ -1,0 +1,59 @@
+﻿using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+
+namespace Blazored.Toast.TestExtensions
+{
+    public class InMemoryToastService : IToastService
+    {
+        private readonly List<InMemoryToast> toasts = new List<InMemoryToast>();
+        public IReadOnlyList<InMemoryToast> Toasts => toasts;
+
+        public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
+
+        public void ShowError(string message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Error, message, heading, onClick);
+
+        public void ShowError(RenderFragment message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Error, message, heading, onClick);
+
+        public void ShowInfo(string message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Info, message, heading, onClick);
+
+        public void ShowInfo(RenderFragment message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Info, message, heading, onClick);
+
+        public void ShowSuccess(string message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Success, message, heading, onClick);
+
+        public void ShowSuccess(RenderFragment message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Success, message, heading, onClick);
+
+        public void ShowToast(ToastLevel level, string message, string heading = "", Action onClick = null)
+            => ShowToast(level, builder => builder.AddContent(0, message), heading, onClick);
+
+        public void ShowToast(ToastLevel level, RenderFragment message, string heading = "", Action onClick = null)
+            => toasts.Add(new InMemoryToast(level, message, GetHeading(level, heading)));
+
+        public void ShowWarning(string message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Warning, message, heading, onClick);
+
+        public void ShowWarning(RenderFragment message, string heading = "", Action onClick = null)
+            => ShowToast(ToastLevel.Warning, message, heading, onClick);
+
+        private string GetHeading(ToastLevel level, string heading)
+        {
+            if (!string.IsNullOrWhiteSpace(heading)) return heading;
+
+            return level switch
+            {
+                ToastLevel.Error => "Error",
+                ToastLevel.Info => "Info",
+                ToastLevel.Success => "Success",
+                ToastLevel.Warning => "Warning",
+                _ => throw new InvalidOperationException(),
+            };
+        }
+    }
+}
