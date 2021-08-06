@@ -17,7 +17,7 @@
 <h1>Blazored Toasts - Components</h1>
 
 <button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(2, true)))">Component Toast</button>
-<button class="btn btn-dark" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(false)))">Component Toast with parameters</button>
+<button class="btn btn-dark" id="ComponentButton" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(false)))">Component Toast with parameters</button>
 
 @code
 {

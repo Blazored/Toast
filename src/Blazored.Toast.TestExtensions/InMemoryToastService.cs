@@ -13,25 +13,25 @@ namespace Blazored.Toast.TestExtensions
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
         public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
-        
+
         public void ShowToast<TComponent>() where TComponent : IComponent
         {
-            throw new NotImplementedException();
+            toasts.Add(new InMemoryToast(typeof(TComponent)));
         }
 
         public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent
         {
-            throw new NotImplementedException();
+            toasts.Add(new InMemoryToast(typeof(TComponent)));
         }
 
         public void ShowToast<TComponent>(ToastInstanceSettings settings) where TComponent : IComponent
         {
-            throw new NotImplementedException();
+            toasts.Add(new InMemoryToast(typeof(TComponent)));
         }
 
         public void ShowToast<TComponent>(ToastParameters parameters, ToastInstanceSettings settings) where TComponent : IComponent
         {
-            throw new NotImplementedException();
+            toasts.Add(new InMemoryToast(typeof(TComponent)));
         }
 
         public void ShowError(string message, string heading = "", Action onClick = null)
@@ -56,7 +56,7 @@ namespace Blazored.Toast.TestExtensions
             => ShowToast(level, builder => builder.AddContent(0, message), heading, onClick);
 
         public void ShowToast(ToastLevel level, RenderFragment message, string heading = "", Action onClick = null)
-            => toasts.Add(new InMemoryToast(level, message, GetHeading(level, heading)));
+            => toasts.Add(new InMemoryToast(typeof(Configuration.ToastInstance), level, message, GetHeading(level, heading)));
 
         public void ShowWarning(string message, string heading = "", Action onClick = null)
             => ShowToast(ToastLevel.Warning, message, heading, onClick);
