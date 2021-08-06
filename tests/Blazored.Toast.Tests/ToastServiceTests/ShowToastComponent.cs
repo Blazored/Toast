@@ -46,7 +46,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
         public void OnShowComponentEventContainsNoSettings_When_ShowToastCalled()
         {
             // arrange
-            ToastComponentSettings settings = null;
+            ToastInstanceSettings settings = null;
             _sut.OnShowComponent += (_, _, argSettings) => settings = argSettings;
 
             // act
@@ -88,7 +88,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
         public void OnShowComponentEventContainsNoSettings_When_ShowToastCalledWithParameters()
         {
             // arrange
-            ToastComponentSettings settings = null;
+            ToastInstanceSettings settings = null;
             _sut.OnShowComponent += (_, _, argSettings) => settings = argSettings;
 
             // act
@@ -106,7 +106,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
             _sut.OnShowComponent += (_, _, _) => OnShowCalled = true;
 
             // act
-            _sut.ShowToast<MyTestComponent>(new ToastComponentSettings(true));
+            _sut.ShowToast<MyTestComponent>(new ToastInstanceSettings(true));
 
             // assert
             Assert.True(OnShowCalled);
@@ -120,7 +120,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
             _sut.OnShowComponent += (_, argParameters, _) => parameters = argParameters;
 
             // act
-            _sut.ShowToast<MyTestComponent>(new ToastComponentSettings(true));
+            _sut.ShowToast<MyTestComponent>(new ToastInstanceSettings(true));
 
             // assert
             Assert.Null(parameters);
@@ -130,11 +130,11 @@ namespace Blazored.Toast.Tests.ToastServiceTests
         public void OnShowComponentEventContainsSettings_When_ShowToastCalledWithSettings()
         {
             // arrange
-            ToastComponentSettings settings = null;
+            ToastInstanceSettings settings = null;
             _sut.OnShowComponent += (_, _, argSettings) => settings = argSettings;
 
             // act
-            _sut.ShowToast<MyTestComponent>(new ToastComponentSettings(2, true));
+            _sut.ShowToast<MyTestComponent>(new ToastInstanceSettings(2, true));
 
             // assert
             Assert.NotNull(settings);
@@ -150,7 +150,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
             _sut.OnShowComponent += (_, _, _) => OnShowCalled = true;
 
             // act
-            _sut.ShowToast<MyTestComponent>(new ToastParameters(), new ToastComponentSettings(true));
+            _sut.ShowToast<MyTestComponent>(new ToastParameters(), new ToastInstanceSettings(true));
 
             // assert
             Assert.True(OnShowCalled);
@@ -164,7 +164,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
             _sut.OnShowComponent += (_, argParameters, _) => parameters = argParameters;
 
             // act
-            _sut.ShowToast<MyTestComponent>(new ToastParameters(), new ToastComponentSettings(true));
+            _sut.ShowToast<MyTestComponent>(new ToastParameters(), new ToastInstanceSettings(true));
 
             // assert
             Assert.NotNull(parameters);
@@ -174,11 +174,11 @@ namespace Blazored.Toast.Tests.ToastServiceTests
         public void OnShowComponentEventContainsSettings_When_ShowToastCalledWithParametersAndSettings()
         {
             // arrange
-            ToastComponentSettings settings = null;
+            ToastInstanceSettings settings = null;
             _sut.OnShowComponent += (_, _, argSettings) => settings = argSettings;
 
             // act
-            _sut.ShowToast<MyTestComponent>(new ToastParameters(), new ToastComponentSettings(2, true));
+            _sut.ShowToast<MyTestComponent>(new ToastParameters(), new ToastInstanceSettings(2, true));
 
             // assert
             Assert.NotNull(settings);
@@ -204,7 +204,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
             _sut.OnShowComponent += (_, _, _) => OnShowCalled = true;
 
             // act
-            _sut.ShowToast(typeof(IComponent), new ToastParameters(), new ToastComponentSettings(true));
+            _sut.ShowToast(typeof(IComponent), new ToastParameters(), new ToastInstanceSettings(true));
 
             // assert
             Assert.True(OnShowCalled);
@@ -218,7 +218,7 @@ namespace Blazored.Toast.Tests.ToastServiceTests
             _sut.OnShowComponent += (_, argParameters, _) => parameters = argParameters;
 
             // act
-            _sut.ShowToast(typeof(IComponent), new ToastParameters(), new ToastComponentSettings(true));
+            _sut.ShowToast(typeof(IComponent), new ToastParameters(), new ToastInstanceSettings(true));
 
             // assert
             Assert.NotNull(parameters);
@@ -228,11 +228,11 @@ namespace Blazored.Toast.Tests.ToastServiceTests
         public void OnShowComponentEventContainsSettings_When_ShowToastCalledWithCorrectTypeAndParametersAndSettings()
         {
             // arrange
-            ToastComponentSettings settings = null;
+            ToastInstanceSettings settings = null;
             _sut.OnShowComponent += (_, _, argSettings) => settings = argSettings;
 
             // act
-            _sut.ShowToast(typeof(IComponent), new ToastParameters(), new ToastComponentSettings(2, true));
+            _sut.ShowToast(typeof(IComponent), new ToastParameters(), new ToastInstanceSettings(2, true));
 
             // assert
             Assert.NotNull(settings);

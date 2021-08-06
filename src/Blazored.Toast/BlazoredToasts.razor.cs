@@ -112,7 +112,7 @@ namespace Blazored.Toast
 
         }
 
-        private void ShowToast(Type contentComponent, ToastParameters parameters, ToastComponentSettings settings)
+        private void ShowToast(Type contentComponent, ToastParameters parameters, ToastInstanceSettings settings)
         {
             InvokeAsync(() =>
             {
@@ -132,11 +132,11 @@ namespace Blazored.Toast
 
                 if (settings == null)
                 {
-                    settings = new ToastComponentSettings(Timeout, ShowProgressBar);
+                    settings = new ToastInstanceSettings(Timeout, ShowProgressBar);
                 }
                 else
                 {
-                    settings = new ToastComponentSettings(Timeout != settings.Timeout ? settings.Timeout : Timeout,
+                    settings = new ToastInstanceSettings(Timeout != settings.Timeout ? settings.Timeout : Timeout,
                         ShowProgressBar != settings.ShowProgressBar ? settings.ShowProgressBar : ShowProgressBar);
                 }
 

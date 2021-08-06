@@ -13,7 +13,7 @@ namespace Blazored.Toast.Services
         /// <summary>
         /// A event that will be invoked when showing a toast with a custom comonent
         /// </summary>
-        event Action<Type, ToastParameters, ToastComponentSettings> OnShowComponent;
+        event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
 
         /// <summary>
         /// Shows a information toast 
@@ -102,13 +102,13 @@ namespace Blazored.Toast.Services
         /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings"/>.
         /// </summary>
         /// <param name="settings">Key/Settings to pass to component being displayed</param>
-        void ShowToast<TComponent>(ToastComponentSettings settings) where TComponent : IComponent;
+        void ShowToast<TComponent>(ToastInstanceSettings settings) where TComponent : IComponent;
 
         /// <summary>
         /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings" and /> and <paramref name="parameters"/>.
         /// </summary>
         /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
         /// <param name="settings">Key/Settings to pass to component being displayed</param>
-        void ShowToast<TComponent>(ToastParameters parameters, ToastComponentSettings settings) where TComponent : IComponent;
+        void ShowToast<TComponent>(ToastParameters parameters, ToastInstanceSettings settings) where TComponent : IComponent;
     }
 }

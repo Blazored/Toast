@@ -9,7 +9,7 @@ namespace Blazored.Toast.Configuration
         {
             ToastSettings = toastSettings;
         }
-        public ToastInstance(RenderFragment blazoredToast, ToastComponentSettings settings)
+        public ToastInstance(RenderFragment blazoredToast, ToastInstanceSettings settings)
         {
             BlazoredToast = blazoredToast;
             ToastComponentSettings = settings;
@@ -18,7 +18,7 @@ namespace Blazored.Toast.Configuration
         public Guid Id { get; } = Guid.NewGuid();
         public DateTime TimeStamp { get; } = DateTime.Now;
         public ToastSettings ToastSettings { get; }
-        public ToastComponentSettings ToastComponentSettings { get; }
+        public ToastInstanceSettings ToastComponentSettings { get; }
         public RenderFragment BlazoredToast { get; }
     }
 }

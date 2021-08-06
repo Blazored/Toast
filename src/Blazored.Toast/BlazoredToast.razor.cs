@@ -10,7 +10,7 @@ namespace Blazored.Toast
 
         [Parameter] public Guid ToastId { get; set; }
         [Parameter] public ToastSettings ToastSettings { get; set; }
-        [Parameter] public ToastComponentSettings ToastComponentSettings { get; set; }
+        [Parameter] public ToastInstanceSettings ToastComponentSettings { get; set; }
         [Parameter] public int Timeout { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
 

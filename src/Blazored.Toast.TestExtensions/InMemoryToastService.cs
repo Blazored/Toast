@@ -12,7 +12,7 @@ namespace Blazored.Toast.TestExtensions
 
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
-        public event Action<Type, ToastParameters, ToastComponentSettings> OnShowComponent;
+        public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
         
         public void ShowToast<TComponent>() where TComponent : IComponent
         {
@@ -24,12 +24,12 @@ namespace Blazored.Toast.TestExtensions
             throw new NotImplementedException();
         }
 
-        public void ShowToast<TComponent>(ToastComponentSettings settings) where TComponent : IComponent
+        public void ShowToast<TComponent>(ToastInstanceSettings settings) where TComponent : IComponent
         {
             throw new NotImplementedException();
         }
 
-        public void ShowToast<TComponent>(ToastParameters parameters, ToastComponentSettings settings) where TComponent : IComponent
+        public void ShowToast<TComponent>(ToastParameters parameters, ToastInstanceSettings settings) where TComponent : IComponent
         {
             throw new NotImplementedException();
         }

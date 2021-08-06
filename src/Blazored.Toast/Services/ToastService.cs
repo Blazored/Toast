@@ -13,7 +13,7 @@ namespace Blazored.Toast.Services
         /// <summary>
         /// A event that will be invoked when showing a toast with a custom comonent
         /// </summary>
-        public event Action<Type , ToastParameters , ToastComponentSettings> OnShowComponent;
+        public event Action<Type , ToastParameters , ToastInstanceSettings> OnShowComponent;
 
         /// <summary>
         /// Shows a information toast 
@@ -143,7 +143,7 @@ namespace Blazored.Toast.Services
         /// <param name="contentComponent">Type of component to display.</param>
         /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
         /// <param name="settings">Settings to configure the toast component.</param>
-        public void ShowToast(Type contentComponent, ToastParameters parameters, ToastComponentSettings settings)
+        public void ShowToast(Type contentComponent, ToastParameters parameters, ToastInstanceSettings settings)
         {
             if (!typeof(IComponent).IsAssignableFrom(contentComponent))
             {
@@ -166,7 +166,7 @@ namespace Blazored.Toast.Services
         /// Shows a toast using the supplied settings
         /// </summary>
         /// <param name="settings">Toast settings to be used</param>
-        public void ShowToast<TComponent>(ToastComponentSettings settings) where TComponent : IComponent
+        public void ShowToast<TComponent>(ToastInstanceSettings settings) where TComponent : IComponent
         {
             ShowToast(typeof(TComponent), null, settings);
         }
@@ -176,7 +176,7 @@ namespace Blazored.Toast.Services
         /// </summary>
         /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
         /// <param name="settings">Toast settings to be used</param>
-        public void ShowToast<TComponent>(ToastParameters parameters, ToastComponentSettings settings) where TComponent : IComponent
+        public void ShowToast<TComponent>(ToastParameters parameters, ToastInstanceSettings settings) where TComponent : IComponent
         {
             ShowToast(typeof(TComponent), parameters, settings);
         }
