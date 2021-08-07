@@ -135,7 +135,7 @@ namespace bUnitExample
             var cut = RenderComponent<Index>();
 
             // Act
-            cut.Find("#ComponentButton").Click();
+            cut.Find("#CustomButton").Click();
 
             // Assert
             Assert.Equal(1, toastService.Toasts.Count(_ => _.ToastType == typeof(MyToastComponent)));

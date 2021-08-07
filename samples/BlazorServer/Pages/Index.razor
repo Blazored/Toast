@@ -16,8 +16,8 @@
 
 <h1>Blazored Toasts - Components</h1>
 
-<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(2, true)))">Component Toast</button>
-<button class="btn btn-dark" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(false)))">Component Toast with parameters</button>
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(2, true)))">Custom Toast</button>
+<button class="btn btn-secondary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters))">Custom Toast with parameters</button>
 
 @code
 {
@@ -26,9 +26,8 @@
     protected override void OnInitialized()
     {
         _toastParameters = new ToastParameters();
-        _toastParameters.Add(nameof(MyToastComponent.Title), "Component with parameters");
-        _toastParameters.Add(nameof(MyToastComponent.ToastParam1), 20);
-        _toastParameters.Add(nameof(MyToastComponent.ToastParam2), 35);
+        _toastParameters.Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters");
+        _toastParameters.Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
     }
 
     private void OnShowHtml()

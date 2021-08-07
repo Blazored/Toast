@@ -31,7 +31,7 @@
 
 .blazored-toast-component {
     display: initial;
-    color: #000000;
+    padding: 0 0 0 0;
 }
 
 .blazored-toast-info {
@@ -118,7 +118,7 @@
 }
 
 .blazored-toast-component .blazored-toast-progressbar > span {
-    background-color: #000000;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0 0);
 }
 
 .blazored-toast-progressbar > span {
