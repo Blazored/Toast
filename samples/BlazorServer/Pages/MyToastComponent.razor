@@ -1,14 +1,14 @@
 ﻿@if (string.IsNullOrWhiteSpace(Title))
 {
-    <div class="text-white p-3 bg-primary rounded">
-        <h3>I'm a custom toast component</h3>
+    <div class="text-white p-4 bg-primary rounded">
+        <h3 class="mb-0">I'm a custom toast component</h3>
     </div>
 }
 else
 {
-    <div class="text-white p-3 bg-secondary rounded">
+    <div class="text-white p-4 bg-secondary rounded">
         <h3>@Title</h3>
-        <h5>@ToastParam</h5>
+        <h5 class="mb-0">@ToastParam</h5>
     </div>
 }
 

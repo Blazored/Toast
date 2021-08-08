@@ -219,7 +219,7 @@ For Example if you want to change the duration of the timeout and disable the pr
 
 <h1>Custom Toast Demo</h1>
 
-<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToast>(new ToastInstanceSettings(5, true)))">Custom Toast</button>
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToast>(new ToastInstanceSettings(5, false)))">Custom Toast</button>
 ```
 
 Full examples for client and server-side Blazor are included in the [samples](https://github.com/Blazored/Toast/tree/master/samples).

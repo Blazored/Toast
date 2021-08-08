@@ -14,7 +14,7 @@
 </button>
 <hr />
 
-<h1>Blazored Toasts - Components</h1>
+<h1>Blazored Toasts - Custom Component</h1>
 
 <button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(5, true)))">Custom Toast</button>
 <button class="btn btn-secondary" id="CustomButton" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(5, true)))">Custom Toast with parameters</button>
