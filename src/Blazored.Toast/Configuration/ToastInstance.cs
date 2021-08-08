@@ -5,19 +5,19 @@ namespace Blazored.Toast.Configuration
 {
     public class ToastInstance
     {
-        public ToastInstance(ToastSettings toastSettings)
+        internal ToastInstance(ToastSettings toastSettings)
         {
             ToastSettings = toastSettings;
         }
-        public ToastInstance(RenderFragment blazoredToast, ToastInstanceSettings settings)
+        internal ToastInstance(RenderFragment blazoredToast, ToastInstanceSettings settings)
         {
             BlazoredToast = blazoredToast;
             ToastInstanceSettings = settings;
         }
 
-        public Guid Id { get; } = Guid.NewGuid();
-        public DateTime TimeStamp { get; } = DateTime.Now;
-        public ToastSettings ToastSettings { get; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
+        public ToastSettings ToastSettings { get; set; }
         public ToastInstanceSettings ToastInstanceSettings { get; }
         public RenderFragment BlazoredToast { get; }
     }
