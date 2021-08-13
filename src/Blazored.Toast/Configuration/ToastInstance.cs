@@ -3,13 +3,13 @@ using System;
 
 namespace Blazored.Toast.Configuration
 {
-    public class ToastInstance
+    internal class ToastInstance
     {
-        internal ToastInstance(ToastSettings toastSettings)
+        public ToastInstance(ToastSettings toastSettings)
         {
             ToastSettings = toastSettings;
         }
-        internal ToastInstance(RenderFragment blazoredToast, ToastInstanceSettings settings)
+        public ToastInstance(RenderFragment blazoredToast, ToastInstanceSettings settings)
         {
             BlazoredToast = blazoredToast;
             ToastInstanceSettings = settings;
