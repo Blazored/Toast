@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Blazored.Toast.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

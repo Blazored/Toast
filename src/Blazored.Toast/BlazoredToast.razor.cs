@@ -1,7 +1,6 @@
 ﻿using Blazored.Toast.Configuration;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Threading.Tasks;
 
 namespace Blazored.Toast
 {
@@ -11,7 +10,9 @@ namespace Blazored.Toast
 
         [Parameter] public Guid ToastId { get; set; }
         [Parameter] public ToastSettings ToastSettings { get; set; }
+        [Parameter] public ToastInstanceSettings ToastComponentSettings { get; set; }
         [Parameter] public int Timeout { get; set; }
+        [Parameter] public RenderFragment ChildContent { get; set; }
         private RenderFragment CloseButtonContent => ToastsContainer.CloseButtonContent;
         private bool ShowCloseButton => ToastsContainer.ShowCloseButton;
 
