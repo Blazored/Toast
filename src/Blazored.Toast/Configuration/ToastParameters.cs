@@ -21,7 +21,7 @@ namespace Blazored.Toast
                 return (T)value;
             }
 
-            throw new KeyNotFoundException($"{parameterName} does not exist in modal parameters");
+            throw new KeyNotFoundException($"{parameterName} does not exist in toast parameters");
         }
 
         public T TryGet<T>(string parameterName)
