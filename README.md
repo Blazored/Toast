@@ -207,7 +207,7 @@ If you want to pass values to the component you're displaying in the toast, then
 ```
 ### Custom Component Options
 Custom toast components can be customized. These settings can be set globally or changed programatically on a per toast basis. This is achieved using the `ToastInstanceSettings` class.
-The followiung settings are available.
+The following settings are available.
 - `Timeout`
 - `ShowProgressBar`
 
