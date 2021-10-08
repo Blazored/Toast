@@ -29,8 +29,15 @@ namespace Blazored.Toast
 
         private async void CalculateProgress(int percentComplete)
         {
-            _progress = 100 - percentComplete;
-            await InvokeAsync(StateHasChanged);
+            try
+            {
+                _progress = 100 - percentComplete;
+                await InvokeAsync(StateHasChanged);
+            }
+            catch (Exception ex)
+            {
+                // Swallowing exceptions due to async void
+            }
         }
 
         /// <summary>
