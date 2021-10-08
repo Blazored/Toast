@@ -40,6 +40,7 @@ namespace Blazored.Toast
             ToastService.OnShowComponent += ShowToast;
             ToastService.OnClearAll += ClearAll;
             ToastService.OnClearToasts += ClearToasts;
+            ToastService.OnClearCustomComponentToasts += ClearCustomComponentToasts;
 
 
             if (RemoveToastsOnNavigation)
@@ -168,6 +169,15 @@ namespace Blazored.Toast
             InvokeAsync(() =>
             {
                 ToastList.RemoveAll(x => x.BlazoredToast == null && x.ToastSettings.ToastLevel == toastLevel);
+                StateHasChanged();
+            });
+        }
+
+        private void ClearCustomComponentToasts()
+        {
+            InvokeAsync(() =>
+            {
+                ToastList.RemoveAll(x => x.BlazoredToast is object);
                 StateHasChanged();
             });
         }

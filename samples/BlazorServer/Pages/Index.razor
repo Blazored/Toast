@@ -25,6 +25,7 @@
 <button class="btn btn-primary" @onclick="ClearAll">Clear All</button>
 <button class="btn btn-warning" @onclick="ClearWarnings">Clear Warnings</button>
 <button class="btn btn-info" @onclick="ClearInfos">Clear Infos</button>
+<button class="btn btn-secondary" @onclick="ClearCustom">Clear Custom Component</button>
 
 @code
 {
@@ -48,8 +49,11 @@
         => toastService.ClearAll();
 
     private void ClearWarnings()
-    => toastService.ClearToasts(ToastLevel.Warning);
+        => toastService.ClearToasts(ToastLevel.Warning);
 
     private void ClearInfos()
-    => toastService.ClearInfoToasts();
+        => toastService.ClearInfoToasts();
+
+    private void ClearCustom()
+        => toastService.ClearCustomComponentToasts();
 }

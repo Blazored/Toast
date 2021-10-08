@@ -21,6 +21,11 @@ namespace Blazored.Toast.Services
         event Action<ToastLevel> OnClearToasts;
 
         /// <summary>
+        /// A event that will be invoked to clear custom toast components
+        /// </summary>
+        event Action OnClearCustomComponentToasts;
+
+        /// <summary>
         /// A event that will be invoked when showing a toast with a custom comonent
         /// </summary>
         event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
@@ -150,6 +155,11 @@ namespace Blazored.Toast.Services
         /// Removes all toasts with toast level Error
         /// </summary>
         void ClearErrorToasts();
+
+        /// <summary>
+        /// Removes all custom toast components
+        /// </summary>
+        void ClearCustomComponentToasts();
 
     }
 }
