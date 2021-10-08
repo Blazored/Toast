@@ -9,10 +9,15 @@ else
     <div class="text-white p-4 bg-secondary rounded">
         <h3>@Title</h3>
         <h5 class="mb-0">@ToastParam</h5>
+        <div class="text-right">
+            <button class="btn btn-warning" @onclick="ToastInstance.Close">Close</button>
+        </div>
     </div>
 }
 
 @code{
+    [CascadingParameter] private BlazoredToast ToastInstance { get; set; }
+
     [Parameter] public string Title { get; set; }
     [Parameter] public string ToastParam { get; set; }
 }

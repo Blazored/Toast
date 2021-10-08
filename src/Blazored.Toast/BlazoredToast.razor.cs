@@ -25,7 +25,6 @@ namespace Blazored.Toast
             _countdownTimer.OnTick += CalculateProgress;
             _countdownTimer.OnElapsed += Close;
             _countdownTimer.Start();
-
         }
 
         private async void CalculateProgress(int percentComplete)
@@ -34,15 +33,14 @@ namespace Blazored.Toast
             await InvokeAsync(StateHasChanged);
         }
 
-        private void Close()
-        {
-            ToastsContainer.RemoveToast(ToastId);
-        }
+        /// <summary>
+        /// Closes the toast
+        /// </summary>
+        public void Close() 
+            => ToastsContainer.RemoveToast(ToastId);
 
-        private void ToastClick()
-        {
-            ToastSettings.OnClick?.Invoke();
-        }
+        private void ToastClick() 
+            => ToastSettings.OnClick?.Invoke();
 
         public void Dispose()
         {

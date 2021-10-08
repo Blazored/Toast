@@ -3,7 +3,9 @@
 @if (ChildContent is object)
 {
     <div class="blazored-toast blazored-toast-container blazored-toast-component">
-        @ChildContent
+        <CascadingValue Value="this" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
 
         @if (ToastComponentSettings.ShowProgressBar)
         {
