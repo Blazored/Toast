@@ -11,6 +11,11 @@ namespace Blazored.Toast.Services
         event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
         /// <summary>
+        /// A event that will be invoked to clear all toasts
+        /// </summary>
+        event Action OnClearAll;
+
+        /// <summary>
         /// A event that will be invoked when showing a toast with a custom comonent
         /// </summary>
         event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
@@ -110,5 +115,10 @@ namespace Blazored.Toast.Services
         /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
         /// <param name="settings">Key/Settings to pass to component being displayed</param>
         void ShowToast<TComponent>(ToastParameters parameters, ToastInstanceSettings settings) where TComponent : IComponent;
+
+        /// <summary>
+        /// Removes all toasts
+        /// </summary>
+        void ClearAll();
     }
 }

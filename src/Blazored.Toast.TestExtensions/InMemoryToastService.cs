@@ -13,6 +13,7 @@ namespace Blazored.Toast.TestExtensions
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
         public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
+        public event Action OnClearAll;
 
         public void ShowToast<TComponent>() where TComponent : IComponent
         {
@@ -76,6 +77,11 @@ namespace Blazored.Toast.TestExtensions
                 ToastLevel.Warning => "Warning",
                 _ => throw new InvalidOperationException(),
             };
+        }
+
+        public void ClearAll()
+        {
+            toasts.Clear();
         }
     }
 }

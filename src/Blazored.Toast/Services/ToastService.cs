@@ -11,9 +11,14 @@ namespace Blazored.Toast.Services
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
         /// <summary>
+        /// A event that will be invoked when clearing all toasts
+        /// </summary>
+        public event Action OnClearAll;
+
+        /// <summary>
         /// A event that will be invoked when showing a toast with a custom comonent
         /// </summary>
-        public event Action<Type , ToastParameters , ToastInstanceSettings> OnShowComponent;
+        public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
 
         /// <summary>
         /// Shows a information toast 
@@ -179,6 +184,14 @@ namespace Blazored.Toast.Services
         public void ShowToast<TComponent>(ToastParameters parameters, ToastInstanceSettings settings) where TComponent : IComponent
         {
             ShowToast(typeof(TComponent), parameters, settings);
+        }
+
+        /// <summary>
+        /// Removes all toasts
+        /// </summary>
+        public void ClearAll()
+        {
+            OnClearAll?.Invoke();
         }
     }
 }

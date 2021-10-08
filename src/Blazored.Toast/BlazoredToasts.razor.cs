@@ -38,6 +38,7 @@ namespace Blazored.Toast
         {
             ToastService.OnShow += ShowToast;
             ToastService.OnShowComponent += ShowToast;
+            ToastService.OnClearAll += ClearAll;
 
 
             if (RemoveToastsOnNavigation)
@@ -56,6 +57,8 @@ namespace Blazored.Toast
                 throw new ArgumentException("If an icon is specified then IconType is a required parameter.");
             }
         }
+
+       
 
         public void RemoveToast(Guid toastId)
         {
@@ -146,6 +149,15 @@ namespace Blazored.Toast
 
                 ToastList.Add(toastInstance);
 
+                StateHasChanged();
+            });
+        }
+
+        private void ClearAll()
+        {
+            InvokeAsync(() =>
+            {
+                ToastList.Clear();
                 StateHasChanged();
             });
         }

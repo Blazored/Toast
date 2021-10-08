@@ -18,6 +18,11 @@
 
 <button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(5, true)))">Custom Toast</button>
 <button class="btn btn-secondary" id="CustomButton" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(5, true)))">Custom Toast with parameters</button>
+<hr />
+
+<h1>Blazored Toasts - Remove Toasts</h1>
+
+<button class="btn btn-primary" @onclick="ClearAll">Clear All</button>
 
 @code
 {
@@ -32,7 +37,11 @@
 
     private void OnShowHtml()
     {
-        RenderFragment message =@<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>;
+        RenderFragment message =@<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>
+    ;
         toastService.ShowToast(ToastLevel.Info, message);
     }
+
+    private void ClearAll()
+        => toastService.ClearAll();
 }
