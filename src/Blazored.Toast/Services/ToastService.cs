@@ -170,5 +170,29 @@ namespace Blazored.Toast.Services
         /// </summary>
         public void ClearToasts(ToastLevel toastLevel)
             => OnClearToasts?.Invoke(toastLevel);
+
+        /// <summary>
+        /// Removes all toasts with toast level warning
+        /// </summary>
+        public void ClearWarningToasts()
+            => OnClearToasts?.Invoke(ToastLevel.Warning);
+
+        /// <summary>
+        /// Removes all toasts with toast level info
+        /// </summary>
+        public void ClearInfoToasts()
+            => OnClearToasts?.Invoke(ToastLevel.Info);
+
+        /// <summary>
+        /// Removes all toasts with toast level success
+        /// </summary>
+        public void ClearSuccessToasts()
+            => OnClearToasts?.Invoke(ToastLevel.Success);
+
+        /// <summary>
+        /// Removes all toasts with toast level error
+        /// </summary>
+        public void ClearErrorToasts()
+            => OnClearToasts?.Invoke(ToastLevel.Error);
     }
 }

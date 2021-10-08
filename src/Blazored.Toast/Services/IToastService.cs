@@ -131,6 +131,25 @@ namespace Blazored.Toast.Services
         /// </summary>
         void ClearToasts(ToastLevel toastLevel);
 
+        /// <summary>
+        /// Removes all toasts with toast level warning
+        /// </summary>
+        void ClearWarningToasts();
+
+        /// <summary>
+        /// Removes all toasts with toast level Info
+        /// </summary>
+        void ClearInfoToasts();
+
+        /// <summary>
+        /// Removes all toasts with toast level Success
+        /// </summary>
+        void ClearSuccessToasts();
+
+        /// <summary>
+        /// Removes all toasts with toast level Error
+        /// </summary>
+        void ClearErrorToasts();
 
     }
 }

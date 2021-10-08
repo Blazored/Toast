@@ -85,5 +85,17 @@ namespace Blazored.Toast.TestExtensions
 
         public void ClearToasts(ToastLevel toastLevel)
                 => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == toastLevel);
+
+        public void ClearWarningToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Warning);
+
+        public void ClearInfoToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Info);
+
+        public void ClearSuccessToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Success);
+
+        public void ClearErrorToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Error);
     }
 }
