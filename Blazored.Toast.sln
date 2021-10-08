@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28714.193
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazored.Toast", "src\Blazored.Toast\Blazored.Toast.csproj", "{41CF3689-AEF1-4AAC-B7CF-F60E75023355}"
 EndProject
@@ -14,7 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44082A48-88B8-4BB0-BF2D-B243A0C46F06}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		azure-pipelines.yml = azure-pipelines.yml
+		.github\workflows\ci-main.yml = .github\workflows\ci-main.yml
+		.github\workflows\ci-pr.yml = .github\workflows\ci-pr.yml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
