@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
 
 namespace Blazored.Toast
 {
@@ -30,14 +29,19 @@ namespace Blazored.Toast
         [Parameter] public int MaxItemsShown { get; set; } = int.MaxValue;
         [Parameter] public bool RemoveToastsOnNavigation { get; set; }
         [Parameter] public bool ShowProgressBar { get; set; }
+        [Parameter] public RenderFragment CloseButtonContent { get; set; }
+        [Parameter] public bool ShowCloseButton { get; set; } = true;
 
         private string PositionClass { get; set; } = string.Empty;
+      
         internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
         internal Queue<ToastInstance> ToastWaitingQueue { get; set; } = new Queue<ToastInstance>();
 
         protected override void OnInitialized()
         {
             ToastService.OnShow += ShowToast;
+            ToastService.OnShowComponent += ShowToast;
+
 
             if (RemoveToastsOnNavigation)
             {
@@ -46,7 +50,7 @@ namespace Blazored.Toast
 
             PositionClass = $"position-{Position.ToString().ToLower()}";
 
-            if ((   !string.IsNullOrEmpty(InfoIcon)
+            if ((!string.IsNullOrEmpty(InfoIcon)
                  || !string.IsNullOrEmpty(SuccessIcon)
                  || !string.IsNullOrEmpty(WarningIcon)
                  || !string.IsNullOrEmpty(ErrorIcon)
@@ -114,12 +118,7 @@ namespace Blazored.Toast
             InvokeAsync(() =>
             {
                 var settings = BuildToastSettings(level, message, heading, onClick);
-                var toast = new ToastInstance
-                {
-                    Id = Guid.NewGuid(),
-                    TimeStamp = DateTime.Now,
-                    ToastSettings = settings
-                };
+                var toast = new ToastInstance(settings);
 
                 if (ToastList.Count < MaxItemsShown)
                 {
@@ -145,6 +144,42 @@ namespace Blazored.Toast
                 StateHasChanged();
             });
 
+        }
+
+        private void ShowToast(Type contentComponent, ToastParameters parameters, ToastInstanceSettings settings)
+        {
+            InvokeAsync(() =>
+            {
+                var childContent = new RenderFragment(builder =>
+                {
+                    var i = 0;
+                    builder.OpenComponent(i++, contentComponent);
+                    if (parameters is object)
+                    {
+                        foreach (var parameter in parameters._parameters)
+                        {
+                            builder.AddAttribute(i++, parameter.Key, parameter.Value);
+                        }
+                    }
+                    builder.CloseComponent();
+                });
+
+                if (settings == null)
+                {
+                    settings = new ToastInstanceSettings(Timeout, ShowProgressBar);
+                }
+                else
+                {
+                    settings = new ToastInstanceSettings(Timeout != settings.Timeout ? settings.Timeout : Timeout,
+                        ShowProgressBar != settings.ShowProgressBar ? settings.ShowProgressBar : ShowProgressBar);
+                }
+
+                var toastInstance = new ToastInstance(childContent, settings);
+
+                ToastList.Add(toastInstance);
+
+                StateHasChanged();
+            });
         }
     }
 }

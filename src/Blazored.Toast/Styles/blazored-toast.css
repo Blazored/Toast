@@ -29,6 +29,11 @@
     box-shadow: rgba(0,0,0,0.25) 0px 10px 40px;
 }
 
+.blazored-toast-component {
+    display: initial;
+    padding: 0 0 0 0;
+}
+
 .blazored-toast-info {
     background-color: #34a9ad;
 }
@@ -84,6 +89,13 @@
     .blazored-toast-body p {
         margin-bottom: 0;
         font-size: 1rem;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
     }
 
 .blazored-toast-progressbar {
@@ -110,6 +122,10 @@
 
 .blazored-toast-error .blazored-toast-progressbar > span {
     background-color: #ba5e5e;
+}
+
+.blazored-toast-component .blazored-toast-progressbar > span {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0 0);
 }
 
 .blazored-toast-progressbar > span {

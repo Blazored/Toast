@@ -6,8 +6,7 @@ on:
 
 env:
     PROJECT_NAME: Blazored.Toast
-    NETCORE_VERSION: '3.1.301'
-
+    NETCORE_VERSION: '5.0.x'
 jobs:
   build:
     name: Build and test
@@ -23,8 +22,11 @@ jobs:
     - name: Restoring packages...
       run: dotnet restore
 
-    - name: Building project...
-      run: dotnet build --configuration Release --no-restore src/$PROJECT_NAME/$PROJECT_NAME.csproj
+    - name: Build 
+      run: dotnet build -c Release --no-restore src/$PROJECT_NAME/$PROJECT_NAME.csproj
 
-    - name: Testing...
-      run: dotnet test --no-restore --verbosity normal
+    - name: Build Test Extensions
+      run: dotnet build -c Release --no-restore src/$PROJECT_NAME.TestExtensions/$PROJECT_NAME.TestExtensions.csproj
+
+    - name: Run Tests
+      run: dotnet test -c Release --no-restore --verbosity normal Tests/$PROJECT_NAME.Tests

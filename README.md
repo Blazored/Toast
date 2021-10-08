@@ -64,6 +64,9 @@ Toasts are configured using parameters on the `<BlazoredToasts />` component. Th
 - IconType (Default: IconType.FontAwesome)
 - Position (Default: ToastPosition.TopRight)
 - Timeout (Default: 5)
+- ShowProgressBar (Default: false)
+- ShowCloseButton (Default: true)
+- CloseButtonContent (provide custom close button)
 
 By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
 
@@ -98,6 +101,18 @@ The example above is from the [client side samples](https://github.com/Blazored/
 ```
 The example above is from the [server side samples](https://github.com/Blazored/Toast/tree/master/samples) and demonstrates the use of Material Design icons.
 
+
+If you want to have your own custom close button:
+```html
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="10">
+    <CloseButtonContent>
+        <div>
+            <span>&times;</span>
+        </div>
+    </CloseButtonContent>
+</BlazoredToasts>
+```
 
 ### 4. Add reference to style sheet(s)
 Add the following line to the `head` tag of your `_Host.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
@@ -140,7 +155,6 @@ To show a toast just click one of the buttons below.
 <button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
 <button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 ```
-Full examples for client and server-side Blazor are included in the [samples](https://github.com/Blazored/Toast/tree/master/samples).
 
 ### Show Progress Bar
 You can display a progress bar which gives a visual indicator of the time remaining before the toast will disappear. In order to show the progress bar set the `ShowProgressBar` parameter to true.
@@ -153,6 +167,62 @@ You can display a progress bar which gives a visual indicator of the time remain
 
 ### Remove Toasts When Navigating
 If you wish to clear any visible toasts when the user navigates to a new page you can enable the `RemoveToastsOnNavigation` parameter. Setting this to true will remove any visible toasts whenever the `LocationChanged` event fires.
+
+### Custom Component
+You can call the `ShowToast` method passing the type of component you want the toast to display.
+
+For example if I have a component called `MyToast` which I want to display in the toast and I want to call it from the `Index` component on a button cick.
+
+```html
+@page "/toastdemo"
+@inject IToastService toastService
+
+<h1>Custom Toast Demo</h1>
+
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToast>())">Custom Toast</button>
+```
+
+### Passing Parameters
+If you want to pass values to the component you're displaying in the toast, then you can use the `ToastParameters` object. The name you provide must match the name of a parameter defined on the component being displayed.
+
+```razor
+@page "/toastdemo"
+@inject IToastService toastService
+
+<h1>Custom Toast Demo</h1>
+
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToast>(_toastParameters))">Custom Toast with parameters</button>
+
+@code
+{
+    private ToastParameters _toastParameters;
+
+    protected override void OnInitialized()
+    {
+        _toastParameters = new ToastParameters();
+        _toastParameters.Add(nameof(MyToast.Heading), "MyToast heading");
+        _toastParameters.Add(nameof(MyToast.Message), "MyToast message");
+    }
+}
+```
+### Custom Component Options
+Custom toast components can be customized. These settings can be set globally or changed programatically on a per toast basis. This is achieved using the `ToastInstanceSettings` class.
+The following settings are available.
+- `Timeout`
+- `ShowProgressBar`
+
+For Example if you want to change the duration of the timeout and disable the progress bar.
+
+```html
+@page "/toastdemo"
+@inject IToastService toastService
+
+<h1>Custom Toast Demo</h1>
+
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToast>(new ToastInstanceSettings(5, false)))">Custom Toast</button>
+```
+
+Full examples for client and server-side Blazor are included in the [samples](https://github.com/Blazored/Toast/tree/master/samples).
 
 ## FAQ
 ### The toasts are not showing
