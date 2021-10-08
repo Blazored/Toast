@@ -26,7 +26,7 @@ namespace Blazored.Toast
         [Parameter] public string ErrorIcon { get; set; }
         [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
         [Parameter] public int Timeout { get; set; } = 5;
-        [Parameter] public int MaxItemsShown { get; set; } = int.MaxValue;
+        [Parameter] public int MaxToastCount { get; set; } = int.MaxValue;
         [Parameter] public bool RemoveToastsOnNavigation { get; set; }
         [Parameter] public bool ShowProgressBar { get; set; }
         [Parameter] public RenderFragment CloseButtonContent { get; set; }
@@ -95,19 +95,19 @@ namespace Blazored.Toast
             {
                 case ToastLevel.Error:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType,
-                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, MaxItemsShown, onclick);
+                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Info:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType,
-                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, MaxItemsShown, onclick);
+                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Success:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType,
-                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, MaxItemsShown, onclick);
+                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Warning:
                     return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType,
-                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, MaxItemsShown, onclick);
+                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, MaxToastCount, onclick);
             }
 
             throw new InvalidOperationException();
@@ -120,7 +120,7 @@ namespace Blazored.Toast
                 var settings = BuildToastSettings(level, message, heading, onClick);
                 var toast = new ToastInstance(settings);
 
-                if (ToastList.Count < MaxItemsShown)
+                if (ToastList.Count < MaxToastCount)
                 {
                     ToastList.Add(toast);
 

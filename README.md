@@ -67,6 +67,7 @@ Toasts are configured using parameters on the `<BlazoredToasts />` component. Th
 - ShowProgressBar (Default: false)
 - ShowCloseButton (Default: true)
 - CloseButtonContent (provide custom close button)
+- MaxToastCount (Default: `int.MaxValue`)
 
 By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
 
@@ -167,6 +168,9 @@ You can display a progress bar which gives a visual indicator of the time remain
 
 ### Remove Toasts When Navigating
 If you wish to clear any visible toasts when the user navigates to a new page you can enable the `RemoveToastsOnNavigation` parameter. Setting this to true will remove any visible toasts whenever the `LocationChanged` event fires.
+
+### Limiting number of toasts shown at once
+If you want to limit the number of toasts displayed at any given time, you can set the `MaxToastCount` parameter. For example, if the value is set to *3* only three toast instances will be displayed. Any additional toasts that are triggered will be held in a queue and will be displayed as older toasts time out.
 
 ### Custom Component
 You can call the `ShowToast` method passing the type of component you want the toast to display.
