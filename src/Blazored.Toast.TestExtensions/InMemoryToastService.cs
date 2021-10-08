@@ -15,7 +15,7 @@ namespace Blazored.Toast.TestExtensions
         public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
         public event Action OnClearAll;
         public event Action<ToastLevel> OnClearToasts;
-        public event Action OnClearCustomComponentToasts;
+        public event Action OnClearCustomToasts;
 
         public void ShowToast<TComponent>() where TComponent : IComponent
         {
@@ -99,7 +99,7 @@ namespace Blazored.Toast.TestExtensions
         public void ClearErrorToasts()
                 => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Error);
 
-        public void ClearCustomComponentToasts()
+        public void ClearCustomToasts()
                 => toasts.RemoveAll(x => x.ToastType != typeof(Configuration.ToastInstance));
     }
 }

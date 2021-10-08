@@ -22,10 +22,10 @@
 
 <h1>Blazored Toasts - Remove Toasts</h1>
 
-<button class="btn btn-primary" @onclick="ClearAll">Clear All</button>
-<button class="btn btn-warning" @onclick="ClearWarnings">Clear Warnings</button>
-<button class="btn btn-info" @onclick="ClearInfos">Clear Infos</button>
-<button class="btn btn-secondary" @onclick="ClearCustom">Clear Custom Component</button>
+<button class="btn btn-primary" @onclick="ClearAll">Clear All Toasts</button>
+<button class="btn btn-warning" @onclick="ClearWarnings">Clear Warning Toasts</button>
+<button class="btn btn-info" @onclick="ClearInfos">Clear Info Toasts</button>
+<button class="btn btn-secondary" @onclick="ClearCustom">Clear Custom Toasts</button>
 
 @code
 {
@@ -55,5 +55,5 @@
         => toastService.ClearInfoToasts();
 
     private void ClearCustom()
-        => toastService.ClearCustomComponentToasts();
+        => toastService.ClearCustomToasts();
 }

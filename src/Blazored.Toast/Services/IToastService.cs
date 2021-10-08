@@ -23,7 +23,7 @@ namespace Blazored.Toast.Services
         /// <summary>
         /// A event that will be invoked to clear custom toast components
         /// </summary>
-        event Action OnClearCustomComponentToasts;
+        event Action OnClearCustomToasts;
 
         /// <summary>
         /// A event that will be invoked when showing a toast with a custom comonent
@@ -159,7 +159,7 @@ namespace Blazored.Toast.Services
         /// <summary>
         /// Removes all custom toast components
         /// </summary>
-        void ClearCustomComponentToasts();
+        void ClearCustomToasts();
 
     }
 }

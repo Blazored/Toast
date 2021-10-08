@@ -43,7 +43,7 @@ namespace Blazored.Toast
             ToastService.OnShowComponent += ShowToast;
             ToastService.OnClearAll += ClearAll;
             ToastService.OnClearToasts += ClearToasts;
-            ToastService.OnClearCustomComponentToasts += ClearCustomComponentToasts;
+            ToastService.OnClearCustomToasts += ClearCustomToasts;
 
 
             if (RemoveToastsOnNavigation)
@@ -205,7 +205,7 @@ namespace Blazored.Toast
             });
         }
 
-        private void ClearCustomComponentToasts()
+        private void ClearCustomToasts()
         {
             InvokeAsync(() =>
             {
