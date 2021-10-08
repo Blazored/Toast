@@ -108,32 +108,14 @@
     border-bottom-right-radius: .25rem;
 }
 
-.blazored-toast-info .blazored-toast-progressbar > span {
-    background-color: #34a9ad;
-}
-
-.blazored-toast-success .blazored-toast-progressbar > span {
-    background-color: #5fba7d;
-}
-
-.blazored-toast-warning .blazored-toast-progressbar > span {
-    background-color: #c1c13e;
-}
-
-.blazored-toast-error .blazored-toast-progressbar > span {
-    background-color: #ba5e5e;
-}
-
-.blazored-toast-component .blazored-toast-progressbar > span {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0 0);
-}
-
-.blazored-toast-progressbar > span {
-    position: absolute;
-    filter: brightness(75%);
-    height: 8px;
-    border-bottom-left-radius: .25rem;
-}
+    .blazored-toast-progressbar > span {
+        position: absolute;
+        filter: brightness(75%);
+        height: 8px;
+        border-bottom-left-radius: .25rem;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+        transition: all .5s linear;
+    }
 
 .blazored-toast-action {
     cursor: pointer;
