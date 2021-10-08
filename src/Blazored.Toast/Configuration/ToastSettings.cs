@@ -1,4 +1,5 @@
 ﻿using System;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazored.Toast.Configuration
@@ -6,6 +7,7 @@ namespace Blazored.Toast.Configuration
     public class ToastSettings
     {
         public ToastSettings(
+            ToastLevel toastLevel,
             string heading,
             RenderFragment message,
             IconType? iconType,
@@ -15,6 +17,7 @@ namespace Blazored.Toast.Configuration
             bool showProgressBar,
             Action? onClick)
         {
+            ToastLevel = toastLevel;
             Heading = heading;
             Message = message;
             IconType = iconType;
@@ -29,6 +32,7 @@ namespace Blazored.Toast.Configuration
             }
         }
 
+        public ToastLevel ToastLevel { get; set; }
         public string Heading { get; set; }
         public RenderFragment Message { get; set; }
         public string BaseClass { get; set; }

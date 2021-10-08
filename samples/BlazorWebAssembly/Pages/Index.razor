@@ -23,6 +23,7 @@
 <h1>Blazored Toasts - Remove Toasts</h1>
 
 <button class="btn btn-primary" @onclick="ClearAll">Clear All</button>
+<button class="btn btn-warning" @onclick="ClearWarnings">Clear Warnings</button>
 
 @code
 {
@@ -44,4 +45,7 @@
 
     private void ClearAll()
         => toastService.ClearAll();
+
+    private void ClearWarnings()
+        => toastService.ClearToasts(ToastLevel.Warning);
 }
