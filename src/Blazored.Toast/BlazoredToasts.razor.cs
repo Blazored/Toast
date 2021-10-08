@@ -26,13 +26,16 @@ namespace Blazored.Toast
         [Parameter] public string ErrorIcon { get; set; }
         [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
         [Parameter] public int Timeout { get; set; } = 5;
+        [Parameter] public int MaxToastCount { get; set; } = int.MaxValue;
         [Parameter] public bool RemoveToastsOnNavigation { get; set; }
         [Parameter] public bool ShowProgressBar { get; set; }
         [Parameter] public RenderFragment CloseButtonContent { get; set; }
         [Parameter] public bool ShowCloseButton { get; set; } = true;
 
         private string PositionClass { get; set; } = string.Empty;
-        private List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
+      
+        internal List<ToastInstance> ToastList { get; set; } = new List<ToastInstance>();
+        internal Queue<ToastInstance> ToastWaitingQueue { get; set; } = new Queue<ToastInstance>();
 
         protected override void OnInitialized()
         {
@@ -69,6 +72,11 @@ namespace Blazored.Toast
                 var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
                 ToastList.Remove(toastInstance);
                 StateHasChanged();
+
+                if (ToastWaitingQueue.Any())
+                {
+                    ShowEnqueuedToast();
+                }
             });
         }
 
@@ -78,6 +86,11 @@ namespace Blazored.Toast
             {
                 ToastList.Clear();
                 StateHasChanged();
+
+                if (ToastWaitingQueue.Any())
+                {
+                    ShowEnqueuedToast();
+                }
             });
         }
 
@@ -87,19 +100,19 @@ namespace Blazored.Toast
             {
                 case ToastLevel.Error:
                     return new ToastSettings(ToastLevel.Error, string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType,
-                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, onclick);
+                        "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Info:
                     return new ToastSettings(ToastLevel.Info, string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType,
-                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, onclick);
+                        "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Success:
                     return new ToastSettings(ToastLevel.Success, string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType,
-                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, onclick);
+                        "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Warning:
                     return new ToastSettings(ToastLevel.Warning, string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType,
-                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, onclick);
+                        "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, MaxToastCount, onclick);
             }
 
             throw new InvalidOperationException();
@@ -111,6 +124,25 @@ namespace Blazored.Toast
             {
                 var settings = BuildToastSettings(level, message, heading, onClick);
                 var toast = new ToastInstance(settings);
+
+                if (ToastList.Count < MaxToastCount)
+                {
+                    ToastList.Add(toast);
+
+                    StateHasChanged();
+                }
+                else
+                {
+                    ToastWaitingQueue.Enqueue(toast);
+                }
+            });
+
+        }
+        private void ShowEnqueuedToast()
+        {
+            InvokeAsync(() =>
+            {
+                var toast = ToastWaitingQueue.Dequeue();
 
                 ToastList.Add(toast);
 

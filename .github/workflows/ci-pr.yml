@@ -29,4 +29,4 @@ jobs:
       run: dotnet build -c Release --no-restore src/$PROJECT_NAME.TestExtensions/$PROJECT_NAME.TestExtensions.csproj
 
     - name: Run Tests
-      run: dotnet test -c Release --no-restore --verbosity normal Tests/$PROJECT_NAME.Tests
+      run: dotnet test -c Release --no-restore --verbosity normal tests/$PROJECT_NAME.Tests
