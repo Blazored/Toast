@@ -1,5 +1,6 @@
 using Blazored.Toast;
 using Blazored.Toast.Services;
+using BlazorWebAssembly.Pages;
 using Bunit;
 using System.Linq;
 using Xunit;
@@ -13,7 +14,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
+            var cut = RenderComponent<Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -27,7 +28,7 @@ namespace bUnitExample
         {
             // Arrange Act
             var toastService = this.AddBlazoredToast();
-            RenderComponent<BlazorWebAssembly.Pages.Index>();
+            RenderComponent<Index>();
 
             // Assert
             Assert.Equal(0, toastService.Toasts.Count);
@@ -38,7 +39,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
+            var cut = RenderComponent<Index>();
 
             // Act
             var button = cut.Find("#InfoButton");
@@ -54,7 +55,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
+            var cut = RenderComponent<Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -68,7 +69,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
+            var cut = RenderComponent<Index>();
 
             // Act
             cut.Find("#SuccessButton").Click();
@@ -82,7 +83,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
+            var cut = RenderComponent<Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -99,7 +100,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
+            var cut = RenderComponent<Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -116,7 +117,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<BlazorWebAssembly.Pages.Index>();
+            var cut = RenderComponent<Index>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -124,6 +125,20 @@ namespace bUnitExample
 
             // Assert
             Assert.NotEmpty(toastService.Toasts);
+        }
+
+        [Fact]
+        public void DisplaysToastComponent()
+        {
+            // Arrange
+            var toastService = this.AddBlazoredToast();
+            var cut = RenderComponent<Index>();
+
+            // Act
+            cut.Find("#CustomButton").Click();
+
+            // Assert
+            Assert.Equal(1, toastService.Toasts.Count(_ => _.ToastType == typeof(MyToastComponent)));
         }
     }
 }
