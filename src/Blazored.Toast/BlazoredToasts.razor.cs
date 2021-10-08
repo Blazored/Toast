@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
-using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Blazored.Toast
 {
@@ -39,6 +37,8 @@ namespace Blazored.Toast
         protected override void OnInitialized()
         {
             ToastService.OnShow += ShowToast;
+            ToastService.OnShowComponent += ShowToast;
+
 
             if (RemoveToastsOnNavigation)
             {
@@ -47,7 +47,7 @@ namespace Blazored.Toast
 
             PositionClass = $"position-{Position.ToString().ToLower()}";
 
-            if ((   !string.IsNullOrEmpty(InfoIcon)
+            if ((!string.IsNullOrEmpty(InfoIcon)
                  || !string.IsNullOrEmpty(SuccessIcon)
                  || !string.IsNullOrEmpty(WarningIcon)
                  || !string.IsNullOrEmpty(ErrorIcon)
@@ -105,18 +105,49 @@ namespace Blazored.Toast
             InvokeAsync(() =>
             {
                 var settings = BuildToastSettings(level, message, heading, onClick);
-                var toast = new ToastInstance
-                {
-                    Id = Guid.NewGuid(),
-                    TimeStamp = DateTime.Now,
-                    ToastSettings = settings
-                };
+                var toast = new ToastInstance(settings);
 
                 ToastList.Add(toast);
 
                 StateHasChanged();
             });
 
+        }
+
+        private void ShowToast(Type contentComponent, ToastParameters parameters, ToastInstanceSettings settings)
+        {
+            InvokeAsync(() =>
+            {
+                var childContent = new RenderFragment(builder =>
+                {
+                    var i = 0;
+                    builder.OpenComponent(i++, contentComponent);
+                    if (parameters is object)
+                    {
+                        foreach (var parameter in parameters._parameters)
+                        {
+                            builder.AddAttribute(i++, parameter.Key, parameter.Value);
+                        }
+                    }
+                    builder.CloseComponent();
+                });
+
+                if (settings == null)
+                {
+                    settings = new ToastInstanceSettings(Timeout, ShowProgressBar);
+                }
+                else
+                {
+                    settings = new ToastInstanceSettings(Timeout != settings.Timeout ? settings.Timeout : Timeout,
+                        ShowProgressBar != settings.ShowProgressBar ? settings.ShowProgressBar : ShowProgressBar);
+                }
+
+                var toastInstance = new ToastInstance(childContent, settings);
+
+                ToastList.Add(toastInstance);
+
+                StateHasChanged();
+            });
         }
     }
 }
