@@ -13,6 +13,9 @@ namespace Blazored.Toast.TestExtensions
         public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
         public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
+        public event Action OnClearAll;
+        public event Action<ToastLevel> OnClearToasts;
+        public event Action OnClearCustomToasts;
 
         public void ShowToast<TComponent>() where TComponent : IComponent
         {
@@ -77,5 +80,26 @@ namespace Blazored.Toast.TestExtensions
                 _ => throw new InvalidOperationException(),
             };
         }
+
+        public void ClearAll()
+               => toasts.Clear();
+
+        public void ClearToasts(ToastLevel toastLevel)
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == toastLevel);
+
+        public void ClearWarningToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Warning);
+
+        public void ClearInfoToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Info);
+
+        public void ClearSuccessToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Success);
+
+        public void ClearErrorToasts()
+                => toasts.RemoveAll(x => x.ToastType == typeof(Configuration.ToastInstance) && x.ToastLevel == ToastLevel.Error);
+
+        public void ClearCustomToasts()
+                => toasts.RemoveAll(x => x.ToastType != typeof(Configuration.ToastInstance));
     }
 }

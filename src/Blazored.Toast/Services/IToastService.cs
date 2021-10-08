@@ -11,6 +11,21 @@ namespace Blazored.Toast.Services
         event Action<ToastLevel, RenderFragment, string, Action> OnShow;
 
         /// <summary>
+        /// A event that will be invoked to clear all toasts
+        /// </summary>
+        event Action OnClearAll;
+
+        /// <summary>
+        /// A event that will be invoked to clear toast of specified level
+        /// </summary>
+        event Action<ToastLevel> OnClearToasts;
+
+        /// <summary>
+        /// A event that will be invoked to clear custom toast components
+        /// </summary>
+        event Action OnClearCustomToasts;
+
+        /// <summary>
         /// A event that will be invoked when showing a toast with a custom comonent
         /// </summary>
         event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
@@ -110,5 +125,41 @@ namespace Blazored.Toast.Services
         /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed</param>
         /// <param name="settings">Key/Settings to pass to component being displayed</param>
         void ShowToast<TComponent>(ToastParameters parameters, ToastInstanceSettings settings) where TComponent : IComponent;
+
+        /// <summary>
+        /// Removes all toasts
+        /// </summary>
+        void ClearAll();
+
+        /// <summary>
+        /// Removes all toasts with a specified <paramref name="toastLevel"/>.
+        /// </summary>
+        void ClearToasts(ToastLevel toastLevel);
+
+        /// <summary>
+        /// Removes all toasts with toast level warning
+        /// </summary>
+        void ClearWarningToasts();
+
+        /// <summary>
+        /// Removes all toasts with toast level Info
+        /// </summary>
+        void ClearInfoToasts();
+
+        /// <summary>
+        /// Removes all toasts with toast level Success
+        /// </summary>
+        void ClearSuccessToasts();
+
+        /// <summary>
+        /// Removes all toasts with toast level Error
+        /// </summary>
+        void ClearErrorToasts();
+
+        /// <summary>
+        /// Removes all custom toast components
+        /// </summary>
+        void ClearCustomToasts();
+
     }
 }

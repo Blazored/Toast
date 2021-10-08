@@ -41,6 +41,9 @@ namespace Blazored.Toast
         {
             ToastService.OnShow += ShowToast;
             ToastService.OnShowComponent += ShowToast;
+            ToastService.OnClearAll += ClearAll;
+            ToastService.OnClearToasts += ClearToasts;
+            ToastService.OnClearCustomToasts += ClearCustomToasts;
 
 
             if (RemoveToastsOnNavigation)
@@ -59,6 +62,8 @@ namespace Blazored.Toast
                 throw new ArgumentException("If an icon is specified then IconType is a required parameter.");
             }
         }
+
+
 
         public void RemoveToast(Guid toastId)
         {
@@ -94,19 +99,19 @@ namespace Blazored.Toast
             switch (level)
             {
                 case ToastLevel.Error:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType,
+                    return new ToastSettings(ToastLevel.Error, string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType,
                         "blazored-toast-error", ErrorClass, ErrorIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Info:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType,
+                    return new ToastSettings(ToastLevel.Info, string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType,
                         "blazored-toast-info", InfoClass, InfoIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Success:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType,
+                    return new ToastSettings(ToastLevel.Success, string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType,
                         "blazored-toast-success", SuccessClass, SuccessIcon, ShowProgressBar, MaxToastCount, onclick);
 
                 case ToastLevel.Warning:
-                    return new ToastSettings(string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType,
+                    return new ToastSettings(ToastLevel.Warning, string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType,
                         "blazored-toast-warning", WarningClass, WarningIcon, ShowProgressBar, MaxToastCount, onclick);
             }
 
@@ -178,6 +183,33 @@ namespace Blazored.Toast
 
                 ToastList.Add(toastInstance);
 
+                StateHasChanged();
+            });
+        }
+
+        private void ClearAll()
+        {
+            InvokeAsync(() =>
+            {
+                ToastList.Clear();
+                StateHasChanged();
+            });
+        }
+
+        private void ClearToasts(ToastLevel toastLevel)
+        {
+            InvokeAsync(() =>
+            {
+                ToastList.RemoveAll(x => x.BlazoredToast == null && x.ToastSettings.ToastLevel == toastLevel);
+                StateHasChanged();
+            });
+        }
+
+        private void ClearCustomToasts()
+        {
+            InvokeAsync(() =>
+            {
+                ToastList.RemoveAll(x => x.BlazoredToast is object);
                 StateHasChanged();
             });
         }
