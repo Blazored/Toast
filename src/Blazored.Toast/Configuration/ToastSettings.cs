@@ -13,6 +13,7 @@ namespace Blazored.Toast.Configuration
             string additionalClasses,
             string icon,
             bool showProgressBar,
+            int maxItemsShown,
             Action? onClick)
         {
             Heading = heading;
@@ -22,6 +23,7 @@ namespace Blazored.Toast.Configuration
             AdditionalClasses = additionalClasses;
             Icon = icon;
             ShowProgressBar = showProgressBar;
+            MaxItemsShown = maxItemsShown;
             OnClick = onClick;
             if (onClick != null)
             {
@@ -36,6 +38,7 @@ namespace Blazored.Toast.Configuration
         public string Icon { get; set; }
         public IconType? IconType { get; set; }
         public bool ShowProgressBar { get; set; }
+        public int MaxItemsShown { get; set; }
         public Action? OnClick { get; set; }
     }
 }
