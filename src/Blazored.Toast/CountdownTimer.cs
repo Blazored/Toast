@@ -1,60 +1,61 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Timers;
-using Microsoft.AspNetCore.Components;
 
-namespace Blazored.Toast
+namespace Blazored.Toast;
+
+internal class CountdownTimer : IDisposable
 {
-    internal class CountdownTimer : IDisposable
+    private readonly PeriodicTimer _timer;
+    private readonly int _ticksToTimeout;
+    private readonly CancellationToken _cancellationToken;
+    private Task? workTask;
+    private int _percentComplete;
+    
+    private Func<int, Task>? _tickDelegate;
+    private Action? _elapsedDelegate;
+
+    internal CountdownTimer(int timeout, CancellationToken cancellationToken = default)
     {
-        private Timer _timer;
-        private int _timeout;
-        private int _countdownTotal;
-        private int _percentComplete;
+        _ticksToTimeout = 100;
+        _timer = new PeriodicTimer(TimeSpan.FromMilliseconds(timeout * 10));
+        _cancellationToken = cancellationToken;
+    }
 
-        internal Action<int> OnTick;
-        internal Action OnElapsed;
+    internal CountdownTimer OnTick(Func<int, Task> updateProgressDelegate)
+    {
+        _tickDelegate = updateProgressDelegate;
+        return this;
+    }
 
-        internal CountdownTimer(int timeout)
-        {
-            _countdownTotal = timeout;
-            _timeout = (_countdownTotal * 1000) / 100;
-            _percentComplete = 0;
-            SetupTimer();
-        }
+    internal CountdownTimer OnElapsed(Action elapsedDelegate)
+    {
+        _elapsedDelegate = elapsedDelegate;
+        return this;
+    }
 
-        internal void Start()
-        {
-            _timer.Start();
-        }
+    internal void Start()
+    {
+        _percentComplete = 0;
+        workTask = DoWorkAsync();        
+    }
 
-        private void SetupTimer()
-        {
-            _timer = new Timer(_timeout);
-            _timer.Elapsed += HandleTick;
-            _timer.AutoReset = false;
-        }
-
-        private void HandleTick(object sender, ElapsedEventArgs args)
+    private async Task DoWorkAsync()
+    {
+        while (await _timer.WaitForNextTickAsync(_cancellationToken)
+            && !_cancellationToken.IsCancellationRequested)
         {
             _percentComplete++;
-            OnTick?.Invoke(_percentComplete);
-
-            if (_percentComplete == 100)
+            await _tickDelegate?.Invoke(_percentComplete);
+            if(_percentComplete == _ticksToTimeout)
             {
-                OnElapsed?.Invoke();
-            }
-            else
-            {
-                SetupTimer();
-                Start();
+                _elapsedDelegate?.Invoke();
             }
         }
+    }
 
-        public void Dispose()
-        {
-            _timer.Dispose();
-            _timer = null;
-        }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
     }
 }

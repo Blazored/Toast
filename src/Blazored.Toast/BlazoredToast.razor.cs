@@ -1,58 +1,60 @@
 ﻿using Blazored.Toast.Configuration;
 using Microsoft.AspNetCore.Components;
-using System;
 
-namespace Blazored.Toast
+namespace Blazored.Toast;
+
+public partial class BlazoredToast : IDisposable
 {
-    public partial class BlazoredToast : IDisposable
+    [CascadingParameter]
+    private BlazoredToasts? ToastsContainer { get; set; }
+
+    [Parameter]
+    public Guid ToastId { get; set; }
+
+    [Parameter]
+    public ToastSettings? ToastSettings { get; set; }
+
+    [Parameter]
+    public ToastInstanceSettings? ToastComponentSettings { get; set; }
+
+    [Parameter]
+    public int Timeout { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private RenderFragment? CloseButtonContent => ToastsContainer?.CloseButtonContent;
+    private bool ShowCloseButton => ToastsContainer?.ShowCloseButton ?? false;
+
+    private CountdownTimer? _countdownTimer;
+    private int _progress = 100;
+
+
+    protected override void OnInitialized()
     {
-        [CascadingParameter] private BlazoredToasts ToastsContainer { get; set; }
+        _countdownTimer = new CountdownTimer(Timeout)
+            .OnTick(CalculateProgressAsync)
+            .OnElapsed(Close);
 
-        [Parameter] public Guid ToastId { get; set; }
-        [Parameter] public ToastSettings ToastSettings { get; set; }
-        [Parameter] public ToastInstanceSettings ToastComponentSettings { get; set; }
-        [Parameter] public int Timeout { get; set; }
-        [Parameter] public RenderFragment ChildContent { get; set; }
-        private RenderFragment CloseButtonContent => ToastsContainer.CloseButtonContent;
-        private bool ShowCloseButton => ToastsContainer.ShowCloseButton;
+        _countdownTimer.Start();
+    }
 
-        private CountdownTimer _countdownTimer;
-        private int _progress = 100;
+    private async Task CalculateProgressAsync(int percentComplete)
+    {
+        _progress = 100 - percentComplete;
+        await InvokeAsync(StateHasChanged);
+    }
 
-        protected override void OnInitialized()
-        {
-            _countdownTimer = new CountdownTimer(Timeout);
-            _countdownTimer.OnTick += CalculateProgress;
-            _countdownTimer.OnElapsed += Close;
-            _countdownTimer.Start();
-        }
+    /// <summary>
+    /// Closes the toast
+    /// </summary>
+    public void Close() => ToastsContainer?.RemoveToast(ToastId);
 
-        private async void CalculateProgress(int percentComplete)
-        {
-            try
-            {
-                _progress = 100 - percentComplete;
-                await InvokeAsync(StateHasChanged);
-            }
-            catch (Exception ex)
-            {
-                // Swallowing exceptions due to async void
-            }
-        }
+    private void ToastClick() => ToastSettings?.OnClick?.Invoke();
 
-        /// <summary>
-        /// Closes the toast
-        /// </summary>
-        public void Close() 
-            => ToastsContainer.RemoveToast(ToastId);
-
-        private void ToastClick() 
-            => ToastSettings.OnClick?.Invoke();
-
-        public void Dispose()
-        {
-            _countdownTimer.Dispose();
-            _countdownTimer = null;
-        }
+    public void Dispose()
+    {
+        _countdownTimer?.Dispose();
+        _countdownTimer = null;
     }
 }

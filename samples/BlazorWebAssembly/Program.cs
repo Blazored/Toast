@@ -1,18 +1,13 @@
 ﻿using Blazored.Toast;
+using BlazorWebAssembly;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System.Threading.Tasks;
 
-namespace BlazorWebAssembly
-{
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
-            builder.Services.AddBlazoredToast();
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-            await builder.Build().RunAsync();
-        }
-    }
-}
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
+
+builder.Services.AddBlazoredToast();
+
+await builder.Build().RunAsync();

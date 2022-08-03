@@ -1,12 +1,11 @@
-namespace Blazored.Toast.Configuration
+namespace Blazored.Toast.Configuration;
+
+public enum ToastPosition
 {
-    public enum ToastPosition
-    {
-        TopLeft,
-        TopRight,
-        TopCenter,
-        BottomLeft,
-        BottomRight,
-        BottomCenter
-    }
+    TopLeft,
+    TopRight,
+    TopCenter,
+    BottomLeft,
+    BottomRight,
+    BottomCenter
 }
