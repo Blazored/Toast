@@ -1,7 +1,4 @@
-﻿using System;
-using System.Timers;
-
-namespace Blazored.Toast;
+﻿namespace Blazored.Toast;
 
 internal class CountdownTimer : IDisposable
 {
@@ -10,7 +7,7 @@ internal class CountdownTimer : IDisposable
     private readonly CancellationToken _cancellationToken;
     private Task? workTask;
     private int _percentComplete;
-    
+
     private Func<int, Task>? _tickDelegate;
     private Action? _elapsedDelegate;
 
@@ -36,7 +33,7 @@ internal class CountdownTimer : IDisposable
     internal void Start()
     {
         _percentComplete = 0;
-        workTask = DoWorkAsync();        
+        workTask = DoWorkAsync();
     }
 
     private async Task DoWorkAsync()
@@ -46,7 +43,7 @@ internal class CountdownTimer : IDisposable
         {
             _percentComplete++;
             await _tickDelegate?.Invoke(_percentComplete);
-            if(_percentComplete == _ticksToTimeout)
+            if (_percentComplete == _ticksToTimeout)
             {
                 _elapsedDelegate?.Invoke();
             }
