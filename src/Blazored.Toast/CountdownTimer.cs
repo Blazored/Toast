@@ -5,7 +5,6 @@ internal class CountdownTimer : IDisposable
     private readonly PeriodicTimer _timer;
     private readonly int _ticksToTimeout;
     private readonly CancellationToken _cancellationToken;
-    private Task? workTask;
     private int _percentComplete;
 
     private Func<int, Task>? _tickDelegate;
@@ -30,19 +29,19 @@ internal class CountdownTimer : IDisposable
         return this;
     }
 
-    internal void Start()
+    internal async Task StartAsync()
     {
         _percentComplete = 0;
-        workTask = DoWorkAsync();
+        await DoWorkAsync();
     }
 
     private async Task DoWorkAsync()
     {
-        while (await _timer.WaitForNextTickAsync(_cancellationToken)
-            && !_cancellationToken.IsCancellationRequested)
+        while (await _timer.WaitForNextTickAsync(_cancellationToken) && !_cancellationToken.IsCancellationRequested)
         {
             _percentComplete++;
-            await _tickDelegate?.Invoke(_percentComplete);
+            await _tickDelegate?.Invoke(_percentComplete)!;
+            
             if (_percentComplete == _ticksToTimeout)
             {
                 _elapsedDelegate?.Invoke();
@@ -50,9 +49,5 @@ internal class CountdownTimer : IDisposable
         }
     }
 
-
-    public void Dispose()
-    {
-        _timer?.Dispose();
-    }
+    public void Dispose() => _timer.Dispose();
 }

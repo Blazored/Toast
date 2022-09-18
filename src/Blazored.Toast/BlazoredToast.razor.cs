@@ -30,13 +30,13 @@ public partial class BlazoredToast : IDisposable
     private int _progress = 100;
 
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _countdownTimer = new CountdownTimer(Timeout)
             .OnTick(CalculateProgressAsync)
             .OnElapsed(Close);
 
-        _countdownTimer.Start();
+        await _countdownTimer.StartAsync();
     }
 
     private async Task CalculateProgressAsync(int percentComplete)
