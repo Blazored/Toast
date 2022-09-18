@@ -7,7 +7,7 @@ public class ToastSettings
 {
     public ToastSettings(
         ToastLevel toastLevel,
-        string heading,
+        string? heading,
         RenderFragment message,
         IconType? iconType,
         string baseClass,
@@ -35,7 +35,7 @@ public class ToastSettings
     }
 
     public ToastLevel ToastLevel { get; }
-    public string Heading { get; }
+    public string? Heading { get; }
     public RenderFragment Message { get; }
     public string BaseClass { get; }
     public string AdditionalClasses { get; }

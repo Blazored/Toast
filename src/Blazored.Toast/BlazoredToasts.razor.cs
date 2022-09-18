@@ -5,66 +5,35 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Blazored.Toast;
 
-public enum IconType { FontAwesome, Material };
+public enum IconType
+{
+    FontAwesome,
+    Material
+};
 
 public partial class BlazoredToasts
 {
-    [Inject]
-    private IToastService ToastService { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
-    [Parameter]
-    public IconType? IconType { get; set; }
-
-    [Parameter]
-    public string? InfoClass { get; set; }
-
-    [Parameter]
-    public string? InfoIcon { get; set; }
-
-    [Parameter]
-    public string? SuccessClass { get; set; }
-
-    [Parameter]
-    public string? SuccessIcon { get; set; }
-
-    [Parameter]
-    public string? WarningClass { get; set; }
-
-    [Parameter]
-    public string? WarningIcon { get; set; }
-
-    [Parameter]
-    public string? ErrorClass { get; set; }
-
-    [Parameter]
-    public string? ErrorIcon { get; set; }
-
-    [Parameter]
-    public ToastPosition Position { get; set; } = ToastPosition.TopRight;
-
-    [Parameter]
-    public int Timeout { get; set; } = 5;
-
-    [Parameter]
-    public int MaxToastCount { get; set; } = int.MaxValue;
-
-    [Parameter]
-    public bool RemoveToastsOnNavigation { get; set; }
-
-    [Parameter]
-    public bool ShowProgressBar { get; set; }
-
-    [Parameter]
-    public RenderFragment? CloseButtonContent { get; set; }
-
-    [Parameter]
-    public bool ShowCloseButton { get; set; } = true;
+    [Parameter] public IconType? IconType { get; set; }
+    [Parameter] public string? InfoClass { get; set; }
+    [Parameter] public string? InfoIcon { get; set; }
+    [Parameter] public string? SuccessClass { get; set; }
+    [Parameter] public string? SuccessIcon { get; set; }
+    [Parameter] public string? WarningClass { get; set; }
+    [Parameter] public string? WarningIcon { get; set; }
+    [Parameter] public string? ErrorClass { get; set; }
+    [Parameter] public string? ErrorIcon { get; set; }
+    [Parameter] public ToastPosition Position { get; set; } = ToastPosition.TopRight;
+    [Parameter] public int Timeout { get; set; } = 5;
+    [Parameter] public int MaxToastCount { get; set; } = int.MaxValue;
+    [Parameter] public bool RemoveToastsOnNavigation { get; set; }
+    [Parameter] public bool ShowProgressBar { get; set; }
+    [Parameter] public RenderFragment? CloseButtonContent { get; set; }
+    [Parameter] public bool ShowCloseButton { get; set; } = true;
 
     private string PositionClass { get; set; } = string.Empty;
-
     private List<ToastInstance> ToastList { get; set; } = new();
     private Queue<ToastInstance> ToastWaitingQueue { get; set; } = new();
 
@@ -75,7 +44,6 @@ public partial class BlazoredToasts
         ToastService.OnClearAll += ClearAll;
         ToastService.OnClearToasts += ClearToasts;
         ToastService.OnClearCustomToasts += ClearCustomToasts;
-
 
         if (RemoveToastsOnNavigation)
         {
@@ -95,13 +63,12 @@ public partial class BlazoredToasts
     }
 
 
-
     public void RemoveToast(Guid toastId)
     {
         InvokeAsync(() =>
         {
             var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
-            
+
             if (toastInstance is not null)
             {
                 ToastList.Remove(toastInstance);
@@ -129,14 +96,14 @@ public partial class BlazoredToasts
         });
     }
 
-    private ToastSettings BuildToastSettings(ToastLevel level, RenderFragment message, string heading, Action? onclick)
+    private ToastSettings BuildToastSettings(ToastLevel level, RenderFragment message, string? heading, Action? onclick)
     {
         return level switch
         {
-            ToastLevel.Error => new ToastSettings(ToastLevel.Error, string.IsNullOrWhiteSpace(heading) ? "Error" : heading, message, IconType, "blazored-toast-error", ErrorClass ?? "", ErrorIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
-            ToastLevel.Info => new ToastSettings(ToastLevel.Info, string.IsNullOrWhiteSpace(heading) ? "Info" : heading, message, IconType, "blazored-toast-info", InfoClass ?? "", InfoIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
-            ToastLevel.Success => new ToastSettings(ToastLevel.Success, string.IsNullOrWhiteSpace(heading) ? "Success" : heading, message, IconType, "blazored-toast-success", SuccessClass ?? "", SuccessIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
-            ToastLevel.Warning => new ToastSettings(ToastLevel.Warning, string.IsNullOrWhiteSpace(heading) ? "Warning" : heading, message, IconType, "blazored-toast-warning", WarningClass ?? "", WarningIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
+            ToastLevel.Error => new ToastSettings(ToastLevel.Error, heading, message, IconType, "blazored-toast-error", ErrorClass ?? "", ErrorIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
+            ToastLevel.Info => new ToastSettings(ToastLevel.Info, heading, message, IconType, "blazored-toast-info", InfoClass ?? "", InfoIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
+            ToastLevel.Success => new ToastSettings(ToastLevel.Success, heading, message, IconType, "blazored-toast-success", SuccessClass ?? "", SuccessIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
+            ToastLevel.Warning => new ToastSettings(ToastLevel.Warning, heading, message, IconType, "blazored-toast-warning", WarningClass ?? "", WarningIcon ?? "", ShowProgressBar, MaxToastCount, onclick),
             _ => throw new InvalidOperationException()
         };
     }
@@ -159,8 +126,8 @@ public partial class BlazoredToasts
                 ToastWaitingQueue.Enqueue(toast);
             }
         });
-
     }
+
     private void ShowEnqueuedToast()
     {
         InvokeAsync(() =>
@@ -171,7 +138,6 @@ public partial class BlazoredToasts
 
             StateHasChanged();
         });
-
     }
 
     private void ShowToast(Type contentComponent, ToastParameters? parameters, ToastInstanceSettings? settings)
@@ -189,6 +155,7 @@ public partial class BlazoredToasts
                         builder.AddAttribute(i++, parameter.Key, parameter.Value);
                     }
                 }
+
                 builder.CloseComponent();
             });
 

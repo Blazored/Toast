@@ -5,9 +5,12 @@
     animation: fadein 1.5s;
     margin-bottom: 1rem;
     padding: 1rem 1.25rem;
-    color: #fff;
-    width: 100vw;
-    box-shadow: rgba(0,0,0,0.25) 0px 10px 40px;
+    color: #1D1D1B;
+    width: 20rem;
+    border-radius: .375rem;
+    box-shadow: rgba(0,0,0,0.30) 0px 10px 30px 2px;
+    background-color: #fff;
+    border-top: 6px solid #fff;
 }
 
 .blazored-toast-component {
@@ -16,19 +19,35 @@
 }
 
 .blazored-toast-info {
-    background-color: #34a9ad;
+    border-top: 6px solid #2563eb;
+}
+
+.blazored-toast-info .blazored-toast-icon {
+    color: #2563eb;
 }
 
 .blazored-toast-success {
-    background-color: #5fba7d;
+    border-top: 6px solid #16a34a;
+}
+
+.blazored-toast-success .blazored-toast-icon {
+    color: #16a34a;
 }
 
 .blazored-toast-warning {
-    background-color: #c1c13e;
+    border-top: 6px solid #eab308;
+}
+
+.blazored-toast-warning .blazored-toast-icon {
+    color: #eab308;
 }
 
 .blazored-toast-error {
-    background-color: #ba5e5e;
+    border-top: 6px solid #dc2626;
+}
+
+.blazored-toast-error .blazored-toast-icon {
+    color: #dc2626;
 }
 
 .blazored-toast-icon {
@@ -36,7 +55,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 0 1rem 0 0;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
 }
 
 .blazored-toast-body {
@@ -52,24 +71,34 @@
 }
 
 .blazored-toast-body .blazored-toast-header h5 {
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 1.5rem;
+    font-weight: 700;
+    font-size: 1.125rem;
     margin-bottom: 0;
     line-height: 32px;
 }
 
-.blazored-toast-body .blazored-toast-header .blazored-toast-close {
+.blazored-toast-body .blazored-toast-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.blazored-toast-body .blazored-toast-content .blazored-toast-message {
+    flex-grow: 1;
+}
+
+.blazored-toast-body .blazored-toast-content .blazored-toast-close {
     background-color: transparent;
     border: 0;
     -webkit-appearance: none;
     color: inherit;
-    font-size: 1.25rem;
+    font-size: 0.9rem;
 }
 
 .blazored-toast-body p {
     margin-bottom: 0;
-    font-size: 1rem;
+    font-weight: 500;
+    font-size: 0.875rem;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
@@ -84,16 +113,16 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 8px;
-    border-bottom-left-radius: .25rem;
-    border-bottom-right-radius: .25rem;
+    height: 6px;
+    border-bottom-left-radius: .375rem;
+    border-bottom-right-radius: .375rem;
 }
 
 .blazored-toast-progressbar > span {
     position: absolute;
     filter: brightness(75%);
-    height: 8px;
-    border-bottom-left-radius: .25rem;
+    height: 6px;
+    border-bottom-left-radius: .375rem;
     background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
     transition: all .5s linear;
 }
@@ -112,9 +141,9 @@
     }
 }
 
-@media (min-width: 576px) {
-    .blazored-toast {
-        width: 30rem;
-        border-radius: .25rem;
-    }
-}
+/*@media (min-width: 576px) {*/
+/*    .blazored-toast {*/
+/*        width: 30rem;*/
+/*        border-radius: .25rem;*/
+/*    }*/
+/*}*/

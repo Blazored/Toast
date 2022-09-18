@@ -34,8 +34,14 @@ else
         }
 
         <div class="blazored-toast-body">
-            <div class="blazored-toast-header">
-                <h5 class="blazored-toast-heading">@ToastSettings?.Heading</h5>
+            @* <div class="blazored-toast-header"> *@
+            @*     @if (!string.IsNullOrWhiteSpace(ToastSettings?.Heading)) *@
+            @*     { *@
+            @*         <h5 class="blazored-toast-heading">@ToastSettings?.Heading</h5> *@
+            @*     } *@
+            @* </div> *@
+            <div class="blazored-toast-content">
+                <p class="blazored-toast-message">@ToastSettings?.Message</p>
                 @if (ShowCloseButton)
                 {
                     <button class="blazored-toast-close" @onclick=@Close>
@@ -55,7 +61,6 @@ else
                     </button>
                 }
             </div>
-            <p class="blazored-toast-message">@ToastSettings?.Message</p>
         </div>
 
         @if (ToastSettings?.ShowProgressBar ?? false)
