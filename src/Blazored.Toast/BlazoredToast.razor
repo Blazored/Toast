@@ -2,7 +2,7 @@
 
 @if (ChildContent is not null)
 {
-    <div class="blazored-toast blazored-toast-container blazored-toast-component">
+    <div class="blazored-toast blazored-toast-component">
         <CascadingValue Value="this" IsFixed="true">
             @ChildContent
         </CascadingValue>
@@ -17,8 +17,7 @@
 }
 else
 {
-
-    <div class="blazored-toast blazored-toast-container @ToastSettings?.BaseClass @ToastSettings?.AdditionalClasses" @onclick="ToastClick">
+    <div class="blazored-toast @ToastSettings?.BaseClass @ToastSettings?.AdditionalClasses" @onclick="ToastClick">
 
         @if (!string.IsNullOrWhiteSpace(ToastSettings?.Icon))
         {
