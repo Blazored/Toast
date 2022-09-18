@@ -6,7 +6,7 @@ on:
 
 env:
     PROJECT_NAME: Blazored.Toast
-    NETCORE_VERSION: '5.0.x'
+    NETCORE_VERSION: '6.0.x'
 jobs:
   build:
     name: Build and test

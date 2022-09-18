@@ -1,13 +1,12 @@
 ﻿using Blazored.Toast.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blazored.Toast
+namespace Blazored.Toast;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static IServiceCollection AddBlazoredToast(this IServiceCollection services)
     {
-        public static IServiceCollection AddBlazoredToast(this IServiceCollection services)
-        {
-            return services.AddScoped<IToastService, ToastService>();
-        }
+        return services.AddScoped<IToastService, ToastService>();
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace Blazored.Toast.Services
+﻿namespace Blazored.Toast.Services;
+
+public enum ToastLevel
 {
-    public enum ToastLevel
-    {
-        Info,
-        Success,
-        Warning,
-        Error
-    }
+    Info,
+    Success,
+    Warning,
+    Error
 }

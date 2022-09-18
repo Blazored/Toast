@@ -1,29 +1,28 @@
 using Blazored.Toast.Services;
 using Xunit;
 
-namespace Blazored.Toast.Tests.ToastServiceTests
+namespace Blazored.Toast.Tests.ToastServiceTests;
+
+public class ClearCustomToasts
 {
-    public class ClearCustomToasts
+    private readonly ToastService _sut;
+
+    public ClearCustomToasts()
     {
-        private readonly ToastService _sut;
+        _sut = new ToastService();
+    }
 
-        public ClearCustomToasts()
-        {
-            _sut = new ToastService();
-        }
+    [Fact]
+    public void OnClearCustomToastsInnvoked_When_ClearCustomToastsCalled()
+    {
+        // arrange
+        var OnClearCustomToastsCalled = false;
+        _sut.OnClearCustomToasts += () => OnClearCustomToastsCalled = true;
 
-        [Fact]
-        public void OnClearCustomToastsInnvoked_When_ClearCustomToastsCalled()
-        {
-            // arrange
-            var OnClearCustomToastsCalled = false;
-            _sut.OnClearCustomToasts += () => OnClearCustomToastsCalled = true;
+        // act
+        _sut.ClearCustomToasts();
 
-            // act
-            _sut.ClearCustomToasts();
-
-            // assert
-            Assert.True(OnClearCustomToastsCalled);
-        }
+        // assert
+        Assert.True(OnClearCustomToastsCalled);
     }
 }
