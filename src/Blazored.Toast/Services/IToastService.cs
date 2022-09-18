@@ -1,5 +1,4 @@
-﻿using Blazored.Toast.Configuration;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Blazored.Toast.Services;
 
@@ -8,33 +7,34 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast
     /// </summary>
-    event Action<ToastLevel, RenderFragment, string, Action> OnShow;
+    event Action<ToastLevel, RenderFragment, string, Action?>? OnShow;
 
     /// <summary>
     /// A event that will be invoked to clear all toasts
     /// </summary>
-    event Action OnClearAll;
+    event Action? OnClearAll;
 
     /// <summary>
     /// A event that will be invoked to clear toast of specified level
     /// </summary>
-    event Action<ToastLevel> OnClearToasts;
+    event Action<ToastLevel>? OnClearToasts;
 
     /// <summary>
     /// A event that will be invoked to clear custom toast components
     /// </summary>
-    event Action OnClearCustomToasts;
+    event Action? OnClearCustomToasts;
 
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom comonent
     /// </summary>
-    event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
+    event Action<Type, ToastParameters?, ToastInstanceSettings?> OnShowComponent;
 
     /// <summary>
     /// Shows a information toast 
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowInfo(string message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -42,6 +42,7 @@ public interface IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowInfo(RenderFragment message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -49,6 +50,7 @@ public interface IToastService
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowSuccess(string message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -56,6 +58,7 @@ public interface IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowSuccess(RenderFragment message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -63,6 +66,7 @@ public interface IToastService
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowWarning(string message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -70,6 +74,7 @@ public interface IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowWarning(RenderFragment message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -77,6 +82,7 @@ public interface IToastService
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowError(string message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -84,6 +90,7 @@ public interface IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowError(RenderFragment message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -92,6 +99,7 @@ public interface IToastService
     /// <param name="level">Toast level to display</param>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowToast(ToastLevel level, string message, string heading = "", Action? onClick = null);
 
     /// <summary>
@@ -100,6 +108,7 @@ public interface IToastService
     /// <param name="level">Toast level to display</param>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="heading">The text to display as the toasts heading</param>
+    /// <param name="onClick">Method to execute when the toast is clicked</param>
     void ShowToast(ToastLevel level, RenderFragment message, string heading = "", Action? onClick = null);
 
     /// <summary>

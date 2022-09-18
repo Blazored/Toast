@@ -1,5 +1,4 @@
-﻿using Blazored.Toast.Configuration;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Blazored.Toast.Services;
 
@@ -8,27 +7,27 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast
     /// </summary>
-    public event Action<ToastLevel, RenderFragment, string, Action> OnShow;
+    public event Action<ToastLevel, RenderFragment, string, Action?>? OnShow;
 
     /// <summary>
     /// A event that will be invoked when clearing all toasts
     /// </summary>
-    public event Action OnClearAll;
+    public event Action? OnClearAll;
 
     /// <summary>
-    /// A event that will be invoked when showing a toast with a custom comonent
+    /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
+    public event Action<Type, ToastParameters?, ToastInstanceSettings?>? OnShowComponent;
 
     /// <summary>
     /// A event that will be invoked when clearing toasts
     /// </summary>
-    public event Action<ToastLevel> OnClearToasts;
+    public event Action<ToastLevel>? OnClearToasts;
 
     /// <summary>
     /// A event that will be invoked when clearing custom toast components
     /// </summary>
-    public event Action OnClearCustomToasts;
+    public event Action? OnClearCustomToasts;
 
     /// <summary>
     /// Shows a information toast 
@@ -136,12 +135,13 @@ public class ToastService : IToastService
     /// <param name="contentComponent">Type of component to display.</param>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
     /// <param name="settings">Settings to configure the toast component.</param>
-    public void ShowToast(Type contentComponent, ToastParameters parameters, ToastInstanceSettings settings)
+    public void ShowToast(Type contentComponent, ToastParameters? parameters, ToastInstanceSettings? settings)
     {
         if (!typeof(IComponent).IsAssignableFrom(contentComponent))
         {
             throw new ArgumentException($"{contentComponent.FullName} must be a Blazor Component");
         }
+        
         OnShowComponent?.Invoke(contentComponent, parameters, settings);
     }
 

@@ -5,23 +5,13 @@ namespace Blazored.Toast;
 
 public partial class BlazoredToast : IDisposable
 {
-    [CascadingParameter]
-    private BlazoredToasts? ToastsContainer { get; set; }
+    [CascadingParameter] private BlazoredToasts? ToastsContainer { get; set; }
 
-    [Parameter]
-    public Guid ToastId { get; set; }
-
-    [Parameter]
-    public ToastSettings? ToastSettings { get; set; }
-
-    [Parameter]
-    public ToastInstanceSettings? ToastComponentSettings { get; set; }
-
-    [Parameter]
-    public int Timeout { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter] public Guid ToastId { get; set; }
+    [Parameter] public ToastSettings? ToastSettings { get; set; }
+    [Parameter] public ToastInstanceSettings? ToastComponentSettings { get; set; }
+    [Parameter] public int Timeout { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private RenderFragment? CloseButtonContent => ToastsContainer?.CloseButtonContent;
     private bool ShowCloseButton => ToastsContainer?.ShowCloseButton ?? false;
