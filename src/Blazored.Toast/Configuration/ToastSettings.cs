@@ -27,20 +27,21 @@ public class ToastSettings
         ShowProgressBar = showProgressBar;
         MaxItemsShown = maxItemsShown;
         OnClick = onClick;
-        if (onClick != null)
+        
+        if (onClick is not null)
         {
             AdditionalClasses += " blazored-toast-action";
         }
     }
 
-    public ToastLevel ToastLevel { get; set; }
-    public string Heading { get; set; }
-    public RenderFragment Message { get; set; }
-    public string BaseClass { get; set; }
-    public string AdditionalClasses { get; set; }
-    public string Icon { get; set; }
-    public IconType? IconType { get; set; }
-    public bool ShowProgressBar { get; set; }
-    public int MaxItemsShown { get; set; }
-    public Action? OnClick { get; set; }
+    public ToastLevel ToastLevel { get; }
+    public string Heading { get; }
+    public RenderFragment Message { get; }
+    public string BaseClass { get; }
+    public string AdditionalClasses { get; }
+    public string Icon { get; }
+    public IconType? IconType { get; }
+    public bool ShowProgressBar { get; }
+    public int MaxItemsShown { get; }
+    public Action? OnClick { get; }
 }

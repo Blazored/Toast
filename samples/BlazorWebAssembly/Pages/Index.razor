@@ -1,23 +1,25 @@
 ﻿@page "/"
-@inject IToastService toastService
+@inject IToastService ToastService
 @inject NavigationManager NavigationManager
+
+<PageTitle>Blazored Toast Samples</PageTitle>
 
 <h1>Blazored Toasts</h1>
 
-<button class="btn btn-info" id="InfoButton" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-<button class="btn btn-success" id="SuccessButton" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom heading", "Congratulations!"))">Success Toast</button>
-<button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
-<button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
+<button class="btn btn-info" id="InfoButton" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+<button class="btn btn-success" id="SuccessButton" @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a custom heading", "Congratulations!"))">Success Toast</button>
+<button class="btn btn-warning" @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
+<button class="btn btn-danger" @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 <button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
-<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", "Click me!", () => { NavigationManager.NavigateTo("/", true); }))">
+<button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("Click to refresh the page", "Click me!", () => { NavigationManager.NavigateTo("/", true); }))">
     Info Toast with custom action on click
 </button>
 <hr />
 
 <h1>Blazored Toasts - Custom Component</h1>
 
-<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(5, true)))">Custom Toast</button>
-<button class="btn btn-secondary" id="CustomButton" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(5, true)))">Custom Toast with parameters</button>
+<button class="btn btn-primary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(5, true)))">Custom Toast</button>
+<button class="btn btn-secondary" id="CustomButton" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(5, true)))">Custom Toast with parameters</button>
 <hr />
 
 <h1>Blazored Toasts - Remove Toasts</h1>
@@ -29,7 +31,7 @@
 
 @code
 {
-    private ToastParameters _toastParameters;
+    private ToastParameters _toastParameters = default!;
 
     protected override void OnInitialized()
     {
@@ -40,20 +42,19 @@
 
     private void OnShowHtml()
     {
-        RenderFragment message =@<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>
-    ;
-        toastService.ShowToast(ToastLevel.Info, message);
+        RenderFragment message = @<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>;
+        ToastService.ShowToast(ToastLevel.Info, message);
     }
 
     private void ClearAll()
-        => toastService.ClearAll();
+        => ToastService.ClearAll();
 
     private void ClearWarnings()
-        => toastService.ClearToasts(ToastLevel.Warning);
+        => ToastService.ClearToasts(ToastLevel.Warning);
 
     private void ClearInfos()
-        => toastService.ClearInfoToasts();
+        => ToastService.ClearInfoToasts();
 
     private void ClearCustom()
-        => toastService.ClearCustomToasts();
+        => ToastService.ClearCustomToasts();
 }

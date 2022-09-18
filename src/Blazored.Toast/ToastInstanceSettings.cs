@@ -2,7 +2,7 @@
 
 public class ToastInstanceSettings
 {
-    public int Timeout { get; } = 5;
+    public int Timeout { get; }
     public bool ShowProgressBar { get; }
 
     public ToastInstanceSettings(int timeout, bool showProgressBar)

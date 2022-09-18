@@ -16,8 +16,8 @@ else
 }
 
 @code{
-    [CascadingParameter] private BlazoredToast ToastInstance { get; set; }
+    [CascadingParameter] private BlazoredToast ToastInstance { get; set; } = default!;
 
-    [Parameter] public string Title { get; set; }
-    [Parameter] public string ToastParam { get; set; }
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? ToastParam { get; set; }
 }

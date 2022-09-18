@@ -5,23 +5,13 @@ namespace Blazored.Toast;
 
 public partial class BlazoredToast : IDisposable
 {
-    [CascadingParameter]
-    private BlazoredToasts? ToastsContainer { get; set; }
+    [CascadingParameter] private BlazoredToasts? ToastsContainer { get; set; }
 
-    [Parameter]
-    public Guid ToastId { get; set; }
-
-    [Parameter]
-    public ToastSettings? ToastSettings { get; set; }
-
-    [Parameter]
-    public ToastInstanceSettings? ToastComponentSettings { get; set; }
-
-    [Parameter]
-    public int Timeout { get; set; }
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter] public Guid ToastId { get; set; }
+    [Parameter] public ToastSettings? ToastSettings { get; set; }
+    [Parameter] public ToastInstanceSettings? ToastComponentSettings { get; set; }
+    [Parameter] public int Timeout { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private RenderFragment? CloseButtonContent => ToastsContainer?.CloseButtonContent;
     private bool ShowCloseButton => ToastsContainer?.ShowCloseButton ?? false;
@@ -30,13 +20,13 @@ public partial class BlazoredToast : IDisposable
     private int _progress = 100;
 
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _countdownTimer = new CountdownTimer(Timeout)
             .OnTick(CalculateProgressAsync)
             .OnElapsed(Close);
 
-        _countdownTimer.Start();
+        await _countdownTimer.StartAsync();
     }
 
     private async Task CalculateProgressAsync(int percentComplete)

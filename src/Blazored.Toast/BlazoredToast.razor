@@ -1,13 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 
-@if (ChildContent is object)
+@if (ChildContent is not null)
 {
     <div class="blazored-toast blazored-toast-container blazored-toast-component">
         <CascadingValue Value="this" IsFixed="true">
             @ChildContent
         </CascadingValue>
 
-        @if (ToastComponentSettings.ShowProgressBar)
+        @if (ToastComponentSettings?.ShowProgressBar ?? false)
         {
             <div class="blazored-toast-progressbar">
                 <span style="width: @(_progress)%;"></span>
@@ -18,16 +18,16 @@
 else
 {
 
-    <div class="blazored-toast blazored-toast-container @ToastSettings.BaseClass @ToastSettings.AdditionalClasses" @onclick="ToastClick">
+    <div class="blazored-toast blazored-toast-container @ToastSettings?.BaseClass @ToastSettings?.AdditionalClasses" @onclick="ToastClick">
 
-        @if (!string.IsNullOrWhiteSpace(ToastSettings.Icon))
+        @if (!string.IsNullOrWhiteSpace(ToastSettings?.Icon))
         {
             <div class="blazored-toast-icon">
-                @if (@ToastSettings.IconType == IconType.FontAwesome)
+                @if (ToastSettings.IconType == IconType.FontAwesome)
                 {
                     <i class="@ToastSettings.Icon" aria-hidden="true"></i>
                 }
-                @if (@ToastSettings.IconType == IconType.Material)
+                @if (ToastSettings.IconType == IconType.Material)
                 {
                     <i class="material-icons" aria-hidden="true">@ToastSettings.Icon</i>
                 }
@@ -36,7 +36,7 @@ else
 
         <div class="blazored-toast-body">
             <div class="blazored-toast-header">
-                <h5 class="blazored-toast-heading">@ToastSettings.Heading</h5>
+                <h5 class="blazored-toast-heading">@ToastSettings?.Heading</h5>
                 @if (ShowCloseButton)
                 {
                     <button class="blazored-toast-close" @onclick=@Close>
@@ -56,10 +56,10 @@ else
                     </button>
                 }
             </div>
-            <p class="blazored-toast-message">@ToastSettings.Message</p>
+            <p class="blazored-toast-message">@ToastSettings?.Message</p>
         </div>
 
-        @if (ToastSettings.ShowProgressBar)
+        @if (ToastSettings?.ShowProgressBar ?? false)
         {
             <div class="blazored-toast-progressbar">
                 <span style="width: @(_progress)%;"></span>
