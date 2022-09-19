@@ -74,7 +74,7 @@ By default, you don't need to provide any settings everything will just work. Bu
 For example, to add an icon from Font Awesome to all success toasts you can do the following.
 
 ```html
-<BlazoredToasts SuccessIcon="fa fa-thumbs-up"/>
+<BlazoredToasts SuccessIcon="fa fa-thumbs-up" IconType="IconType.FontAwesome" />
 ```
 
 Setting the position also requires a reference to `Blazored.Toast.Configuration`, for example:
