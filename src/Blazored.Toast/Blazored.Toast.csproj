@@ -30,11 +30,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="bundleconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.7" />
@@ -42,7 +37,6 @@
 
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="\" />
-    <None Include="bundleconfig.json" />
   </ItemGroup>
 
   <ItemGroup>

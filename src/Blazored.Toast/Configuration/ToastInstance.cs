@@ -1,23 +1,27 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using Blazored.Toast.Services;
 
 namespace Blazored.Toast.Configuration;
 
 internal class ToastInstance
 {
-    public ToastInstance(ToastSettings toastSettings)
+    public ToastInstance(RenderFragment message, ToastLevel level, ToastSettings toastSettings)
     {
+        Message = message;
+        Level = level;
         ToastSettings = toastSettings;
     }
-    public ToastInstance(RenderFragment blazoredToast, ToastInstanceSettings settings)
+    public ToastInstance(RenderFragment customComponent, ToastSettings settings)
     {
-        BlazoredToast = blazoredToast;
-        ToastInstanceSettings = settings;
+        CustomComponent = customComponent;
+        ToastSettings = settings;
     }
 
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public DateTime TimeStamp { get; set; } = DateTime.Now;
-    public ToastSettings? ToastSettings { get; set; }
-    public ToastInstanceSettings? ToastInstanceSettings { get; }
-    public RenderFragment? BlazoredToast { get; }
+    public Guid Id { get; } = Guid.NewGuid();
+    public DateTime TimeStamp { get; } = DateTime.Now;
+    public RenderFragment? Message { get; set; }
+    public ToastLevel Level { get; }
+    public ToastSettings ToastSettings { get; }
+    public RenderFragment? CustomComponent { get; }
 }

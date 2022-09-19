@@ -1,13 +1,15 @@
-﻿@using Microsoft.AspNetCore.Components.Web
+﻿@using Blazored.Toast.Configuration
+@using Blazored.Toast.Services
+@using Microsoft.AspNetCore.Components.Web
 
 @if (ChildContent is not null)
 {
-    <div class="blazored-toast blazored-toast-component">
+    <div class="blazored-toast blazored-toast-component @Settings.AdditionalClasses">
         <CascadingValue Value="this" IsFixed="true">
             @ChildContent
         </CascadingValue>
 
-        @if (ToastComponentSettings?.ShowProgressBar ?? false)
+        @if (Settings.ShowProgressBar)
         {
             <div class="blazored-toast-progressbar">
                 <span style="width: @(_progress)%;"></span>
@@ -17,53 +19,78 @@
 }
 else
 {
-    <div class="blazored-toast @ToastSettings?.BaseClass @ToastSettings?.AdditionalClasses" @onclick="ToastClick">
+    <div class="blazored-toast @Settings.AdditionalClasses" @onclick="ToastClick">
 
-        @if (!string.IsNullOrWhiteSpace(ToastSettings?.Icon))
+        @if (Settings.IconType != IconType.None)
         {
             <div class="blazored-toast-icon">
-                @if (ToastSettings.IconType == IconType.FontAwesome)
+                @if (Settings.IconType == IconType.Blazored)
                 {
-                    <i class="@ToastSettings.Icon" aria-hidden="true"></i>
+                    if (Level == ToastLevel.Info)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                    } 
+                    else if (Level == ToastLevel.Success)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+
+                    } 
+                    else if (Level == ToastLevel.Warning)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    } 
+                    else if (Level == ToastLevel.Error)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                    }
                 }
-                @if (ToastSettings.IconType == IconType.Material)
+                else if (Settings.IconType == IconType.FontAwesome)
                 {
-                    <i class="material-icons" aria-hidden="true">@ToastSettings.Icon</i>
+                    <i class="@Settings.Icon" aria-hidden="true"></i>
+                }
+                else if (Settings.IconType == IconType.Material)
+                {
+                    <i class="material-icons" aria-hidden="true">@Settings.Icon</i>
                 }
             </div>
         }
+        
+        <p class="blazored-toast-message">@Message</p>
+        
+        @if (Settings.ShowCloseButton)
+        {
+            <button type="button" class="blazored-toast-close" @onclick=@Close>
+                <i aria-label="icon: close" class="blazored-toast-close-icon">
+                    @if (CloseButtonContent != null)
+                    {
+                        @CloseButtonContent
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="1.5em">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    }
+                </i>
+            </button>
+        }
 
-        <div class="blazored-toast-body">
-            @* <div class="blazored-toast-header"> *@
-            @*     @if (!string.IsNullOrWhiteSpace(ToastSettings?.Heading)) *@
-            @*     { *@
-            @*         <h5 class="blazored-toast-heading">@ToastSettings?.Heading</h5> *@
-            @*     } *@
-            @* </div> *@
-            <div class="blazored-toast-content">
-                <p class="blazored-toast-message">@ToastSettings?.Message</p>
-                @if (ShowCloseButton)
-                {
-                    <button class="blazored-toast-close" @onclick=@Close>
-                        <i aria-label="icon: close" class="blazored-toast-close-icon">
-                            @if (CloseButtonContent != null)
-                            {
-                                @CloseButtonContent
-                            }
-                            else
-                            {
-                                <svg viewBox="64 64 896 896" focusable="false" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                                    <path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z">
-                                    </path>
-                                </svg>
-                            }
-                        </i>
-                    </button>
-                }
-            </div>
-        </div>
-
-        @if (ToastSettings?.ShowProgressBar ?? false)
+        @if (Settings.ShowProgressBar)
         {
             <div class="blazored-toast-progressbar">
                 <span style="width: @(_progress)%;"></span>

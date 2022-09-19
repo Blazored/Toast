@@ -65,20 +65,6 @@ namespace bUnitExample
         }
 
         [Fact]
-        public void DisplaysToastWithHeading()
-        {
-            // Arrange
-            var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
-
-            // Act
-            cut.Find("#SuccessButton").Click();
-
-            // Assert
-            Assert.Equal("Congratulations!", toastService.Toasts.Single().Heading);
-        }
-
-        [Fact]
         public void DisplaysTwoToastsWithLevel()
         {
             // Arrange
@@ -93,23 +79,6 @@ namespace bUnitExample
             Assert.Collection(toastService.Toasts,
                 _ => Assert.Equal(ToastLevel.Info, _.ToastLevel),
                 _ => Assert.Equal(ToastLevel.Success, _.ToastLevel));
-        }
-
-        [Fact]
-        public void DisplaysTwoToastsWithHeading()
-        {
-            // Arrange
-            var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
-
-            // Act
-            cut.Find("#InfoButton").Click();
-            cut.Find("#SuccessButton").Click();
-
-            // Assert
-            Assert.Collection(toastService.Toasts,
-                _ => Assert.Equal("Info", _.Heading),
-                _ => Assert.Equal("Congratulations!", _.Heading));
         }
 
         [Fact]

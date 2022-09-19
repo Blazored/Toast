@@ -5,19 +5,19 @@
 <h1>Blazored Toasts</h1>
 
 <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-<button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom heading", "Congratulations!"))">Success Toast</button>
+<button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom heading"))">Success Toast</button>
 <button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
 <button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 <button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
-<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", "Click me!", () => { NavigationManager.NavigateTo("/", true); }))">
+<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", options => options.OnClick = () => NavigationManager.NavigateTo("/", true)))">
     Info Toast with custom action on click
 </button>
 <hr />
 
 <h1>Blazored Toasts - Custom Component</h1>
 
-<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(5, true)))">Custom Toast</button>
-<button class="btn btn-secondary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(5, true)))">Custom Toast with parameters</button>
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>
+<button class="btn btn-secondary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast with parameters</button>
 <hr />
 
 <h1>Blazored Toasts - Remove Toasts</h1>

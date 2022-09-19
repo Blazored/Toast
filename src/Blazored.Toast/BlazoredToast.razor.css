@@ -7,7 +7,7 @@
     padding: 1rem 1.25rem;
     color: #1D1D1B;
     width: 20rem;
-    border-radius: .375rem;
+    border-radius: .25rem;
     box-shadow: rgba(0,0,0,0.30) 0px 10px 30px 2px;
     background-color: #fff;
     border-top: 6px solid #fff;
@@ -53,49 +53,13 @@
 .blazored-toast-icon {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     padding: 0 1rem 0 0;
     font-size: 1.5rem;
 }
 
-.blazored-toast-body {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.blazored-toast-body .blazored-toast-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-
-.blazored-toast-body .blazored-toast-header h5 {
-    font-weight: 700;
-    font-size: 1.125rem;
-    margin-bottom: 0;
-    line-height: 32px;
-}
-
-.blazored-toast-body .blazored-toast-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.blazored-toast-body .blazored-toast-content .blazored-toast-message {
+.blazored-toast .blazored-toast-message {
     flex-grow: 1;
-}
-
-.blazored-toast-body .blazored-toast-content .blazored-toast-close {
-    background-color: transparent;
-    border: 0;
-    -webkit-appearance: none;
-    color: inherit;
-    font-size: 0.9rem;
-}
-
-.blazored-toast-body p {
     margin-bottom: 0;
     font-weight: 500;
     font-size: 0.875rem;
@@ -108,7 +72,23 @@
     hyphens: auto;
 }
 
-.blazored-toast-progressbar {
+.blazored-toast .blazored-toast-close {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 0 0 0 1rem;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.blazored-toast .blazored-toast-close:hover {
+    color: inherit;
+}
+
+.blazored-toast .blazored-toast-progressbar {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -118,12 +98,12 @@
     border-bottom-right-radius: .375rem;
 }
 
-.blazored-toast-progressbar > span {
+.blazored-toast .blazored-toast-progressbar > span {
     position: absolute;
     filter: brightness(75%);
     height: 6px;
     border-bottom-left-radius: .375rem;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0 0);
     transition: all .5s linear;
 }
 
@@ -140,10 +120,3 @@
         opacity: 1;
     }
 }
-
-/*@media (min-width: 576px) {*/
-/*    .blazored-toast {*/
-/*        width: 30rem;*/
-/*        border-radius: .25rem;*/
-/*    }*/
-/*}*/

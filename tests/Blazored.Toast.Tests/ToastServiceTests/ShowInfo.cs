@@ -17,14 +17,14 @@ public class ShowInfo
     public void OnShowInvoked_When_ShowInfoCalled()
     {
         // arrange
-        var OnShowCalled = false;
-        _sut.OnShow += (_, _, _, _) => OnShowCalled = true;
+        var onShowCalled = false;
+        _sut.OnShow += (_, _, _) => onShowCalled = true;
 
         // act
         _sut.ShowInfo("message");
 
         // assert
-        Assert.True(OnShowCalled);
+        Assert.True(onShowCalled);
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class ShowInfo
     {
         // arrange
         var toastLevel = "";
-        _sut.OnShow += (argToastlevel, _, _, _) => toastLevel = argToastlevel.ToString();
+        _sut.OnShow += (argToastlevel, _, _) => toastLevel = argToastlevel.ToString();
 
         // act
         _sut.ShowInfo("message");
@@ -45,8 +45,8 @@ public class ShowInfo
     public void OnShowEventContainsMessage_When_ShowInfoCalled()
     {
         // arrange
-        RenderFragment message = null;
-        _sut.OnShow += (_, argMessage, _, _) => message = argMessage;
+        RenderFragment? message = null;
+        _sut.OnShow += (_, argMessage, _) => message = argMessage;
 
         // act
         _sut.ShowInfo("message");
@@ -56,39 +56,11 @@ public class ShowInfo
     }
 
     [Fact]
-    public void OnShowEventContainsHeading_When_ShowInfoCalled()
-    {
-        // arrange
-        var heading = string.Empty;
-        _sut.OnShow += (_, _, argHeading, _) => heading = argHeading;
-
-        // act
-        _sut.ShowInfo("message", "heading");
-
-        // assert
-        Assert.NotEmpty(heading);
-    }
-
-    [Fact]
-    public void OnShowEventContainsOnClickAction_When_ShowInfoCalled()
-    {
-        // arrange
-        Action onClick = null;
-        _sut.OnShow += (_, _, _, argOnClick) => onClick = argOnClick;
-
-        // act
-        _sut.ShowInfo("message", string.Empty, () => { });
-
-        // assert
-        Assert.NotNull(onClick);
-    }
-
-    [Fact]
     public void OnShowInvoked_When_ShowInfoCalledWithRenderFragment()
     {
         // arrange
-        var OnShowCalled = false;
-        _sut.OnShow += (_, _, _, _) => OnShowCalled = true;
+        var onShowCalled = false;
+        _sut.OnShow += (_, _, _) => onShowCalled = true;
 
         var messageFragment = new RenderFragment(_ => _.AddContent(0, "message"));
 
@@ -96,7 +68,7 @@ public class ShowInfo
         _sut.ShowInfo(messageFragment);
 
         // assert
-        Assert.True(OnShowCalled);
+        Assert.True(onShowCalled);
     }
 
     [Fact]
@@ -104,7 +76,7 @@ public class ShowInfo
     {
         // arrange
         var toastLevel = "";
-        _sut.OnShow += (argToastlevel, _, _, _) => toastLevel = argToastlevel.ToString();
+        _sut.OnShow += (argToastlevel, _, _) => toastLevel = argToastlevel.ToString();
 
         var messageFragment = new RenderFragment(_ => _.AddContent(0, "message"));
 
@@ -119,8 +91,8 @@ public class ShowInfo
     public void OnShowEventContainsMessage_When_ShowInfoCalledWithRenderFragment()
     {
         // arrange
-        RenderFragment message = null;
-        _sut.OnShow += (_, argMessage, _, _) => message = argMessage;
+        RenderFragment? message = null;
+        _sut.OnShow += (_, argMessage, _) => message = argMessage;
 
         var messageFragment = new RenderFragment(_ => _.AddContent(0, "message"));
 
@@ -129,37 +101,5 @@ public class ShowInfo
 
         // assert
         Assert.NotNull(message);
-    }
-
-    [Fact]
-    public void OnShowEventContainsHeading_When_ShowInfoCalledWithRenderFragment()
-    {
-        // arrange
-        var heading = string.Empty;
-        _sut.OnShow += (_, _, argHeading, _) => heading = argHeading;
-
-        var messageFragment = new RenderFragment(_ => _.AddContent(0, "message"));
-
-        // act
-        _sut.ShowInfo(messageFragment, "heading");
-
-        // assert
-        Assert.NotEmpty(heading);
-    }
-
-    [Fact]
-    public void OnShowEventContainsOnClickAction_When_ShowInfoCalledWithRenderFragment()
-    {
-        // arrange
-        Action onClick = null;
-        _sut.OnShow += (_, _, _, argOnClick) => onClick = argOnClick;
-
-        var messageFragment = new RenderFragment(_ => _.AddContent(0, "message"));
-
-        // act
-        _sut.ShowInfo(messageFragment, string.Empty, () => { });
-
-        // assert
-        Assert.NotNull(onClick);
     }
 }
