@@ -32,7 +32,10 @@ public partial class BlazoredToast : IDisposable
     private async Task CalculateProgressAsync(int percentComplete)
     {
         _progress = 100 - percentComplete;
-        await InvokeAsync(StateHasChanged);
+        if (_progress == 0 || (ToastSettings?.ShowProgressBar ?? false))
+        {
+            await InvokeAsync(StateHasChanged);
+        }
     }
 
     /// <summary>
