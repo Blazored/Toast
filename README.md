@@ -53,25 +53,26 @@ Add the `<BlazoredToasts />` tag into your applications *MainLayout.razor*.
 
 Toasts are configured using parameters on the `<BlazoredToasts />` component. The following options are available.
 
-- InfoClass
-- InfoIcon
-- SuccessClass
-- SuccessIcon
-- WarningClass
-- WarningIcon
+- CloseButtonContent (provide custom close button)
 - ErrorClass
 - ErrorIcon
 - IconType (Default: IconType.FontAwesome)
+- InfoClass
+- InfoIcon 
 - Position (Default: ToastPosition.TopRight)
-- Timeout (Default: 5)
-- ShowProgressBar (Default: false)
+- RemoveToastsOnNavigation
 - ShowCloseButton (Default: true)
-- CloseButtonContent (provide custom close button)
+- ShowProgressBar (Default: false)
+- SuccessClass
+- SuccessIcon 
+- Timeout (Default: 5)
 - MaxToastCount (Default: `int.MaxValue`)
+- WarningClass
+- WarningIcon
 
-By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
+By default, you don't need to provide any settings - everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
 
-For example, to add an icon from Font Awesome to all success toasts you can do the following.
+For example, to add an icon from Font Awesome to all success toasts you can do the following:
 
 ```html
 <BlazoredToasts SuccessIcon="fa fa-thumbs-up"/>
