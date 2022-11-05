@@ -116,7 +116,7 @@ If you want to have your own custom close button:
 ```
 
 ### 4. Add reference to style sheet(s)
-Add the following line to the `head` tag of your `_Host.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
+Add the following line to the `head` tag of your `_Layout.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
 The blazored-toast.css includes the open-iconic-bootstrap.min.css.
 
 We ship both minified and unminified CSS.
