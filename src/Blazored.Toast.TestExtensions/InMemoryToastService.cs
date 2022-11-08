@@ -14,6 +14,8 @@ public class InMemoryToastService : IToastService
     public event Action OnClearAll;
     public event Action<ToastLevel> OnClearToasts;
     public event Action OnClearCustomToasts;
+    public event Action? OnClearQueue;
+    public event Action<ToastLevel>? OnClearQueueToasts;
 
     public void ShowToast<TComponent>() where TComponent : IComponent
     {
@@ -99,4 +101,22 @@ public class InMemoryToastService : IToastService
 
     public void ClearCustomToasts()
             => toasts.RemoveAll(x => x.ToastType != typeof(Configuration.ToastInstance));
+
+    public void ClearQueue()
+            => throw new NotImplementedException();
+
+    public void ClearQueueToasts(ToastLevel toastLevel)
+            => throw new NotImplementedException();
+
+    public void ClearQueueWarningToasts()
+            => throw new NotImplementedException();
+
+    public void ClearQueueInfoToasts()
+            => throw new NotImplementedException();
+
+    public void ClearQueueSuccessToasts()
+            => throw new NotImplementedException();
+
+    public void ClearQueueErrorToasts()
+            => throw new NotImplementedException();
 }
