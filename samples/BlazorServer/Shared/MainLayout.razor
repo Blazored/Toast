@@ -1,21 +1,28 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
 
+@* <BlazoredToasts Position="ToastPosition.BottomRight" *@
+@*                 Timeout="10" *@
+@*                 IconType="IconType.Material" *@
+@*                 ErrorIcon="error_outline" *@
+@*                 InfoIcon="school" *@
+@*                 SuccessIcon="done_outline" *@
+@*                 WarningIcon="warning" *@
+@*                 ShowProgressBar="@true" *@
+@*                 ShowCloseButton="@true"> *@
+@*     <CloseButtonContent> *@
+@*         <div> *@
+@*             <span class="myCloseButtonStyleClass">&times;</span> *@
+@*         </div> *@
+@*     </CloseButtonContent> *@
+@* </BlazoredToasts> *@
+
 <BlazoredToasts Position="ToastPosition.BottomRight"
-                Timeout="10"
-                IconType="IconType.Material"
-                ErrorIcon="error_outline"
-                InfoIcon="school"
-                SuccessIcon="done_outline"
-                WarningIcon="warning"
-                ShowProgressBar="@true"
-                ShowCloseButton="@true">
-    <CloseButtonContent>
-        <div>
-            <span class="myCloseButtonStyleClass">&times;</span>
-        </div>
-    </CloseButtonContent>
-</BlazoredToasts>
+                Timeout="120"
+                ShowProgressBar="true"
+                SuccessClass="success-toast-override"
+                ErrorIcon="fa fa-bug" 
+                SuccessIcon="fa fa-thumbs-up" />
 
 <div class="sidebar">
     <NavMenu />

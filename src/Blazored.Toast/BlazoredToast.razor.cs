@@ -21,10 +21,17 @@ public partial class BlazoredToast : IDisposable
 
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine(Settings.IconType);
-        _countdownTimer = new CountdownTimer(Settings.Timeout)
-            .OnTick(CalculateProgressAsync)
-            .OnElapsed(Close);
+        if (Settings.ShowProgressBar)
+        {
+            _countdownTimer = new CountdownTimer(Settings.Timeout)
+                .OnTick(CalculateProgressAsync)
+                .OnElapsed(Close);
+        }
+        else
+        {
+            _countdownTimer = new CountdownTimer(Settings.Timeout)
+                .OnElapsed(Close);
+        }
 
         await _countdownTimer.StartAsync();
     }
@@ -32,16 +39,16 @@ public partial class BlazoredToast : IDisposable
     /// <summary>
     /// Closes the toast
     /// </summary>
-    public void Close() 
+    public void Close()
         => ToastsContainer.RemoveToast(ToastId);
-    
+
     private async Task CalculateProgressAsync(int percentComplete)
     {
         _progress = 100 - percentComplete;
         await InvokeAsync(StateHasChanged);
     }
 
-    private void ToastClick() 
+    private void ToastClick()
         => Settings.OnClick?.Invoke();
 
     public void Dispose()

@@ -40,7 +40,11 @@ internal class CountdownTimer : IDisposable
         while (await _timer.WaitForNextTickAsync(_cancellationToken) && !_cancellationToken.IsCancellationRequested)
         {
             _percentComplete++;
-            await _tickDelegate?.Invoke(_percentComplete)!;
+            if (_tickDelegate != null)
+            {
+                await _tickDelegate(_percentComplete);
+            }
+            //await _tickDelegate?.Invoke(_percentComplete)!;
             
             if (_percentComplete == _ticksToTimeout)
             {
