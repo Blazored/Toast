@@ -29,6 +29,13 @@
 <button class="btn btn-warning" @onclick="ClearWarnings">Clear Warning Toasts</button>
 <button class="btn btn-info" @onclick="ClearInfos">Clear Info Toasts</button>
 <button class="btn btn-secondary" @onclick="ClearCustom">Clear Custom Toasts</button>
+<hr />
+
+<h1>Blazored Toasts - Remove queued Toasts</h1>
+
+<button class="btn btn-primary" @onclick="ClearQueue">Clear all queued Toasts</button>
+<button class="btn btn-warning" @onclick="ClearQueueWarnings">Clear queued Warning Toasts</button>
+<button class="btn btn-info" @onclick="ClearQueueInfos">Clear queued Info Toasts</button>
 
 @code
 {
@@ -58,4 +65,13 @@
 
     private void ClearCustom()
         => ToastService.ClearCustomToasts();
+
+    private void ClearQueue()
+        => ToastService.ClearQueue();
+
+    private void ClearQueueWarnings()
+        => ToastService.ClearQueueToasts(ToastLevel.Warning);
+
+    private void ClearQueueInfos()
+        => ToastService.ClearQueueInfoToasts();
 }

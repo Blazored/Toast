@@ -38,6 +38,8 @@ public partial class BlazoredToasts
         ToastService.OnClearAll += ClearAll;
         ToastService.OnClearToasts += ClearToasts;
         ToastService.OnClearCustomToasts += ClearCustomToasts;
+        ToastService.OnClearQueue += ClearQueue;
+        ToastService.OnClearQueueToasts += ClearQueueToasts;
 
         if (RemoveToastsOnNavigation)
         {
@@ -57,6 +59,27 @@ public partial class BlazoredToasts
     }
 
     private ToastSettings BuildCustomToastSettings(Action<ToastSettings>? settings)
+
+    public void RemoveToast(Guid toastId)
+    {
+        InvokeAsync(() =>
+        {
+            var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
+
+            if (toastInstance is not null)
+            {
+                ToastList.Remove(toastInstance);
+                StateHasChanged();
+            }
+
+            if (ToastWaitingQueue.Any())
+            {
+                ShowEnqueuedToast();
+            }
+        });
+    }
+
+    private void ClearToasts(object? sender, LocationChangedEventArgs args)
     {
         var instanceToastSettings = new ToastSettings();
         settings?.Invoke(instanceToastSettings);
@@ -223,6 +246,24 @@ public partial class BlazoredToasts
         InvokeAsync(() =>
         {
             ToastList.RemoveAll(x => x.CustomComponent is not null);
+            StateHasChanged();
+        });
+    }
+
+    private void ClearQueue()
+    {
+        InvokeAsync(() =>
+        {
+            ToastWaitingQueue.Clear();
+            StateHasChanged();
+        });
+    }
+
+    private void ClearQueueToasts(ToastLevel toastLevel)
+    {
+        InvokeAsync(() =>
+        {
+            ToastWaitingQueue = new(ToastWaitingQueue.Where(x => x.ToastSettings?.ToastLevel != toastLevel));
             StateHasChanged();
         });
     }

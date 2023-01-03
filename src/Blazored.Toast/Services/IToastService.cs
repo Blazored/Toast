@@ -31,6 +31,16 @@ public interface IToastService
     event Action<Type, ToastParameters?, Action<ToastSettings>?> OnShowComponent;
 
     /// <summary>
+    /// A event that will be invoked to clear all queued toasts
+    /// </summary>
+    event Action? OnClearQueue;
+
+    /// <summary>
+    /// A event that will be invoked to clear queue toast of specified level
+    /// </summary>
+    event Action<ToastLevel>? OnClearQueueToasts;
+
+    /// <summary>
     /// Shows a information toast 
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
@@ -161,4 +171,33 @@ public interface IToastService
     /// </summary>
     void ClearCustomToasts();
 
+    /// <summary>
+    /// Removes all queued toasts
+    /// </summary>
+    void ClearQueue();
+
+    /// <summary>
+    /// Removes all queued toasts with a specified <paramref name="toastLevel"/>.
+    /// </summary>
+    void ClearQueueToasts(ToastLevel toastLevel);
+
+    /// <summary>
+    /// Removes all queued toasts with toast level warning
+    /// </summary>
+    void ClearQueueWarningToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast level Info
+    /// </summary>
+    void ClearQueueInfoToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast level Success
+    /// </summary>
+    void ClearQueueSuccessToasts();
+
+    /// <summary>
+    /// Removes all queued toasts with toast level Error
+    /// </summary>
+    void ClearQueueErrorToasts();
 }

@@ -9,11 +9,12 @@ public class InMemoryToastService : IToastService
     private readonly List<InMemoryToast> _toasts = new();
     public IReadOnlyList<InMemoryToast> Toasts => _toasts;
     
-    public event Action<ToastLevel, RenderFragment, Action<ToastSettings>?>? OnShow;
-    public event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowComponent;
-    public event Action? OnClearAll;
-    public event Action<ToastLevel>? OnClearToasts;
-    public event Action? OnClearCustomToasts;
+    public event Action<Type, ToastParameters, ToastInstanceSettings> OnShowComponent;
+    public event Action OnClearAll;
+    public event Action<ToastLevel> OnClearToasts;
+    public event Action OnClearCustomToasts;
+    public event Action? OnClearQueue;
+    public event Action<ToastLevel>? OnClearQueueToasts;
 
     public void ShowToast<TComponent>() where TComponent : IComponent 
         => _toasts.Add(new InMemoryToast(typeof(TComponent)));
@@ -77,4 +78,22 @@ public class InMemoryToastService : IToastService
 
     public void ClearCustomToasts()
             => _toasts.RemoveAll(x => x.ToastType != typeof(ToastInstance));
+
+    public void ClearQueue()
+            => throw new NotImplementedException();
+
+    public void ClearQueueToasts(ToastLevel toastLevel)
+            => throw new NotImplementedException();
+
+    public void ClearQueueWarningToasts()
+            => throw new NotImplementedException();
+
+    public void ClearQueueInfoToasts()
+            => throw new NotImplementedException();
+
+    public void ClearQueueSuccessToasts()
+            => throw new NotImplementedException();
+
+    public void ClearQueueErrorToasts()
+            => throw new NotImplementedException();
 }

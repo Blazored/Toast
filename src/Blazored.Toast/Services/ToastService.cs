@@ -31,6 +31,16 @@ public class ToastService : IToastService
     public event Action? OnClearCustomToasts;
 
     /// <summary>
+    /// A event that will be invoked to clear all queued toasts
+    /// </summary>
+    public event Action? OnClearQueue;
+
+    /// <summary>
+    /// A event that will be invoked to clear queued toast of specified level
+    /// </summary>
+    public event Action<ToastLevel>? OnClearQueueToasts;
+
+    /// <summary>
     /// Shows a information toast 
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
@@ -132,7 +142,7 @@ public class ToastService : IToastService
         {
             throw new ArgumentException($"{contentComponent.FullName} must be a Blazor Component");
         }
-        
+
         OnShowComponent?.Invoke(contentComponent, parameters, settings);
     }
 
@@ -200,4 +210,41 @@ public class ToastService : IToastService
     /// </summary>
     public void ClearCustomToasts()
         => OnClearCustomToasts?.Invoke();
+
+    /// <summary>
+    /// Removes all queued toasts
+    /// </summary>
+    /// 
+    public void ClearQueue()
+        => OnClearQueue?.Invoke();
+
+    /// <summary>
+    /// Removes all queued toasts with a specified <paramref name="toastLevel"/>.
+    /// </summary>
+    public void ClearQueueToasts(ToastLevel toastLevel)
+        => OnClearQueueToasts?.Invoke(toastLevel);
+
+    /// <summary>
+    /// Removes all queued toasts with toast level warning
+    /// </summary>
+    public void ClearQueueWarningToasts()
+        => OnClearQueueToasts?.Invoke(ToastLevel.Warning);
+
+    /// <summary>
+    /// Removes all queued toasts with toast level info
+    /// </summary>
+    public void ClearQueueInfoToasts()
+        => OnClearQueueToasts?.Invoke(ToastLevel.Info);
+
+    /// <summary>
+    /// Removes all queued toasts with toast level success
+    /// </summary>
+    public void ClearQueueSuccessToasts()
+        => OnClearQueueToasts?.Invoke(ToastLevel.Success);
+
+    /// <summary>
+    /// Removes all queued toasts with toast level error
+    /// </summary>
+    public void ClearQueueErrorToasts()
+        => OnClearQueueToasts?.Invoke(ToastLevel.Error);
 }
