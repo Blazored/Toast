@@ -57,36 +57,15 @@ public partial class BlazoredToasts
             throw new ArgumentException("IconType is a Custom, icon parameters must be set.");
         }
     }
-
+    
     private ToastSettings BuildCustomToastSettings(Action<ToastSettings>? settings)
-
-    public void RemoveToast(Guid toastId)
-    {
-        InvokeAsync(() =>
-        {
-            var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
-
-            if (toastInstance is not null)
-            {
-                ToastList.Remove(toastInstance);
-                StateHasChanged();
-            }
-
-            if (ToastWaitingQueue.Any())
-            {
-                ShowEnqueuedToast();
-            }
-        });
-    }
-
-    private void ClearToasts(object? sender, LocationChangedEventArgs args)
     {
         var instanceToastSettings = new ToastSettings();
         settings?.Invoke(instanceToastSettings);
-        
+
         return instanceToastSettings;
     }
-    
+
     private ToastSettings BuildToastSettings(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings)
     {
         var toastInstanceSettings = new ToastSettings();
@@ -263,7 +242,7 @@ public partial class BlazoredToasts
     {
         InvokeAsync(() =>
         {
-            ToastWaitingQueue = new(ToastWaitingQueue.Where(x => x.ToastSettings?.ToastLevel != toastLevel));
+            ToastWaitingQueue = new(ToastWaitingQueue.Where(x => x.Level != toastLevel));
             StateHasChanged();
         });
     }

@@ -8,7 +8,7 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast
     /// </summary>
-    event Action<ToastLevel, RenderFragment, Action<ToastSettings>?>? OnShow;
+    event Action<ToastLevel, RenderFragment, Action<ToastSettings>?> OnShow;
 
     /// <summary>
     /// A event that will be invoked to clear all toasts
@@ -28,7 +28,7 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    event Action<Type, ToastParameters?, Action<ToastSettings>?> OnShowComponent;
+    event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowComponent;
 
     /// <summary>
     /// A event that will be invoked to clear all queued toasts
