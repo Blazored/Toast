@@ -4,15 +4,19 @@
         <CascadingValue Value=this IsFixed="true">
             @foreach (var toast in ToastList.OrderBy(x=>x.TimeStamp))
             {
-                if (toast.BlazoredToast is not null)
+                if (toast.CustomComponent is not null)
                 {
-                    <BlazoredToast @key="toast" ToastComponentSettings="toast.ToastInstanceSettings" ToastId="toast.Id" Timeout="toast.ToastInstanceSettings?.Timeout ?? 5" >
-                        @toast.BlazoredToast
+                    <BlazoredToast @key="toast" ToastId="toast.Id" Settings="toast.ToastSettings">
+                        @toast.CustomComponent
                     </BlazoredToast>
                 }
                 else
                 {
-                    <BlazoredToast @key="toast" ToastSettings="toast.ToastSettings" ToastId="toast.Id" Timeout="Timeout" />
+                    <BlazoredToast @key="toast" 
+                                   ToastId="toast.Id" 
+                                   Message="toast.Message"
+                                   Level="toast.Level"  
+                                   Settings="toast.ToastSettings" />
                 }
             }
         </CascadingValue>

@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Blazored.Toast.Configuration
 @inject IToastService ToastService
 @inject NavigationManager NavigationManager
 
@@ -6,20 +7,20 @@
 
 <h1>Blazored Toasts</h1>
 
-<button class="btn btn-info" id="InfoButton" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-<button class="btn btn-success" id="SuccessButton" @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a custom heading", "Congratulations!"))">Success Toast</button>
+<button class="btn btn-info" id="InfoButton" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message", settings => settings.IconType = IconType.None))">Info Toast</button>
+<button class="btn btn-success" id="SuccessButton" @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a lot of text to see what a toast looks like when it's really big."))">Success Toast</button>
 <button class="btn btn-warning" @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
 <button class="btn btn-danger" @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</button>
 <button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
-<button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("Click to refresh the page", "Click me!", () => { NavigationManager.NavigateTo("/", true); }))">
+<button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("Click to refresh the page",  settings => settings.OnClick = () => NavigationManager.NavigateTo("/", true)))">
     Info Toast with custom action on click
 </button>
 <hr />
 
 <h1>Blazored Toasts - Custom Component</h1>
 
-<button class="btn btn-primary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(new ToastInstanceSettings(5, true)))">Custom Toast</button>
-<button class="btn btn-secondary" id="CustomButton" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, new ToastInstanceSettings(5, true)))">Custom Toast with parameters</button>
+<button class="btn btn-primary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>
+<button class="btn btn-secondary" id="CustomButton" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; settings.ShowProgressBar = true; }))">Custom Toast with parameters</button>
 <hr />
 
 <h1>Blazored Toasts - Remove Toasts</h1>

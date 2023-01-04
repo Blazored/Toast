@@ -5,43 +5,38 @@ namespace Blazored.Toast.Configuration;
 
 public class ToastSettings
 {
+    public string AdditionalClasses { get; set; }
+    public string? Icon { get; set; }
+    public IconType? IconType { get; set; }
+    public bool ShowProgressBar { get; set; }
+    public bool ShowCloseButton { get; set; }
+    public Action? OnClick { get; set; }
+    public int Timeout { get; set; }
+    
     public ToastSettings(
-        ToastLevel toastLevel,
-        string heading,
-        RenderFragment message,
-        IconType? iconType,
-        string baseClass,
         string additionalClasses,
+        IconType? iconType,
         string icon,
         bool showProgressBar,
-        int maxItemsShown,
-        Action? onClick)
+        bool showCloseButton,
+        Action? onClick,
+        int timeout)
     {
-        ToastLevel = toastLevel;
-        Heading = heading;
-        Message = message;
-        IconType = iconType;
-        BaseClass = baseClass;
         AdditionalClasses = additionalClasses;
+        IconType = iconType;
         Icon = icon;
         ShowProgressBar = showProgressBar;
-        MaxItemsShown = maxItemsShown;
+        ShowCloseButton = showCloseButton;
         OnClick = onClick;
-        
+        Timeout = timeout;
+
         if (onClick is not null)
         {
             AdditionalClasses += " blazored-toast-action";
         }
     }
-
-    public ToastLevel ToastLevel { get; }
-    public string Heading { get; }
-    public RenderFragment Message { get; }
-    public string BaseClass { get; }
-    public string AdditionalClasses { get; }
-    public string Icon { get; }
-    public IconType? IconType { get; }
-    public bool ShowProgressBar { get; }
-    public int MaxItemsShown { get; }
-    public Action? OnClick { get; }
+    
+#pragma warning disable CS8618
+    internal ToastSettings() { }
+#pragma warning restore CS8618
 }

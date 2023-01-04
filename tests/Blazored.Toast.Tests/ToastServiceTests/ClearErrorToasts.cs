@@ -13,7 +13,7 @@ public class ClearErrorToasts
     }
 
     [Fact]
-    public void OnClearToastsInnvoked_When_ClearErrorToastsCalled()
+    public void OnClearToastsInvoked_When_ClearErrorToastsCalled()
     {
         // arrange
         var OnClearToastsCalled = false;
