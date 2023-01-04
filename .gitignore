@@ -3,8 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Custom
-src/Blazored.Toast/wwwroot/*.css
+.DS_Store
 
 # User-specific files
 *.suo
