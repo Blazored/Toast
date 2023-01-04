@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	  
@@ -30,9 +30,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.12" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,10 +55,6 @@
         Blazored.Toast.TestExtensions, PublicKey=0024000004800000940000000602000000240000525341310004000001000100015bc0f8543d2eea9baa0cc25a5c6f021731d4350904a4494d58d709c71ab364f74c56ffd3d0c9768b4e498394c001b1fdb894ae2625372dd1e34073772de18e62ed330b44e346e8a73386ba9ccdfa7dbe380f6e0a731c60815865c297f6b265f007e34d54186961fc5202d8b84bb3beef2c7ed8ae1e1ba6528f0e4ef40f3ea7
       </_Parameter1>
     </AssemblyAttribute>
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\blazored-toast.css" />
   </ItemGroup>
   
 </Project>
