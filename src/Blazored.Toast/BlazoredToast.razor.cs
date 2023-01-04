@@ -51,6 +51,16 @@ public partial class BlazoredToast : IDisposable
     private void ToastClick()
         => Settings.OnClick?.Invoke();
 
+    private bool ShowIconDiv() 
+        => Settings.IconType switch
+        {
+            IconType.None => false,
+            IconType.Blazored => true,
+            IconType.FontAwesome => !string.IsNullOrWhiteSpace(Settings.Icon),
+            IconType.Material => !string.IsNullOrWhiteSpace(Settings.Icon),
+            _ => false
+        };
+
     public void Dispose()
     {
         _countdownTimer?.Dispose();
