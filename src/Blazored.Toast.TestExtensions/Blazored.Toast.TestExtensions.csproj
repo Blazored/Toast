@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		
@@ -30,11 +30,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="..\Blazored.Toast\icon.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="bunit" Version="1.9.8" />
+		<PackageReference Include="bunit" Version="1.13.5" />
 	</ItemGroup>
 
 	<ItemGroup>
