@@ -117,20 +117,10 @@ If you want to have your own custom close button:
 ```
 
 ### 4. Add reference to style sheet(s)
-Add the following line to the `head` tag of your `_Layout.cshtml` (Blazor Server app) or `index.html` (Blazor WebAssembly).
-The blazored-toast.css includes the open-iconic-bootstrap.min.css.
+Blazored Toast uses CSS isolation. If your application is already using CSS isolation then the styles for Toast will be included automatically and you can skip this step. However, if your application isn't using isolated CSS, you will need to add a reference to the CSS bundle. You can checkout the [Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0#css-isolation-bundling) for additional details.
 
-We ship both minified and unminified CSS.
-
-For minifed use:
-
-```
-<link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
-```
-
-For unminifed use:
-```
-<link href="_content/Blazored.Toast/blazored-toast.css" rel="stylesheet" />
+```html
+<link href="{YOUR APP ASSEMBLY NAME}.styles.css" rel="stylesheet">
 ```
 
 Presumably, if you want to use the Material Icons your project already includes some form of the icons. If not see [Material Design Icons](https://dev.materialdesignicons.com/getting-started/webfont) for the available alternatives.
