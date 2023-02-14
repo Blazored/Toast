@@ -3,22 +3,29 @@
 @inject NavigationManager NavigationManager
 
 <h1>Blazored Toasts</h1>
-
-<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
-<button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom heading"))">Success Toast</button>
-<button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
-<button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
-<button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
-<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", options => options.OnClick = () => NavigationManager.NavigateTo("/", true)))">
-    Info Toast with custom action on click
-</button>
+<div>
+    <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+    <button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom heading"))">Success Toast</button>
+    <button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
+    <button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
+    <button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
+    <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", options => options.OnClick = () => NavigationManager.NavigateTo("/", true)))">
+        Info Toast with custom action on click
+    </button>
+</div>
+<div class="mt-2">
+    <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("When you hover me i will stop timeout progress and will continue after you move out", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; }))">Paused progress on hover</button>
+    <button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("When you hover me i will stop timeout progress and will close after 1 sec", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; settings.ExtendedTimeout = 1;}))">Paused progress on hover with extended timeout</button>
+</div>
 <hr />
+
 
 <h1>Blazored Toasts - Custom Component</h1>
 
 <button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>
 <button class="btn btn-secondary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast with parameters</button>
 <hr />
+
 
 <h1>Blazored Toasts - Remove Toasts</h1>
 

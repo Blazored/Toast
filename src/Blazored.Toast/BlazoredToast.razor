@@ -4,7 +4,7 @@
 
 @if (ChildContent is not null)
 {
-    <div class="blazored-toast blazored-toast-component @Settings.AdditionalClasses">
+    <div class="blazored-toast blazored-toast-component @Settings.AdditionalClasses" @onmouseover="MouseOver" @onmouseout="MouseOut">
         <CascadingValue Value="this" IsFixed="true">
             @ChildContent
         </CascadingValue>
@@ -19,7 +19,7 @@
 }
 else
 {
-    <div class="blazored-toast @Settings.AdditionalClasses" @onclick="ToastClick">
+    <div class="blazored-toast @Settings.AdditionalClasses" @onclick="ToastClick" @onmouseover="MouseOver" @onmouseout="MouseOut">
 
         @if (ShowIconDiv())
         {

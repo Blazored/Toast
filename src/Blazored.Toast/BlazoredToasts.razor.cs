@@ -81,6 +81,9 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 Timeout),
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Info => new ToastSettings(
                 "blazored-toast-info", 
                 toastInstanceSettings.IconType ?? IconType, 
@@ -88,6 +91,9 @@ public partial class BlazoredToasts
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout),
                 Timeout),
             ToastLevel.Success => new ToastSettings(
                 "blazored-toast-success", 
@@ -96,6 +102,9 @@ public partial class BlazoredToasts
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover, 
+                toastInstanceSettings.ExtendedTimeout),
                 Timeout),
             ToastLevel.Warning => new ToastSettings(
                 "blazored-toast-warning", 
@@ -104,6 +113,9 @@ public partial class BlazoredToasts
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover, 
+                toastInstanceSettings.ExtendedTimeout),
                 Timeout),
             _ => throw new InvalidOperationException()
         };
