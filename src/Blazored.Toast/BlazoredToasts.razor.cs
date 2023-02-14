@@ -80,7 +80,9 @@ public partial class BlazoredToasts
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Info => new ToastSettings(
                 "blazored-toast-info", 
                 toastInstanceSettings.IconType ?? IconType, 
@@ -88,7 +90,9 @@ public partial class BlazoredToasts
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Success => new ToastSettings(
                 "blazored-toast-success", 
                 toastInstanceSettings.IconType ?? IconType, 
@@ -96,7 +100,9 @@ public partial class BlazoredToasts
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover, 
+                toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Warning => new ToastSettings(
                 "blazored-toast-warning", 
                 toastInstanceSettings.IconType ?? IconType, 
@@ -104,7 +110,9 @@ public partial class BlazoredToasts
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout),
+                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.PauseProgressOnHover, 
+                toastInstanceSettings.ExtendedTimeout),
             _ => throw new InvalidOperationException()
         };
     }
