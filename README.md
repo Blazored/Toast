@@ -43,7 +43,7 @@ builder.Services.AddBlazoredToast();
 ### 2. Add Imports
 Add the following to your *_Imports.razor*
 
-```csharp
+```razor
 @using Blazored.Toast
 @using Blazored.Toast.Services
 ```
