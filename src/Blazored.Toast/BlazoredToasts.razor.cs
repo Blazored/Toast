@@ -93,6 +93,7 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
+
             ToastLevel.Success => new ToastSettings(
                 "blazored-toast-success", 
                 toastInstanceSettings.IconType ?? IconType, 
