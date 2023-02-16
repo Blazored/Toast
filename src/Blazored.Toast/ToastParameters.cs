@@ -8,9 +8,10 @@ public class ToastParameters
     {
         Parameters = new Dictionary<string, object>();
     }
-    public void Add(string parameterName, object value)
+    public ToastParameters Add(string parameterName, object value)
     {
         Parameters[parameterName] = value;
+        return this;
     }
 
     public T Get<T>(string parameterName)
