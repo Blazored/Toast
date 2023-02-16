@@ -48,7 +48,16 @@ Add the following to your *_Imports.razor*
 @using Blazored.Toast.Services
 ```
 
-### 3. Register and Configure Toasts Component
+### 3. Add reference to style sheet(s)
+Blazored Toast uses CSS isolation. If your application is already using CSS isolation then the styles for Toast will be included automatically and you can skip this step. However, if your application isn't using isolated CSS, you will need to add a reference to the CSS bundle. You can checkout the [Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0#css-isolation-bundling) for additional details.
+
+```razor
+<link href="{YOUR APP ASSEMBLY NAME}.styles.css" rel="stylesheet">
+```
+
+Presumably, if you want to use the Material Icons your project already includes some form of the icons. If not see [Material Design Icons](https://dev.materialdesignicons.com/getting-started/webfont) for the available alternatives.
+
+### 4. Register and Configure Toasts Component
 Add the `<BlazoredToasts />` tag into your applications *MainLayout.razor*.
 
 Toasts are configured using parameters on the `<BlazoredToasts />` component. The following options are available.
@@ -74,13 +83,13 @@ By default, you don't need to provide any settings everything will just work. Bu
 
 For example, to add an icon from Font Awesome to all success toasts you can do the following:
 
-```html
+```razor
 <BlazoredToasts SuccessIcon="fa fa-thumbs-up"/>
 ```
 
 Setting the position also requires a reference to `Blazored.Toast.Configuration`, for example:
 
-```html
+```razor
 @using Blazored.Toast.Configuration
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
@@ -92,7 +101,7 @@ Setting the position also requires a reference to `Blazored.Toast.Configuration`
 ```
 The example above is from the [client side samples](https://github.com/Blazored/Toast/tree/master/samples).
 
-```html
+```razor
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="10"
                 IconType="IconType.Material"
@@ -105,7 +114,7 @@ The example above is from the [server side samples](https://github.com/Blazored/
 
 
 If you want to have your own custom close button:
-```html
+```razor
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="10">
     <CloseButtonContent>
@@ -116,15 +125,6 @@ If you want to have your own custom close button:
 </BlazoredToasts>
 ```
 
-### 4. Add reference to style sheet(s)
-Blazored Toast uses CSS isolation. If your application is already using CSS isolation then the styles for Toast will be included automatically and you can skip this step. However, if your application isn't using isolated CSS, you will need to add a reference to the CSS bundle. You can checkout the [Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0#css-isolation-bundling) for additional details.
-
-```html
-<link href="{YOUR APP ASSEMBLY NAME}.styles.css" rel="stylesheet">
-```
-
-Presumably, if you want to use the Material Icons your project already includes some form of the icons. If not see [Material Design Icons](https://dev.materialdesignicons.com/getting-started/webfont) for the available alternatives.
-
 ## Usage
 In order to show a toast you have to inject the `IToastService` into the component or service you want to trigger a toast. You can then call one of the following methods depending on what kind of toast you want to display, passing in a message and an optional heading.
 
@@ -134,7 +134,7 @@ In order to show a toast you have to inject the `IToastService` into the compone
 - `ShowError`
 
 
-```html
+```razor
 @page "/toastdemo"
 @inject IToastService toastService
 
@@ -151,7 +151,7 @@ To show a toast just click one of the buttons below.
 ### Show Progress Bar
 You can display a progress bar which gives a visual indicator of the time remaining before the toast will disappear. In order to show the progress bar set the `ShowProgressBar` parameter to true.
 
-```html
+```razor
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="10"
                 ShowProgressBar="true" />
@@ -168,7 +168,7 @@ You can call the `ShowToast` method passing the type of component you want the t
 
 For example if I have a component called `MyToast` which I want to display in the toast and I want to call it from the `Index` component on a button cick.
 
-```html
+```razor
 @page "/toastdemo"
 @inject IToastService toastService
 
@@ -208,7 +208,7 @@ The following settings are available.
 
 For Example if you want to change the duration of the timeout and disable the progress bar.
 
-```html
+```razor
 @page "/toastdemo"
 @inject IToastService toastService
 
