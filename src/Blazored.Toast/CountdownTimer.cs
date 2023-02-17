@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Blazored.Toast;
+﻿namespace Blazored.Toast;
 internal class CountdownTimer : IDisposable
 {
     private PeriodicTimer _timer;
@@ -51,16 +49,15 @@ internal class CountdownTimer : IDisposable
     {
         while (await _timer.WaitForNextTickAsync(_cancellationToken) && !_cancellationToken.IsCancellationRequested)
         {
-
             if (!_isPaused)
             {
                 _percentComplete++;
             }
+
             if (_tickDelegate != null)
             {
                 await _tickDelegate(_percentComplete);
             }
-            //await _tickDelegate?.Invoke(_percentComplete)!;
 
             if (_percentComplete == _ticksToTimeout)
             {
