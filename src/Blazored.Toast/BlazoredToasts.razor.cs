@@ -63,6 +63,7 @@ public partial class BlazoredToasts
     {
         var instanceToastSettings = new ToastSettings();
         settings?.Invoke(instanceToastSettings);
+        instanceToastSettings.DisableTimeout ??= DisableTimeout;
 
         return instanceToastSettings;
     }
