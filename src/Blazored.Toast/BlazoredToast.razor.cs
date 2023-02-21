@@ -44,9 +44,9 @@ public partial class BlazoredToast : IDisposable
     public void Close()
         => ToastsContainer.RemoveToast(ToastId);
 
-    private void TryPauseCountdown(MouseEventArgs e)
+    private void TryPauseCountdown()
     {
-        if (Settings.PauseProgressOnHover)
+        if (Settings.PauseProgressOnHover!.Value)
         {
             Settings.ShowProgressBar= false;
             _countdownTimer?.Pause();
@@ -55,13 +55,12 @@ public partial class BlazoredToast : IDisposable
 
     private void TryResumeCountdown()
     {        
-        if (Settings.PauseProgressOnHover )
+        if (Settings.PauseProgressOnHover!.Value )
         {
             Settings.ShowProgressBar = true;
             _countdownTimer?.UnPause();
         }
     }
-
 
     private async Task CalculateProgressAsync(int percentComplete)
     {
