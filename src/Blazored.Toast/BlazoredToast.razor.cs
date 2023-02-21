@@ -21,6 +21,11 @@ public partial class BlazoredToast : IDisposable
 
     protected override async Task OnInitializedAsync()
     {
+        if (Settings.DisableTimeout ?? false)
+        {
+            return;
+        }
+        
         if (Settings.ShowProgressBar)
         {
             _countdownTimer = new CountdownTimer(Settings.Timeout)
