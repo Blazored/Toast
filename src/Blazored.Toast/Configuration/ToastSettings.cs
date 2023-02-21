@@ -12,6 +12,7 @@ public class ToastSettings
     public bool ShowCloseButton { get; set; }
     public Action? OnClick { get; set; }
     public int Timeout { get; set; }
+    public bool? DisableTimeout { get; set; }
     
     public ToastSettings(
         string additionalClasses,
@@ -20,7 +21,8 @@ public class ToastSettings
         bool showProgressBar,
         bool showCloseButton,
         Action? onClick,
-        int timeout)
+        int timeout,
+        bool disableTimeout)
     {
         AdditionalClasses = additionalClasses;
         IconType = iconType;
@@ -29,6 +31,7 @@ public class ToastSettings
         ShowCloseButton = showCloseButton;
         OnClick = onClick;
         Timeout = timeout;
+        DisableTimeout = disableTimeout;
 
         if (onClick is not null)
         {

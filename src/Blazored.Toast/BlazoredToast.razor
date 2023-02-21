@@ -9,7 +9,7 @@
             @ChildContent
         </CascadingValue>
 
-        @if (Settings.ShowProgressBar)
+        @if (Settings is { DisableTimeout: false, ShowProgressBar: true })
         {
             <div class="blazored-toast-progressbar">
                 <span style="width: @(_progress)%;"></span>
@@ -70,7 +70,7 @@ else
         
         <p class="blazored-toast-message">@Message</p>
         
-        @if (Settings.ShowCloseButton)
+        @if (Settings.DisableTimeout!.Value || Settings.ShowCloseButton)
         {
             <button type="button" class="blazored-toast-close" @onclick=@Close>
                 <i aria-label="icon: close" class="blazored-toast-close-icon">
@@ -88,7 +88,7 @@ else
             </button>
         }
 
-        @if (Settings.ShowProgressBar)
+        @if (Settings is { DisableTimeout: false, ShowProgressBar: true })
         {
             <div class="blazored-toast-progressbar">
                 <span style="width: @(_progress)%;"></span>
