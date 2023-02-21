@@ -44,7 +44,7 @@ public partial class BlazoredToast : IDisposable
     public void Close()
         => ToastsContainer.RemoveToast(ToastId);
 
-    private void MouseOver(MouseEventArgs e)
+    private void TryPauseCountdown(MouseEventArgs e)
     {
         if (Settings.PauseProgressOnHover)
         {
@@ -53,7 +53,7 @@ public partial class BlazoredToast : IDisposable
         }
     }
 
-    private void MouseOut()
+    private void TryResumeCountdown()
     {        
         if (Settings.PauseProgressOnHover )
         {

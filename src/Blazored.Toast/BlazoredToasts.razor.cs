@@ -9,8 +9,7 @@ public partial class BlazoredToasts
 {
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-
-    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;
+    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;    
     [Parameter] public string? InfoClass { get; set; }
     [Parameter] public string? InfoIcon { get; set; }
     [Parameter] public string? SuccessClass { get; set; }

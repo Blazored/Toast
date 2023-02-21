@@ -1,8 +1,4 @@
-﻿using Blazored.Toast.Services;
-using Microsoft.AspNetCore.Components;
-
-namespace Blazored.Toast.Configuration;
-
+﻿namespace Blazored.Toast.Configuration;
 public class ToastSettings
 {
     /// <summary>
@@ -34,7 +30,7 @@ public class ToastSettings
     /// <remarks>
     /// This can be useful for providing users with more time to read the contents of the notification. By using the <c>PauseProgressOnHover</c> property in conjunction with the <c>ExtendedTimeout</c> property, you can create a toast notification that is more user-friendly and provides better visual feedback to the user.
     /// </remarks>
-    public bool PauseProgressOnHover { get; set; }
+    public bool? PauseProgressOnHover { get; set; }
 
     /// <summary>
     /// The ShowCloseButton property determines whether or not the close button is displayed on the toast notification.

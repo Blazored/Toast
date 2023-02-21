@@ -16,25 +16,30 @@ internal class CountdownTimer : IDisposable
         _cancellationToken = cancellationToken;
         _extendedTimeout = extendedTimeout;
     }
+
     internal CountdownTimer OnTick(Func<int, Task> updateProgressDelegate)
     {
         _tickDelegate = updateProgressDelegate;
         return this;
     }
+
     internal CountdownTimer OnElapsed(Action elapsedDelegate)
     {
         _elapsedDelegate = elapsedDelegate;
         return this;
     }
+
     internal async Task StartAsync()
     {
         _percentComplete = 0;
         await DoWorkAsync();
     }
+
     internal void Pause()
     {
         _isPaused = true;
     }
+
     internal async Task UnPause()
     {
         _isPaused = false;
@@ -45,6 +50,7 @@ internal class CountdownTimer : IDisposable
             await StartAsync();
         }
     }
+
     private async Task DoWorkAsync()
     {
         while (await _timer.WaitForNextTickAsync(_cancellationToken) && !_cancellationToken.IsCancellationRequested)
@@ -65,5 +71,6 @@ internal class CountdownTimer : IDisposable
             }
         }
     }
+
     public void Dispose() => _timer.Dispose();
 }
