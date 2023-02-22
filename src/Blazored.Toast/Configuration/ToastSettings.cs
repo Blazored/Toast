@@ -38,6 +38,8 @@ public class ToastSettings
     /// Timeout in seconds for toaster to close
     /// </summary>
     public int Timeout { get; set; }
+    public bool? DisableTimeout { get; set; }
+    
     /// <summary>    
     /// When <see cref="PauseProgressOnHover"/> is enabled, set ExtentedTimeout in seconds
     /// to close toast after mouse loose focus.
@@ -53,7 +55,8 @@ public class ToastSettings
         bool showCloseButton,
         Action? onClick,
         int timeout,
-        bool pauseProgressOnHover, 
+        bool disableTimeout,
+        bool pauseProgressOnHover,
         int extendedTimeout)
     {
         AdditionalClasses = additionalClasses;
@@ -63,6 +66,7 @@ public class ToastSettings
         ShowCloseButton = showCloseButton;
         OnClick = onClick;
         Timeout = timeout;
+        DisableTimeout = disableTimeout;
         PauseProgressOnHover = pauseProgressOnHover;
         ExtendedTimeout = extendedTimeout;
 
