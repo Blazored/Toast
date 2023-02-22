@@ -83,7 +83,7 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Info => new ToastSettings(
@@ -94,7 +94,7 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Success => new ToastSettings(
@@ -105,7 +105,7 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
 
@@ -117,7 +117,7 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
             _ => throw new InvalidOperationException()

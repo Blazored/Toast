@@ -76,9 +76,6 @@ public class ToastSettings
         bool showCloseButton,
         Action? onClick,
         int timeout,
-        bool pauseProgressOnHover, 
-        int extendedTimeout)
-        int timeout,
         bool disableTimeout,
         bool pauseProgressOnHover,
         int extendedTimeout)
@@ -90,6 +87,7 @@ public class ToastSettings
         ShowCloseButton = showCloseButton;
         OnClick = onClick;
         Timeout = timeout;
+        DisableTimeout= disableTimeout;
         PauseProgressOnHover = pauseProgressOnHover;
         ExtendedTimeout = extendedTimeout;
 
