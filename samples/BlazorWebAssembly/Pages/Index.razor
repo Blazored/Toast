@@ -17,8 +17,8 @@
     Info Toast with custom action on click
 </button>
 <div class="mt-2">
-    <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("When you hover me i will stop timeout progress and will continue after you move mouse out", settings => {settings.PauseProgressOnHover = true;}))">Paused progress on hover</button>
-    <button class="btn btn-success" @onclick="@(() => ToastService.ShowSuccess("When you hover me i will stop timeout progress and will close after 1 sec", settings => {settings.PauseProgressOnHover = true; settings.ExtendedTimeout = 1;}))">Paused progress on hover with extended timeout</button>
+    <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("When you hover over me, I will pause the timeout progress and resume it once you move away", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; }))">Pause progress on hover</button>
+    <button class="btn btn-success" @onclick="@(() => ToastService.ShowSuccess("When you hover over me, I will stop the timeout progress and close after an extended timeout of 1 second", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; settings.ExtendedTimeout = 1;}))">Pause progress on hover with extended timeout</button>
 </div>
 <hr />
 

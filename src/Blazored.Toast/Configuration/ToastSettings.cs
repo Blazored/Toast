@@ -59,13 +59,11 @@ public class ToastSettings
     /// <remarks>
     /// Default value is <c>0</c>, meaning no extended timeout.
     /// </remarks>
-    public int ExtendedTimeout { get; set; }
+    public int? ExtendedTimeout { get; set; }
+
     /// <summary>
-    /// Setting the <c>DisableTimeout</c> property to true will prevent the toast notification from automatically closing based on the duration specified by the <c>Timeout</c> and <c>ExtendedTimeout</c> properties. 
+    /// Setting the <c>DisableTimeout</c> property to true will prevent the toast notification from automatically closing, ignoring <c>Timeout</c> and <c>ExtendedTimeout</c> properties. A close button will be shown to allow the user to dismiss the notification manually.
     /// </summary>
-    /// <remarks>
-    /// Use this property if you want the user to dismiss the notification manually.
-    /// </remarks>
     public bool? DisableTimeout { get; set; }
 
     public ToastSettings(
@@ -95,7 +93,6 @@ public class ToastSettings
         {
             AdditionalClasses += " blazored-toast-action";
         }
-        ExtendedTimeout = extendedTimeout;
     }
 
 #pragma warning disable CS8618

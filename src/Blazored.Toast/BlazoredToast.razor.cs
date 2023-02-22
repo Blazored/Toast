@@ -30,13 +30,13 @@ public partial class BlazoredToast : IDisposable
         
         if (Settings.ShowProgressBar)
         {
-            _countdownTimer = new CountdownTimer(Settings.Timeout, Settings.ExtendedTimeout)
+            _countdownTimer = new CountdownTimer(Settings.Timeout, Settings.ExtendedTimeout!.Value)
                 .OnTick(CalculateProgressAsync)
                 .OnElapsed(Close);
         }
         else
         {
-            _countdownTimer = new CountdownTimer(Settings.Timeout, Settings.ExtendedTimeout)
+            _countdownTimer = new CountdownTimer(Settings.Timeout, Settings.ExtendedTimeout!.Value)
                 .OnElapsed(Close);
         }
 
