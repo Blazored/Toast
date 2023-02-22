@@ -25,6 +25,7 @@ public partial class BlazoredToasts
     [Parameter] public bool ShowProgressBar { get; set; }
     [Parameter] public RenderFragment? CloseButtonContent { get; set; }
     [Parameter] public bool ShowCloseButton { get; set; } = true;
+    [Parameter] public bool DisableTimeout { get; set; }
     [Parameter] public bool PauseProgressOnHover { get; set; } = false;
     private string PositionClass { get; set; } = string.Empty;
     private List<ToastInstance> ToastList { get; set; } = new();
@@ -61,6 +62,7 @@ public partial class BlazoredToasts
     {
         var instanceToastSettings = new ToastSettings();
         settings?.Invoke(instanceToastSettings);
+        instanceToastSettings.DisableTimeout ??= DisableTimeout;
         instanceToastSettings.PauseProgressOnHover ??= PauseProgressOnHover; 
 
         return instanceToastSettings;
@@ -81,6 +83,7 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Info => new ToastSettings(
@@ -91,6 +94,7 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
             ToastLevel.Success => new ToastSettings(
@@ -101,8 +105,10 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover, 
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout
+                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
+
             ToastLevel.Warning => new ToastSettings(
                 "blazored-toast-warning", 
                 toastInstanceSettings.IconType ?? IconType, 
@@ -111,7 +117,8 @@ public partial class BlazoredToasts
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover, 
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout
+                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout),
             _ => throw new InvalidOperationException()
         };

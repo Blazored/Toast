@@ -60,6 +60,13 @@ public class ToastSettings
     /// Default value is <c>0</c>, meaning no extended timeout.
     /// </remarks>
     public int ExtendedTimeout { get; set; }
+    /// <summary>
+    /// Setting the <c>DisableTimeout</c> property to true will prevent the toast notification from automatically closing based on the duration specified by the <c>Timeout</c> and <c>ExtendedTimeout</c> properties. 
+    /// </summary>
+    /// <remarks>
+    /// Use this property if you want the user to dismiss the notification manually.
+    /// </remarks>
+    public bool? DisableTimeout { get; set; }
 
     public ToastSettings(
         string additionalClasses,
@@ -70,6 +77,10 @@ public class ToastSettings
         Action? onClick,
         int timeout,
         bool pauseProgressOnHover, 
+        int extendedTimeout)
+        int timeout,
+        bool disableTimeout,
+        bool pauseProgressOnHover,
         int extendedTimeout)
     {
         AdditionalClasses = additionalClasses;
