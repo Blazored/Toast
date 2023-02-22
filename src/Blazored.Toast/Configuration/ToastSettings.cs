@@ -38,7 +38,6 @@ public class ToastSettings
     /// Timeout in seconds for toaster to close
     /// </summary>
     public int Timeout { get; set; }
-    public bool? DisableTimeout { get; set; }
     
     /// <summary>    
     /// When <see cref="PauseProgressOnHover"/> is enabled, set ExtentedTimeout in seconds
@@ -47,6 +46,14 @@ public class ToastSettings
     /// </summary>
     public int ExtendedTimeout { get; set; }
 
+    /// <summary>
+    /// Setting the <c>DisableTimeout</c> property to true will prevent the toast notification from automatically closing based on the duration specified by the <c>Timeout</c> and <c>ExtendedTimeout</c> properties. 
+    /// </summary>
+    /// <remarks>
+    /// Use this property if you want the user to dismiss the notification manually.
+    /// </remarks>
+    public bool? DisableTimeout { get; set; }
+    
     public ToastSettings(
         string additionalClasses,
         IconType? iconType,
