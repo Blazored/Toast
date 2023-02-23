@@ -74,9 +74,9 @@ public partial class BlazoredToasts
         return level switch
         {
             ToastLevel.Error => new ToastSettings(
-                "blazored-toast-error",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? ErrorIcon ?? "",
+                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}", 
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? ErrorIcon ?? "", 
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
@@ -84,9 +84,9 @@ public partial class BlazoredToasts
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Info => new ToastSettings(
-                "blazored-toast-info",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? InfoIcon ?? "",
+                $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? InfoIcon ?? "", 
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
@@ -94,9 +94,9 @@ public partial class BlazoredToasts
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Success => new ToastSettings(
-                "blazored-toast-success",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? SuccessIcon ?? "",
+                $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? SuccessIcon ?? "", 
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
@@ -104,9 +104,9 @@ public partial class BlazoredToasts
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Warning => new ToastSettings(
-                "blazored-toast-warning",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? WarningIcon ?? "",
+                $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? WarningIcon ?? "", 
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
