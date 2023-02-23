@@ -1,24 +1,27 @@
 ﻿@if (ToastList.Any())
 {
-    <div class="blazored-toast-container @PositionClass">
-        <CascadingValue Value=this IsFixed="true">
-            @foreach (var toast in ToastList.OrderBy(x=>x.TimeStamp))
-            {
-                if (toast.CustomComponent is not null)
+    @foreach (var positionGroupedToasts in ToastList.GroupBy(x => x.ToastSettings.PositionClass))
+    {
+        <div class="blazored-toast-container @positionGroupedToasts.Key" @key=positionGroupedToasts.Key>
+            <CascadingValue Value=this IsFixed="true">
+                @foreach (var toast in positionGroupedToasts!.OrderBy(x => x.TimeStamp))
                 {
-                    <BlazoredToast @key="toast" ToastId="toast.Id" Settings="toast.ToastSettings">
-                        @toast.CustomComponent
-                    </BlazoredToast>
+                    if (toast.CustomComponent is not null)
+                    {
+                        <BlazoredToast @key="toast" ToastId="toast.Id" Settings="toast.ToastSettings">
+                            @toast.CustomComponent
+                        </BlazoredToast>
+                    }
+                    else
+                    {
+                        <BlazoredToast @key="toast"
+                       ToastId="toast.Id"
+                       Message="toast.Message"
+                       Level="toast.Level"
+                       Settings="toast.ToastSettings" />
+                    }
                 }
-                else
-                {
-                    <BlazoredToast @key="toast" 
-                                   ToastId="toast.Id" 
-                                   Message="toast.Message"
-                                   Level="toast.Level"  
-                                   Settings="toast.ToastSettings" />
-                }
-            }
-        </CascadingValue>
-    </div>
+            </CascadingValue>
+        </div>
+    }
 }

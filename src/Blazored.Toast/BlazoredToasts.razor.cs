@@ -28,7 +28,6 @@ public partial class BlazoredToasts
     [Parameter] public bool ShowCloseButton { get; set; } = true;
     [Parameter] public bool DisableTimeout { get; set; }
 
-    private string PositionClass { get; set; } = string.Empty;
     private List<ToastInstance> ToastList { get; set; } = new();
     private Queue<ToastInstance> ToastWaitingQueue { get; set; } = new();
 
@@ -47,8 +46,6 @@ public partial class BlazoredToasts
             NavigationManager.LocationChanged += ClearToasts;
         }
 
-        PositionClass = $"position-{Position.ToString().ToLower()}";
-
         if (IconType == IconType.Custom
             && string.IsNullOrWhiteSpace(InfoIcon)
             && string.IsNullOrWhiteSpace(SuccessIcon)
@@ -58,12 +55,13 @@ public partial class BlazoredToasts
             throw new ArgumentException("IconType is a Custom, icon parameters must be set.");
         }
     }
-    
+
     private ToastSettings BuildCustomToastSettings(Action<ToastSettings>? settings)
     {
         var instanceToastSettings = new ToastSettings();
         settings?.Invoke(instanceToastSettings);
         instanceToastSettings.DisableTimeout ??= DisableTimeout;
+        instanceToastSettings.Position ??= Position;
 
         return instanceToastSettings;
     }
@@ -72,45 +70,49 @@ public partial class BlazoredToasts
     {
         var toastInstanceSettings = new ToastSettings();
         settings?.Invoke(toastInstanceSettings);
-        
+
         return level switch
         {
             ToastLevel.Error => new ToastSettings(
-                "blazored-toast-error", 
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? ErrorIcon ?? "", 
+                "blazored-toast-error",
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? ErrorIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout),
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.Position ?? Position),
             ToastLevel.Info => new ToastSettings(
-                "blazored-toast-info", 
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? InfoIcon ?? "", 
+                "blazored-toast-info",
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? InfoIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout),
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.Position ?? Position),
             ToastLevel.Success => new ToastSettings(
-                "blazored-toast-success", 
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? SuccessIcon ?? "", 
+                "blazored-toast-success",
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? SuccessIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout),
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.Position ?? Position),
             ToastLevel.Warning => new ToastSettings(
-                "blazored-toast-warning", 
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? WarningIcon ?? "", 
+                "blazored-toast-warning",
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? WarningIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout),
+                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.Position ?? Position),
             _ => throw new InvalidOperationException()
         };
     }
@@ -162,7 +164,7 @@ public partial class BlazoredToasts
             StateHasChanged();
         });
     }
-    
+
     private void ShowEnqueuedToast()
     {
         InvokeAsync(() =>
