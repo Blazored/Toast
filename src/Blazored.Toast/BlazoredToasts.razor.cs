@@ -9,8 +9,7 @@ public partial class BlazoredToasts
 {
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-
-    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;
+    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;    
     [Parameter] public string? InfoClass { get; set; }
     [Parameter] public string? InfoIcon { get; set; }
     [Parameter] public string? SuccessClass { get; set; }
@@ -27,6 +26,8 @@ public partial class BlazoredToasts
     [Parameter] public RenderFragment? CloseButtonContent { get; set; }
     [Parameter] public bool ShowCloseButton { get; set; } = true;
     [Parameter] public bool DisableTimeout { get; set; }
+    [Parameter] public bool PauseProgressOnHover { get; set; } = false;
+    [Parameter] public int ExtendedTimeout { get; set; }
 
     private List<ToastInstance> ToastList { get; set; } = new();
     private Queue<ToastInstance> ToastWaitingQueue { get; set; } = new();
@@ -60,7 +61,10 @@ public partial class BlazoredToasts
     {
         var instanceToastSettings = new ToastSettings();
         settings?.Invoke(instanceToastSettings);
+        instanceToastSettings.Timeout = instanceToastSettings.Timeout == 0 ? Timeout : instanceToastSettings.Timeout;
         instanceToastSettings.DisableTimeout ??= DisableTimeout;
+        instanceToastSettings.PauseProgressOnHover ??= PauseProgressOnHover;
+        instanceToastSettings.ExtendedTimeout ??= ExtendedTimeout;
         instanceToastSettings.Position ??= Position;
 
         return instanceToastSettings;
@@ -82,6 +86,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Info => new ToastSettings(
                 $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
@@ -92,6 +98,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Success => new ToastSettings(
                 $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
@@ -102,6 +110,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Warning => new ToastSettings(
                 $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
@@ -112,6 +122,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
                 toastInstanceSettings.Position ?? Position),
             _ => throw new InvalidOperationException()
         };
@@ -127,7 +139,7 @@ public partial class BlazoredToasts
             if (ToastList.Count < MaxToastCount)
             {
                 ToastList.Add(toast);
-
+                
                 StateHasChanged();
             }
             else

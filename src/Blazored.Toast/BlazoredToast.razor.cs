@@ -1,6 +1,8 @@
 ﻿using Blazored.Toast.Configuration;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using System.Diagnostics;
 
 namespace Blazored.Toast;
 
@@ -28,13 +30,13 @@ public partial class BlazoredToast : IDisposable
         
         if (Settings.ShowProgressBar)
         {
-            _countdownTimer = new CountdownTimer(Settings.Timeout)
+            _countdownTimer = new CountdownTimer(Settings.Timeout, Settings.ExtendedTimeout!.Value)
                 .OnTick(CalculateProgressAsync)
                 .OnElapsed(Close);
         }
         else
         {
-            _countdownTimer = new CountdownTimer(Settings.Timeout)
+            _countdownTimer = new CountdownTimer(Settings.Timeout, Settings.ExtendedTimeout!.Value)
                 .OnElapsed(Close);
         }
 
@@ -46,6 +48,24 @@ public partial class BlazoredToast : IDisposable
     /// </summary>
     public void Close()
         => ToastsContainer.RemoveToast(ToastId);
+
+    private void TryPauseCountdown()
+    {
+        if (Settings.PauseProgressOnHover!.Value)
+        {
+            Settings.ShowProgressBar= false;
+            _countdownTimer?.Pause();
+        }
+    }
+
+    private void TryResumeCountdown()
+    {        
+        if (Settings.PauseProgressOnHover!.Value )
+        {
+            Settings.ShowProgressBar = true;
+            _countdownTimer?.UnPause();
+        }
+    }
 
     private async Task CalculateProgressAsync(int percentComplete)
     {
