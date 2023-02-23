@@ -8,7 +8,7 @@ namespace Blazored.Toast.TestExtensions
     {
         public Type ToastType { get; set; }
         public ToastLevel ToastLevel { get; }
-        public RenderFragment Message { get; }
+        public RenderFragment? Message { get; }
 
         public InMemoryToast(Type toastType, ToastLevel toastLevel, RenderFragment message)
         {

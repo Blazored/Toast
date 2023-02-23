@@ -22,6 +22,14 @@
 </div>
 <hr />
 
+<h1>Blazored Toasts - Individual Positioning</h1>
+
+<button class="btn btn-info" id="InfoButton" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message", settings => settings.Position = ToastPosition.BottomLeft))">Info Toast</button>
+<button class="btn btn-success" id="SuccessButton" @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message", settings => settings.Position = ToastPosition.TopLeft))">Success Toast</button>
+<button class="btn btn-warning" @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message", settings => settings.Position = ToastPosition.TopRight))">Warning Toast</button>
+<button class="btn btn-danger" @onclick="@(() => ToastService.ShowError("I'm an ERROR message", settings => { settings.Position = ToastPosition.BottomCenter; settings.DisableTimeout = true; }))">Error Toast</button>
+<hr />
+
 <h1>Blazored Toasts - Custom Component</h1>
 
 <button class="btn btn-primary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>

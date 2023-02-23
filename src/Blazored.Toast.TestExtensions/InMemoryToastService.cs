@@ -9,11 +9,11 @@ public class InMemoryToastService : IToastService
     private readonly List<InMemoryToast> _toasts = new();
     public IReadOnlyList<InMemoryToast> Toasts => _toasts;
     
-    public event Action<Type, ToastParameters?, Action<ToastSettings>?> OnShowComponent;
+    public event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowComponent;
     public event Action<ToastLevel, RenderFragment, Action<ToastSettings>?>? OnShow;
-    public event Action OnClearAll;
-    public event Action<ToastLevel> OnClearToasts;
-    public event Action OnClearCustomToasts;
+    public event Action? OnClearAll;
+    public event Action<ToastLevel>? OnClearToasts;
+    public event Action? OnClearCustomToasts;
     public event Action? OnClearQueue;
     public event Action<ToastLevel>? OnClearQueueToasts;
 
