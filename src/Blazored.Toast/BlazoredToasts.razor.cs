@@ -9,6 +9,7 @@ public partial class BlazoredToasts
 {
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+    
     [Parameter] public IconType IconType { get; set; } = IconType.Blazored;    
     [Parameter] public string? InfoClass { get; set; }
     [Parameter] public string? InfoIcon { get; set; }
@@ -28,6 +29,7 @@ public partial class BlazoredToasts
     [Parameter] public bool DisableTimeout { get; set; }
     [Parameter] public bool PauseProgressOnHover { get; set; } = false;
     [Parameter] public int ExtendedTimeout { get; set; }
+    
     private string PositionClass { get; set; } = string.Empty;
     private List<ToastInstance> ToastList { get; set; } = new();
     private Queue<ToastInstance> ToastWaitingQueue { get; set; } = new();
@@ -55,7 +57,7 @@ public partial class BlazoredToasts
             && string.IsNullOrWhiteSpace(WarningIcon)
             && string.IsNullOrWhiteSpace(ErrorIcon))
         {
-            throw new ArgumentException("IconType is a Custom, icon parameters must be set.");
+            throw new ArgumentException("IconType is Custom but icon parameters are not set.");
         }
     }
     
