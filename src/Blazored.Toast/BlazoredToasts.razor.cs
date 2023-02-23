@@ -79,7 +79,7 @@ public partial class BlazoredToasts
         return level switch
         {
             ToastLevel.Error => new ToastSettings(
-                "blazored-toast-error", 
+                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}", 
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? ErrorIcon ?? "", 
                 ShowProgressBar,
@@ -90,7 +90,7 @@ public partial class BlazoredToasts
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout),
             ToastLevel.Info => new ToastSettings(
-                "blazored-toast-info", 
+                $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? InfoIcon ?? "", 
                 ShowProgressBar,
@@ -101,7 +101,7 @@ public partial class BlazoredToasts
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout),
             ToastLevel.Success => new ToastSettings(
-                "blazored-toast-success", 
+                $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? SuccessIcon ?? "", 
                 ShowProgressBar,
@@ -112,7 +112,7 @@ public partial class BlazoredToasts
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
                 toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout),
             ToastLevel.Warning => new ToastSettings(
-                "blazored-toast-warning", 
+                $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? WarningIcon ?? "", 
                 ShowProgressBar,
