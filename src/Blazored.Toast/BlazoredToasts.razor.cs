@@ -29,8 +29,7 @@ public partial class BlazoredToasts
     [Parameter] public bool DisableTimeout { get; set; }
     [Parameter] public bool PauseProgressOnHover { get; set; } = false;
     [Parameter] public int ExtendedTimeout { get; set; }
-    
-    private string PositionClass { get; set; } = string.Empty;
+
     private List<ToastInstance> ToastList { get; set; } = new();
     private Queue<ToastInstance> ToastWaitingQueue { get; set; } = new();
 
@@ -49,8 +48,6 @@ public partial class BlazoredToasts
             NavigationManager.LocationChanged += ClearToasts;
         }
 
-        PositionClass = $"position-{Position.ToString().ToLower()}";
-
         if (IconType == IconType.Custom
             && string.IsNullOrWhiteSpace(InfoIcon)
             && string.IsNullOrWhiteSpace(SuccessIcon)
@@ -60,7 +57,7 @@ public partial class BlazoredToasts
             throw new ArgumentException("IconType is Custom but icon parameters are not set.");
         }
     }
-    
+
     private ToastSettings BuildCustomToastSettings(Action<ToastSettings>? settings)
     {
         var instanceToastSettings = new ToastSettings();
@@ -69,6 +66,7 @@ public partial class BlazoredToasts
         instanceToastSettings.DisableTimeout ??= DisableTimeout;
         instanceToastSettings.PauseProgressOnHover ??= PauseProgressOnHover;
         instanceToastSettings.ExtendedTimeout ??= ExtendedTimeout;
+        instanceToastSettings.Position ??= Position;
 
         return instanceToastSettings;
     }
@@ -77,7 +75,7 @@ public partial class BlazoredToasts
     {
         var toastInstanceSettings = new ToastSettings();
         settings?.Invoke(toastInstanceSettings);
-        
+
         return level switch
         {
             ToastLevel.Error => new ToastSettings(
@@ -90,7 +88,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout),
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
+                toastInstanceSettings.Position ?? Position),
             ToastLevel.Info => new ToastSettings(
                 $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
@@ -101,7 +100,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout),
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
+                toastInstanceSettings.Position ?? Position),
             ToastLevel.Success => new ToastSettings(
                 $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
@@ -112,7 +112,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout),
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
+                toastInstanceSettings.Position ?? Position),
             ToastLevel.Warning => new ToastSettings(
                 $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
@@ -123,7 +124,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
                 toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout),
+                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
+                toastInstanceSettings.Position ?? Position),
             _ => throw new InvalidOperationException()
         };
     }
@@ -175,7 +177,7 @@ public partial class BlazoredToasts
             StateHasChanged();
         });
     }
-    
+
     private void ShowEnqueuedToast()
     {
         InvokeAsync(() =>

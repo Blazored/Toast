@@ -66,6 +66,13 @@ public class ToastSettings
     /// </summary>
     public bool? DisableTimeout { get; set; }
 
+    /// <summary>
+    /// Setting this property will override the global toast position property and allows you to set a specific position for this toast notification. The position can be set to one of the predefined values in the <c>ToastPosition</c> enumeration.
+    /// </summary>
+    public ToastPosition? Position { get; set; }    
+
+    internal string PositionClass => $"position-{Position?.ToString().ToLower()}";
+
     public ToastSettings(
         string additionalClasses,
         IconType? iconType,
@@ -76,7 +83,8 @@ public class ToastSettings
         int timeout,
         bool disableTimeout,
         bool pauseProgressOnHover,
-        int extendedTimeout)
+        int extendedTimeout,
+        ToastPosition? toastPosition)
     {
         AdditionalClasses = additionalClasses;
         IconType = iconType;
@@ -88,6 +96,7 @@ public class ToastSettings
         DisableTimeout= disableTimeout;
         PauseProgressOnHover = pauseProgressOnHover;
         ExtendedTimeout = extendedTimeout;
+        Position = toastPosition;
 
         if (onClick is not null)
         {
