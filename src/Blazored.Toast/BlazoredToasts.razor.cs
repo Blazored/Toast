@@ -9,6 +9,7 @@ public partial class BlazoredToasts
 {
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+    
     [Parameter] public IconType IconType { get; set; } = IconType.Blazored;    
     [Parameter] public string? InfoClass { get; set; }
     [Parameter] public string? InfoIcon { get; set; }
@@ -53,7 +54,7 @@ public partial class BlazoredToasts
             && string.IsNullOrWhiteSpace(WarningIcon)
             && string.IsNullOrWhiteSpace(ErrorIcon))
         {
-            throw new ArgumentException("IconType is a Custom, icon parameters must be set.");
+            throw new ArgumentException("IconType is Custom but icon parameters are not set.");
         }
     }
 
