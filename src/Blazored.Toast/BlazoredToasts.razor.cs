@@ -76,7 +76,7 @@ public partial class BlazoredToasts
         return level switch
         {
             ToastLevel.Error => new ToastSettings(
-                "blazored-toast-error", 
+                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}", 
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? ErrorIcon ?? "", 
                 ShowProgressBar,
@@ -85,7 +85,7 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout),
             ToastLevel.Info => new ToastSettings(
-                "blazored-toast-info", 
+                $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? InfoIcon ?? "", 
                 ShowProgressBar,
@@ -94,7 +94,7 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout),
             ToastLevel.Success => new ToastSettings(
-                "blazored-toast-success", 
+                $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? SuccessIcon ?? "", 
                 ShowProgressBar,
@@ -103,7 +103,7 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout),
             ToastLevel.Warning => new ToastSettings(
-                "blazored-toast-warning", 
+                $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
                 toastInstanceSettings.IconType ?? IconType, 
                 toastInstanceSettings.Icon ?? WarningIcon ?? "", 
                 ShowProgressBar,
