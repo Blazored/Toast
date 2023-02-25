@@ -4,24 +4,36 @@ using Blazored.Toast.Services;
 
 namespace Blazored.Toast.Configuration;
 
-internal class ToastInstance
+public  class ToastInstance: IDisposable
 {
-    public ToastInstance(RenderFragment message, ToastLevel level, ToastSettings toastSettings)
+    internal ToastInstance(RenderFragment message, ToastLevel level, ToastSettings toastSettings, Action<Guid> onClose)
     {
         Message = message;
         Level = level;
         ToastSettings = toastSettings;
+        OnClose += onClose;
     }
-    public ToastInstance(RenderFragment customComponent, ToastSettings settings)
+    internal ToastInstance(RenderFragment customComponent, ToastSettings settings, Action<Guid> onClose)
     {
         CustomComponent = customComponent;
         ToastSettings = settings;
+        OnClose += onClose;
     }
 
+    internal event Action<Guid> OnClose;
     public Guid Id { get; } = Guid.NewGuid();
-    public DateTime TimeStamp { get; } = DateTime.Now;
-    public RenderFragment? Message { get; set; }
-    public ToastLevel Level { get; }
-    public ToastSettings ToastSettings { get; }
-    public RenderFragment? CustomComponent { get; }
+    internal DateTime TimeStamp { get; } = DateTime.Now;
+    internal RenderFragment? Message { get; set; }
+    internal ToastLevel Level { get; }
+    internal ToastSettings ToastSettings { get; }
+    internal RenderFragment? CustomComponent { get; }
+
+    public void Close()
+        => OnClose?.Invoke(Id);
+
+    public void Dispose()
+    {
+        OnClose -= OnClose;
+        GC.SuppressFinalize(this);
+    } 
 }

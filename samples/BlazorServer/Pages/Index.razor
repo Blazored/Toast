@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Blazored.Toast.Configuration;
 @inject IToastService toastService
 @inject NavigationManager NavigationManager
 
@@ -22,7 +23,7 @@
 
 <h1>Blazored Toasts - Custom Component</h1>
 
-<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>
+<button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = true; }))">Custom Toast</button>
 <button class="btn btn-secondary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast with parameters</button>
 <hr />
 
@@ -41,9 +42,29 @@
 <button class="btn btn-warning" @onclick="ClearQueueWarnings">Clear queued Warning Toasts</button>
 <button class="btn btn-info" @onclick="ClearQueueInfos">Clear queued Info Toasts</button>
 
+<hr />
+<h1>Blazored Toasts - Close toast with instance.Close()</h1>
+<div>
+    <button class="btn btn-primary" @onclick="AddNewToast">Add new toast</button>
+    <button class="btn btn-primary" @onclick="AddNewCustomToast">Add new custom toast</button>
+    @if (toastInstanceList.Any())
+    {
+        @foreach (var item in toastInstanceList.OrderBy(x => x.Key))
+        {
+            <div class="d-flex m-2">
+                <span class="col-3 align-self-center border-bottom">@item.Value.Id</span>
+                <button class="btn btn-danger btn-sm col-1 border-bottom" @onclick="@(() => CloseInstance(item))">Close @item.Key</button>
+            </div>
+        }
+    }
+</div>
+
 @code
 {
     private ToastParameters _toastParameters;
+    private Dictionary<int, ToastInstance> toastInstanceList { get; set; } = new();
+    private int toastNumber;
+
 
     protected override void OnInitialized()
     {
@@ -57,6 +78,34 @@
         RenderFragment message =@<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>
     ;
         toastService.ShowToast(ToastLevel.Info, message);
+    }
+
+    private void AddNewToast()
+    {
+        toastNumber++;
+        var instance = toastService.ShowInfo($"#{toastNumber} You can close me from code behind", settings => { settings.DisableTimeout = true; });
+        toastInstanceList.Add(toastNumber, instance);
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void AddNewCustomToast()
+    {
+        toastNumber++;
+        var _toastParams = new ToastParameters();
+        _toastParams.Add(nameof(MyToastComponent.Title), $"#{toastNumber} I'm a custom toast component with parameters");
+        var instance = toastService.ShowToast<MyToastComponent>(_toastParams, settings => { settings.DisableTimeout = true; });
+        toastInstanceList.Add(toastNumber, instance);
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void CloseInstance(KeyValuePair<int, ToastInstance> item)
+    {
+        item.Value.Close();
+        toastInstanceList.Remove(item.Key);
+
+        InvokeAsync(StateHasChanged);
     }
 
     private void ClearAll()

@@ -8,7 +8,7 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast
     /// </summary>
-    public event Action<ToastLevel, RenderFragment, Action<ToastSettings>?>? OnShow;
+    public event Func<ToastLevel, RenderFragment, Action<ToastSettings>?, ToastInstance>? OnShow;
 
     /// <summary>
     /// A event that will be invoked when clearing all toasts
@@ -18,7 +18,7 @@ public class ToastService : IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    public event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowComponent;
+    public event Func<Type, ToastParameters?, Action<ToastSettings>?, ToastInstance>? OnShowComponent;
 
     /// <summary>
     /// A event that will be invoked when clearing toasts
@@ -43,9 +43,15 @@ public class ToastService : IToastService
     /// <summary>
     /// Shows a information toast 
     /// </summary>
+    /// <returns>
+    /// ToastInstance
+    /// </returns>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowInfo(string message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowInfo(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Info, message, settings);
 
     /// <summary>
@@ -53,7 +59,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Info, message, settings);
 
     /// <summary>
@@ -61,7 +70,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowSuccess(string message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowSuccess(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Success, message, settings);
 
     /// <summary>
@@ -69,7 +81,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Success, message, settings);
 
     /// <summary>
@@ -77,7 +92,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowWarning(string message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowWarning(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Warning, message, settings);
 
     /// <summary>
@@ -85,7 +103,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Warning, message, settings);
 
     /// <summary>
@@ -93,7 +114,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowError(string message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowError(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Error, message, settings);
 
     /// <summary>
@@ -101,7 +125,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowError(RenderFragment message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowError(RenderFragment message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Error, message, settings);
 
     /// <summary>
@@ -110,7 +137,10 @@ public class ToastService : IToastService
     /// <param name="level">Toast level to display</param>
     /// <param name="message">Text to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast(ToastLevel level, string message, Action<ToastSettings>? settings = null)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowToast(ToastLevel level, string message, Action<ToastSettings>? settings = null)
         => ShowToast(level, builder => builder.AddContent(0, message), settings);
 
 
@@ -120,13 +150,19 @@ public class ToastService : IToastService
     /// <param name="level">Toast level to display</param>
     /// <param name="message">RenderFragment to display on the toast</param>
     /// <param name="settings">Settings to configure the toast instance</param>
-    public void ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings = null)
-        => OnShow?.Invoke(level, message, settings);
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings = null)
+        => OnShow!.Invoke(level, message, settings);
 
     /// <summary>
     /// Shows the toast with the component type
     /// </summary>
-    public void ShowToast<TComponent>() where TComponent : IComponent
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowToast<TComponent>() where TComponent : IComponent
         => ShowToast(typeof(TComponent), new ToastParameters(), null);
 
     /// <summary>
@@ -136,14 +172,17 @@ public class ToastService : IToastService
     /// <param name="contentComponent">Type of component to display.</param>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
     /// <param name="settings">Settings to configure the toast component.</param>
-    public void ShowToast(Type contentComponent, ToastParameters? parameters, Action<ToastSettings>? settings)
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowToast(Type contentComponent, ToastParameters? parameters, Action<ToastSettings>? settings)
     {
         if (!typeof(IComponent).IsAssignableFrom(contentComponent))
         {
             throw new ArgumentException($"{contentComponent.FullName} must be a Blazor Component");
         }
 
-        OnShowComponent?.Invoke(contentComponent, parameters, settings);
+        return OnShowComponent!.Invoke(contentComponent, parameters, settings);
     }
 
     /// <summary>
@@ -151,14 +190,20 @@ public class ToastService : IToastService
     /// passing the specified <paramref name="parameters"/> 
     /// </summary>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
-    public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent
         => ShowToast(typeof(TComponent), parameters, null);
 
     /// <summary>
     /// Shows a toast using the supplied settings
     /// </summary>
     /// <param name="settings">Toast settings to be used</param>
-    public void ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IComponent
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IComponent
         => ShowToast(typeof(TComponent), null, settings);
 
     /// <summary>
@@ -166,7 +211,10 @@ public class ToastService : IToastService
     /// </summary>
     /// <param name="parameters">Key/Value collection of parameters to pass to component being displayed.</param>
     /// <param name="settings">Toast settings to be used</param>
-    public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IComponent
+    /// <returns>
+    /// This method returns an object of type <see cref="ToastInstance"/>.
+    /// </returns>
+    public ToastInstance ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IComponent
         => ShowToast(typeof(TComponent), parameters, settings);
 
     /// <summary>

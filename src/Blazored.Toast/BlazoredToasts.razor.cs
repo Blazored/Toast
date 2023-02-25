@@ -2,6 +2,8 @@
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Blazored.Toast;
 
@@ -9,8 +11,8 @@ public partial class BlazoredToasts
 {
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-    
-    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;    
+
+    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;
     [Parameter] public string? InfoClass { get; set; }
     [Parameter] public string? InfoIcon { get; set; }
     [Parameter] public string? SuccessClass { get; set; }
@@ -79,9 +81,9 @@ public partial class BlazoredToasts
         return level switch
         {
             ToastLevel.Error => new ToastSettings(
-                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}", 
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? ErrorIcon ?? "", 
+                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}",
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? ErrorIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
@@ -92,8 +94,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Info => new ToastSettings(
                 $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? InfoIcon ?? "", 
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? InfoIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
@@ -104,8 +106,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Success => new ToastSettings(
                 $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? SuccessIcon ?? "", 
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? SuccessIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
@@ -116,8 +118,8 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Warning => new ToastSettings(
                 $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? WarningIcon ?? "", 
+                toastInstanceSettings.IconType ?? IconType,
+                toastInstanceSettings.Icon ?? WarningIcon ?? "",
                 ShowProgressBar,
                 ShowCloseButton,
                 toastInstanceSettings.OnClick,
@@ -130,51 +132,53 @@ public partial class BlazoredToasts
         };
     }
 
-    private void ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? toastSettings)
+    private ToastInstance ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? toastSettings)
+    {
+        var settings = BuildToastSettings(level, message, toastSettings);
+        var toast = new ToastInstance(message, level, settings, RemoveToast);
+        AddToastToList(toast);
+        
+        return toast;
+    }
+
+    private ToastInstance ShowCustomToast(Type contentComponent, ToastParameters? parameters, Action<ToastSettings>? settings)
+    {
+        var childContent = new RenderFragment(builder =>
+        {
+            var i = 0;
+            builder.OpenComponent(i++, contentComponent);
+            if (parameters is not null)
+            {
+                foreach (var parameter in parameters.Parameters)
+                {
+                    builder.AddAttribute(i++, parameter.Key, parameter.Value);
+                }
+            }
+
+            builder.CloseComponent();
+        });
+        var toastSettings = BuildCustomToastSettings(settings);
+        var toastInstance = new ToastInstance(childContent, toastSettings, RemoveToast);
+        AddToastToList(toastInstance);
+
+        return toastInstance;
+    }
+
+    //todo remove comment after review
+    //same code was called multiple times, added this method instead
+    private void AddToastToList(ToastInstance instance)
     {
         InvokeAsync(() =>
         {
-            var settings = BuildToastSettings(level, message, toastSettings);
-            var toast = new ToastInstance(message, level, settings);
-
             if (ToastList.Count < MaxToastCount)
             {
-                ToastList.Add(toast);
-                
+                ToastList.Add(instance);
                 StateHasChanged();
             }
             else
             {
-                ToastWaitingQueue.Enqueue(toast);
+                ToastWaitingQueue.Enqueue(instance);
             }
-        });
-    }
-
-    private void ShowCustomToast(Type contentComponent, ToastParameters? parameters, Action<ToastSettings>? settings)
-    {
-        InvokeAsync(() =>
-        {
-            var childContent = new RenderFragment(builder =>
-            {
-                var i = 0;
-                builder.OpenComponent(i++, contentComponent);
-                if (parameters is not null)
-                {
-                    foreach (var parameter in parameters.Parameters)
-                    {
-                        builder.AddAttribute(i++, parameter.Key, parameter.Value);
-                    }
-                }
-
-                builder.CloseComponent();
-            });
-
-            var toastSettings = BuildCustomToastSettings(settings);
-            var toastInstance = new ToastInstance(childContent, toastSettings);
-
-            ToastList.Add(toastInstance);
-
-            StateHasChanged();
         });
     }
 
@@ -182,11 +186,21 @@ public partial class BlazoredToasts
     {
         InvokeAsync(() =>
         {
-            var toast = ToastWaitingQueue.Dequeue();
+            bool _stateHasChanged = false;
+            //todo remove comment after review
+            //check before we dequeue, and show all queued toasts until MaxToastCount, if for example somone cleared all LevelToast.Error 
+            //and there was more than 1 Error toast, we need to show more than 1 new toast from que
+            while (ToastList.Count < MaxToastCount && ToastWaitingQueue.Any())
+            {
+                var toast = ToastWaitingQueue.Dequeue();
+                ToastList.Add(toast);
+                _stateHasChanged = true;
+            }
 
-            ToastList.Add(toast);
-
-            StateHasChanged();
+            if (_stateHasChanged)
+            {
+                StateHasChanged();
+            }
         });
     }
 
@@ -194,18 +208,25 @@ public partial class BlazoredToasts
     {
         InvokeAsync(() =>
         {
-            var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);
-
+            var toastInstance = ToastList.SingleOrDefault(x => x.Id == toastId);            
             if (toastInstance is not null)
             {
                 ToastList.Remove(toastInstance);
+                toastInstance.Dispose();
                 StateHasChanged();
             }
 
-            if (ToastWaitingQueue.Any())
+            var toastInstanceQueued = ToastWaitingQueue.SingleOrDefault(x => x.Id == toastId);
+            if(toastInstanceQueued is not null)
             {
-                ShowEnqueuedToast();
+                //todo remove comment after review
+                //had to recreate new Queue if somone removes toast that was in que list
+                ToastWaitingQueue = new Queue<ToastInstance>(ToastWaitingQueue.Where( x=> x.Id != toastId));
+                toastInstanceQueued.Dispose();
             }
+
+            ShowEnqueuedToast();
+
         });
     }
 
@@ -216,10 +237,7 @@ public partial class BlazoredToasts
             ToastList.Clear();
             StateHasChanged();
 
-            if (ToastWaitingQueue.Any())
-            {
-                ShowEnqueuedToast();
-            }
+            ShowEnqueuedToast();
         });
     }
 
@@ -229,6 +247,8 @@ public partial class BlazoredToasts
         {
             ToastList.Clear();
             StateHasChanged();
+
+            ShowEnqueuedToast();
         });
     }
 
@@ -238,6 +258,8 @@ public partial class BlazoredToasts
         {
             ToastList.RemoveAll(x => x.CustomComponent is null && x.Level == toastLevel);
             StateHasChanged();
+
+            ShowEnqueuedToast();
         });
     }
 
@@ -247,6 +269,8 @@ public partial class BlazoredToasts
         {
             ToastList.RemoveAll(x => x.CustomComponent is not null);
             StateHasChanged();
+
+            ShowEnqueuedToast();
         });
     }
 
@@ -255,6 +279,8 @@ public partial class BlazoredToasts
         InvokeAsync(() =>
         {
             ToastWaitingQueue.Clear();
+            //todo remove comment after review
+            //do we need to call StateHasChanged here, nothing on UI did change
             StateHasChanged();
         });
     }
@@ -264,6 +290,8 @@ public partial class BlazoredToasts
         InvokeAsync(() =>
         {
             ToastWaitingQueue = new(ToastWaitingQueue.Where(x => x.Level != toastLevel));
+            //todo remove comment after review
+            //do we need to call StateHasChanged here, nothing on UI did change
             StateHasChanged();
         });
     }
