@@ -4,7 +4,7 @@ using Blazored.Toast.Services;
 
 namespace Blazored.Toast.Configuration;
 
-public  class ToastInstance: IDisposable
+public  class ToastInstance: IDisposable, IToastInstance
 {
     internal ToastInstance(RenderFragment message, ToastLevel level, ToastSettings toastSettings, Action<Guid> onClose)
     {
@@ -31,6 +31,8 @@ public  class ToastInstance: IDisposable
     public void Close()
         => OnClose?.Invoke(Id);
 
+    //todo remove comment after review
+    //i am not sure if this was 
     public void Dispose()
     {
         OnClose -= OnClose;

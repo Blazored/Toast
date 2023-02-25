@@ -8,56 +8,76 @@ public class InMemoryToastService : IToastService
 {
     private readonly List<InMemoryToast> _toasts = new();
     public IReadOnlyList<InMemoryToast> Toasts => _toasts;
-    
-    public event Action<Type, ToastParameters?, Action<ToastSettings>?>? OnShowComponent;
-    public event Action<ToastLevel, RenderFragment, Action<ToastSettings>?>? OnShow;
+
+    public event Func<Type, ToastParameters?, Action<ToastSettings>?, IToastInstance>? OnShowComponent;
+    public event Func<ToastLevel, RenderFragment, Action<ToastSettings>?, IToastInstance>? OnShow;
     public event Action? OnClearAll;
     public event Action<ToastLevel>? OnClearToasts;
     public event Action? OnClearCustomToasts;
     public event Action? OnClearQueue;
     public event Action<ToastLevel>? OnClearQueueToasts;
 
-    public void ShowToast<TComponent>() where TComponent : IComponent 
-        => _toasts.Add(new InMemoryToast(typeof(TComponent)));
+    public IToastInstance ShowToast<TComponent>() where TComponent : IComponent
+    {
+        var instance = new InMemoryToast(typeof(TComponent));
+        _toasts.Add(instance);
+        return instance;
+    }
 
-    public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent 
-        => _toasts.Add(new InMemoryToast(typeof(TComponent)));
+    public IToastInstance ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent
+    {
+        var instance = new InMemoryToast(typeof(TComponent));
+        _toasts.Add(instance);
+        return instance;
+    }
 
-    public void ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IComponent 
-        => _toasts.Add(new InMemoryToast(typeof(TComponent)));
+    public IToastInstance ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IComponent
+    {
+        var instance = new InMemoryToast(typeof(TComponent));
+        _toasts.Add(instance);
+        return instance;
+    }
 
-    public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IComponent 
-        => _toasts.Add(new InMemoryToast(typeof(TComponent)));
+    public IToastInstance ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IComponent
+    {
+        var instance = new InMemoryToast(typeof(TComponent));
+        _toasts.Add(instance);
+        return instance;
+    }
 
-    public void ShowError(string message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowError(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Error, message, settings);
 
-    public void ShowError(RenderFragment message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowError(RenderFragment message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Error, message, settings);
 
-    public void ShowInfo(string message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowInfo(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Info, message, settings);
 
-    public void ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Info, message, settings);
 
-    public void ShowSuccess(string message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowSuccess(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Success, message, settings);
 
-    public void ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Success, message, settings);
 
-    public void ShowToast(ToastLevel level, string message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowToast(ToastLevel level, string message, Action<ToastSettings>? settings = null)
         => ShowToast(level, builder => builder.AddContent(0, message), settings);
 
-    public void ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings = null)
-        => _toasts.Add(new InMemoryToast(typeof(ToastInstance), level, message));
+    public IToastInstance ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings = null)
+    {
+        var instance = new InMemoryToast(typeof(IToastInstance), level, message);
+        _toasts.Add(instance);
+        return instance;
+    }
 
-    public void ShowWarning(string message, Action<ToastSettings>? settings = null)
+    public IToastInstance ShowWarning(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Warning, message, settings);
 
-    public void ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null)
-        => ShowToast(ToastLevel.Warning, message,  settings);
+    public IToastInstance ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null)
+        => ShowToast(ToastLevel.Warning, message, settings);
 
     public void ClearAll()
            => _toasts.Clear();

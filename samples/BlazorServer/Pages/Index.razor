@@ -62,7 +62,7 @@
 @code
 {
     private ToastParameters _toastParameters;
-    private Dictionary<int, ToastInstance> toastInstanceList { get; set; } = new();
+    private Dictionary<int, IToastInstance> toastInstanceList { get; set; } = new();
     private int toastNumber;
 
 
@@ -100,7 +100,7 @@
         InvokeAsync(StateHasChanged);
     }
 
-    private void CloseInstance(KeyValuePair<int, ToastInstance> item)
+    private void CloseInstance(KeyValuePair<int, IToastInstance> item)
     {
         item.Value.Close();
         toastInstanceList.Remove(item.Key);

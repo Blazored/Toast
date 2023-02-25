@@ -8,7 +8,7 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast
     /// </summary>
-    event Func<ToastLevel, RenderFragment, Action<ToastSettings>?, ToastInstance> OnShow;
+    event Func<ToastLevel, RenderFragment, Action<ToastSettings>?, IToastInstance> OnShow;
 
     /// <summary>
     /// A event that will be invoked to clear all toasts
@@ -28,7 +28,7 @@ public interface IToastService
     /// <summary>
     /// A event that will be invoked when showing a toast with a custom component
     /// </summary>
-    event Func<Type, ToastParameters?, Action<ToastSettings>?, ToastInstance>? OnShowComponent;
+    event Func<Type, ToastParameters?, Action<ToastSettings>?, IToastInstance>? OnShowComponent;
 
     /// <summary>
     /// A event that will be invoked to clear all queued toasts
@@ -48,7 +48,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowInfo(string message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowInfo(string message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a information toast 
@@ -58,7 +58,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowInfo(RenderFragment message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a success toast 
@@ -68,7 +68,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowSuccess(string message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowSuccess(string message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a success toast 
@@ -78,7 +78,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowSuccess(RenderFragment message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a warning toast 
@@ -88,7 +88,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowWarning(string message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowWarning(string message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a warning toast 
@@ -98,7 +98,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowWarning(RenderFragment message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a error toast 
@@ -108,7 +108,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowError(string message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowError(string message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a error toast 
@@ -118,7 +118,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowError(RenderFragment message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowError(RenderFragment message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a toast using the supplied settings
@@ -129,7 +129,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowToast(ToastLevel level, string message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowToast(ToastLevel level, string message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a toast using the supplied settings
@@ -140,7 +140,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings = null);
+    IToastInstance ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings = null);
 
     /// <summary>
     /// Shows a toast containing the specified <typeparamref name="TComponent"/>.
@@ -148,7 +148,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowToast<TComponent>() where TComponent : IComponent;
+    IToastInstance ShowToast<TComponent>() where TComponent : IComponent;
 
     /// <summary>
     /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="parameters"/>.
@@ -157,7 +157,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent;
+    IToastInstance ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent;
 
     /// <summary>
     /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings"/>.
@@ -166,7 +166,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowToast<TComponent>(Action<ToastSettings> settings) where TComponent : IComponent;
+    IToastInstance ShowToast<TComponent>(Action<ToastSettings> settings) where TComponent : IComponent;
 
     /// <summary>
     /// Shows a toast containing a <typeparamref name="TComponent"/> with the specified <paramref name="settings" /> and <paramref name="parameters"/>.
@@ -176,7 +176,7 @@ public interface IToastService
     /// <returns>
     /// This method returns an object of type <see cref="ToastInstance"/>.
     /// </returns>
-    ToastInstance ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings> settings) where TComponent : IComponent;
+    IToastInstance ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings> settings) where TComponent : IComponent;
 
     /// <summary>
     /// Removes all toasts
