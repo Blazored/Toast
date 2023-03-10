@@ -83,6 +83,7 @@ public partial class BlazoredToast : IDisposable
             IconType.Blazored => true,
             IconType.FontAwesome => !string.IsNullOrWhiteSpace(Settings.Icon),
             IconType.Material => !string.IsNullOrWhiteSpace(Settings.Icon),
+            IconType.Custom => !string.IsNullOrWhiteSpace(Settings.Icon),
             _ => false
         };
 

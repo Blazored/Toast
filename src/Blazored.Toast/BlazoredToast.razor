@@ -64,6 +64,9 @@ else
                     case IconType.Material:
                         <i class="material-icons" aria-hidden="true">@Settings.Icon</i>
                         break;
+                    case IconType.Custom:
+                        @((MarkupString)Settings.Icon!);
+                        break;
                 }
             </div>
         }
