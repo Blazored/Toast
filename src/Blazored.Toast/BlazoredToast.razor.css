@@ -16,6 +16,7 @@
 .blazored-toast-component {
     display: initial;
     padding: 0 0 0 0;
+    border-top: none;
 }
 
 .blazored-toast-info {

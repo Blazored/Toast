@@ -32,7 +32,7 @@
 
 <h1>Blazored Toasts - Custom Component</h1>
 
-<button class="btn btn-primary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>
+<button class="btn btn-primary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.DisableTimeout = true; settings.ShowProgressBar = false; }))">Custom Toast</button>
 <button class="btn btn-secondary" id="CustomButton" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; settings.ShowProgressBar = true; }))">Custom Toast with parameters</button>
 <hr />
 
