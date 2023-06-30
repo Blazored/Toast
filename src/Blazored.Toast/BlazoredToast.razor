@@ -70,7 +70,7 @@ else
         
         <p class="blazored-toast-message">@Message</p>
         
-        @if (Settings.DisableTimeout!.Value || Settings.ShowCloseButton)
+        @if (Settings.DisableTimeout!.Value || Settings.ShowCloseButton!.Value)
         {
             <button type="button" class="blazored-toast-close" @onclick=@Close>
                 <i aria-label="icon: close" class="blazored-toast-close-icon">

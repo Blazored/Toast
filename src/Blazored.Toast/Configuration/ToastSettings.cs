@@ -22,7 +22,7 @@ public class ToastSettings
     /// <summary>
     /// Enabling the <c>ShowProgressBar</c> property provides visual feedback on the remaining time for the toast notification based on the <c>Timeout</c> property. 
     /// </summary>    
-    public bool ShowProgressBar { get; set; }
+    public bool? ShowProgressBar { get; set; }
 
     /// <summary>
     /// When the <c>PauseProgressOnHover</c> property is enabled, the timeout period for the toast notification will be paused when the user hovers the mouse over the toast.
@@ -35,7 +35,7 @@ public class ToastSettings
     /// <summary>
     /// The ShowCloseButton property determines whether or not the close button is displayed on the toast notification.
     /// </summary>
-    public bool ShowCloseButton { get; set; }
+    public bool? ShowCloseButton { get; set; }
 
     /// <summary>
     /// The <c>OnClick</c> property is an optional action that is triggered when the user clicks on the toast notification.
