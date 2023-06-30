@@ -29,7 +29,7 @@ public partial class BlazoredToasts
     [Parameter] public RenderFragment? CloseButtonContent { get; set; }
     [Parameter] public bool ShowCloseButton { get; set; } = true;
     [Parameter] public bool DisableTimeout { get; set; }
-    [Parameter] public bool PauseProgressOnHover { get; set; } = false;
+    [Parameter] public bool PauseProgressOnHover { get; set; }
     [Parameter] public int ExtendedTimeout { get; set; }
 
     private List<ToastInstance> ToastList { get; set; } = new();
@@ -81,11 +81,11 @@ public partial class BlazoredToasts
         return level switch
         {
             ToastLevel.Error => new ToastSettings(
-                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? ErrorIcon ?? "",
-                ShowProgressBar,
-                ShowCloseButton,
+                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}", 
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? ErrorIcon ?? "", 
+                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
+                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
@@ -94,10 +94,10 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Info => new ToastSettings(
                 $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? InfoIcon ?? "",
-                ShowProgressBar,
-                ShowCloseButton,
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? InfoIcon ?? "", 
+                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
+                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
@@ -106,10 +106,10 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Success => new ToastSettings(
                 $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? SuccessIcon ?? "",
-                ShowProgressBar,
-                ShowCloseButton,
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? SuccessIcon ?? "", 
+                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
+                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,
@@ -118,10 +118,10 @@ public partial class BlazoredToasts
                 toastInstanceSettings.Position ?? Position),
             ToastLevel.Warning => new ToastSettings(
                 $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType,
-                toastInstanceSettings.Icon ?? WarningIcon ?? "",
-                ShowProgressBar,
-                ShowCloseButton,
+                toastInstanceSettings.IconType ?? IconType, 
+                toastInstanceSettings.Icon ?? WarningIcon ?? "", 
+                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
+                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
                 toastInstanceSettings.OnClick,
                 toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
                 toastInstanceSettings.DisableTimeout ?? DisableTimeout,

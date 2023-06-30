@@ -28,7 +28,7 @@ public partial class BlazoredToast : IDisposable
             return;
         }
         
-        if (Settings.ShowProgressBar)
+        if (Settings.ShowProgressBar!.Value)
         {
             _countdownTimer = new CountdownTimer(Settings.Timeout, Settings.ExtendedTimeout!.Value)
                 .OnTick(CalculateProgressAsync)
