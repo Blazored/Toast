@@ -9,8 +9,8 @@ public partial class BlazoredToasts
 {
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-    
-    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;    
+
+    [Parameter] public IconType IconType { get; set; } = IconType.Blazored;
     [Parameter] public string? InfoClass { get; set; }
     [Parameter] public string? InfoIcon { get; set; }
     [Parameter] public string? SuccessClass { get; set; }
@@ -27,7 +27,7 @@ public partial class BlazoredToasts
     [Parameter] public RenderFragment? CloseButtonContent { get; set; }
     [Parameter] public bool ShowCloseButton { get; set; } = true;
     [Parameter] public bool DisableTimeout { get; set; }
-    [Parameter] public bool PauseProgressOnHover { get; set; }
+    [Parameter] public bool PauseProgressOnHover { get; set; } = false;
     [Parameter] public int ExtendedTimeout { get; set; }
 
     private List<ToastInstance> ToastList { get; set; } = new();
@@ -71,76 +71,50 @@ public partial class BlazoredToasts
         return instanceToastSettings;
     }
 
-    private ToastSettings BuildToastSettings(ToastLevel level, RenderFragment message, Action<ToastSettings>? settings)
+    private ToastSettings BuildToastSettings(ToastLevel level, Action<ToastSettings>? settings)
     {
         var toastInstanceSettings = new ToastSettings();
         settings?.Invoke(toastInstanceSettings);
 
         return level switch
         {
-            ToastLevel.Error => new ToastSettings(
-                $"blazored-toast-error {toastInstanceSettings.AdditionalClasses}", 
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? ErrorIcon ?? "", 
-                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
-                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
-                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
-                toastInstanceSettings.Position ?? Position),
-            ToastLevel.Info => new ToastSettings(
-                $"blazored-toast-info {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? InfoIcon ?? "", 
-                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
-                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
-                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
-                toastInstanceSettings.Position ?? Position),
-            ToastLevel.Success => new ToastSettings(
-                $"blazored-toast-success {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? SuccessIcon ?? "", 
-                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
-                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
-                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
-                toastInstanceSettings.Position ?? Position),
-            ToastLevel.Warning => new ToastSettings(
-                $"blazored-toast-warning {toastInstanceSettings.AdditionalClasses}",
-                toastInstanceSettings.IconType ?? IconType, 
-                toastInstanceSettings.Icon ?? WarningIcon ?? "", 
-                toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
-                toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
-                toastInstanceSettings.OnClick,
-                toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
-                toastInstanceSettings.DisableTimeout ?? DisableTimeout,
-                toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
-                toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
-                toastInstanceSettings.Position ?? Position),
-            _ => throw new InvalidOperationException()
+            ToastLevel.Error => BuildToastSettings(toastInstanceSettings, "blazored-toast-error", ErrorIcon, ErrorClass),
+            ToastLevel.Info => BuildToastSettings(toastInstanceSettings, "blazored-toast-info", InfoIcon, InfoClass),
+            ToastLevel.Success => BuildToastSettings(toastInstanceSettings, "blazored-toast-success", SuccessIcon, SuccessClass),
+            ToastLevel.Warning => BuildToastSettings(toastInstanceSettings, "blazored-toast-warning", WarningIcon, WarningClass),
+            _ => throw new ArgumentOutOfRangeException(nameof(level))
         };
+    }
+
+    private ToastSettings BuildToastSettings(ToastSettings toastInstanceSettings, string cssClassForLevel, string? configIcon, string? configAdditionalClasses)
+    {
+        string? additonalClasses = string.IsNullOrEmpty(toastInstanceSettings.AdditionalClasses) ? configAdditionalClasses : toastInstanceSettings.AdditionalClasses;
+
+        return new ToastSettings(
+            $"{cssClassForLevel} {additonalClasses}",
+            toastInstanceSettings.IconType ?? IconType,
+            toastInstanceSettings.Icon ?? configIcon ?? "",
+            toastInstanceSettings.ShowProgressBar ?? ShowProgressBar,
+            toastInstanceSettings.ShowCloseButton ?? ShowCloseButton,
+            toastInstanceSettings.OnClick,
+            toastInstanceSettings.Timeout == 0 ? Timeout : toastInstanceSettings.Timeout,
+            toastInstanceSettings.DisableTimeout ?? DisableTimeout,
+            toastInstanceSettings.PauseProgressOnHover ?? PauseProgressOnHover,
+            toastInstanceSettings.ExtendedTimeout ?? ExtendedTimeout,
+            toastInstanceSettings.Position ?? Position);
     }
 
     private void ShowToast(ToastLevel level, RenderFragment message, Action<ToastSettings>? toastSettings)
     {
         InvokeAsync(() =>
         {
-            var settings = BuildToastSettings(level, message, toastSettings);
+            var settings = BuildToastSettings(level, toastSettings);
             var toast = new ToastInstance(message, level, settings);
 
             if (ToastList.Count < MaxToastCount)
             {
                 ToastList.Add(toast);
-                
+
                 StateHasChanged();
             }
             else
