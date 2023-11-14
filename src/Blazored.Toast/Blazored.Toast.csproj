@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
@@ -35,13 +35,13 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.12" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.1" />
   </ItemGroup>
 
