@@ -166,7 +166,7 @@ If you want to limit the number of toasts displayed at any given time, you can s
 ### Custom Component
 You can call the `ShowToast` method passing the type of component you want the toast to display.
 
-For example if I have a component called `MyToast` which I want to display in the toast and I want to call it from the `Index` component on a button cick.
+For example if I have a component called `MyToast` which I want to display in the toast and I want to call it from the `Index` component on a button click.
 
 ```razor
 @page "/toastdemo"
