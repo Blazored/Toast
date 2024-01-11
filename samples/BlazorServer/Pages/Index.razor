@@ -12,11 +12,15 @@
     <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", options => options.OnClick = () => NavigationManager.NavigateTo("/", true)))">
         Info Toast with custom action on click
     </button>
+    <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Custom icon", options => {options.IconType=Blazored.Toast.Configuration.IconType.Custom; options.Icon=customIconHtml;} ))">
+        Custom icon
+    </button>
 </div>
 <div class="mt-2">
     <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("When you hover over me, I will pause the timeout progress and resume it once you move away", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; }))">Pause progress on hover</button>
     <button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("When you hover over me, I will stop the timeout progress and close after an extended timeout of 1 second", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; settings.ExtendedTimeout = 1;}))">Pause progress on hover with extended timeout</button>
 </div>
+
 <hr />
 
 
@@ -25,6 +29,7 @@
 <button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>
 <button class="btn btn-secondary" @onclick="@(() => toastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast with parameters</button>
 <hr />
+dasdasd
 
 
 <h1>Blazored Toasts - Remove Toasts</h1>
@@ -45,13 +50,15 @@
 {
     private ToastParameters _toastParameters;
 
+    private string customIconHtml => $"<img style=\"width:40px\" src=\"blazoredIcon.svg\"/>";
+
     protected override void OnInitialized()
     {
         _toastParameters = new ToastParameters();
         _toastParameters.Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters");
         _toastParameters.Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
     }
-
+  
     private void OnShowHtml()
     {
         RenderFragment message =@<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>
