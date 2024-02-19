@@ -1,4 +1,3 @@
-using Blazored.Toast;
 using Blazored.Toast.Services;
 using BlazorWebAssembly.Pages;
 using Bunit;
@@ -108,6 +107,20 @@ namespace bUnitExample
 
             // Assert
             Assert.Equal(1, toastService.Toasts.Count(_ => _.ToastType == typeof(MyToastComponent)));
+        }
+        
+        [Fact]
+        public void DisplaysToastComponentWithLevel()
+        {
+            // Arrange
+            var toastService = this.AddBlazoredToast();
+            var cut = RenderComponent<Index>();
+
+            // Act
+            cut.Find("#CustomButton").Click();
+
+            // Assert
+            Assert.Equal(ToastLevel.Info, toastService.Toasts.Single().ToastParameters!.TryGet<ToastLevel>(nameof(MyToastComponent.Status)));
         }
     }
 }

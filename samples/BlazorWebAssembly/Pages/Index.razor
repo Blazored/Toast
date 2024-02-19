@@ -58,7 +58,8 @@
     {
         _toastParameters = new ToastParameters()
             .Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters")
-            .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
+            .Add(nameof(MyToastComponent.ToastParam), "I'm a parameter")
+            .Add(nameof(MyToastComponent.Status), ToastLevel.Info);
     }
 
     private void OnShowHtml()
