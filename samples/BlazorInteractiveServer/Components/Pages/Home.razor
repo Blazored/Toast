@@ -1,0 +1,84 @@
+﻿@page "/"
+@inject IToastService ToastService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Home</PageTitle>
+
+<h1>Blazored Toasts</h1>
+<div>
+    <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+    <button class="btn btn-success" @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a custom heading"))">Success Toast</button>
+    <button class="btn btn-warning" @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
+    <button class="btn btn-danger" @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</button>
+    <button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
+    <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("Click to refresh the page", options => options.OnClick = () => NavigationManager.NavigateTo("/", true)))">
+        Info Toast with custom action on click
+    </button>
+</div>
+<div class="mt-2">
+    <button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("When you hover over me, I will pause the timeout progress and resume it once you move away", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; }))">Pause progress on hover</button>
+    <button class="btn btn-success" @onclick="@(() => ToastService.ShowSuccess("When you hover over me, I will stop the timeout progress and close after an extended timeout of 1 second", settings => {settings.Timeout = 15; settings.PauseProgressOnHover = true; settings.ExtendedTimeout = 1;}))">Pause progress on hover with extended timeout</button>
+</div>
+<hr />
+
+
+<h1>Blazored Toasts - Custom Component</h1>
+
+<button class="btn btn-primary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast</button>
+<button class="btn btn-secondary" @onclick="@(() => ToastService.ShowToast<MyToastComponent>(_toastParameters, settings => { settings.Timeout = 5; settings.ShowProgressBar = false; }))">Custom Toast with parameters</button>
+<hr />
+
+
+<h1>Blazored Toasts - Remove Toasts</h1>
+
+<button class="btn btn-primary" @onclick="ClearAll">Clear All Toasts</button>
+<button class="btn btn-warning" @onclick="ClearWarnings">Clear Warning Toasts</button>
+<button class="btn btn-info" @onclick="ClearInfos">Clear Info Toasts</button>
+<button class="btn btn-secondary" @onclick="ClearCustom">Clear Custom Toasts</button>
+<hr />
+
+<h1>Blazored Toasts - Remove queued Toasts</h1>
+
+<button class="btn btn-primary" @onclick="ClearQueue">Clear all queued Toasts</button>
+<button class="btn btn-warning" @onclick="ClearQueueWarnings">Clear queued Warning Toasts</button>
+<button class="btn btn-info" @onclick="ClearQueueInfos">Clear queued Info Toasts</button>
+
+@code
+{
+    private ToastParameters _toastParameters = default!;
+
+    protected override void OnInitialized()
+    {
+        _toastParameters = new ToastParameters();
+        _toastParameters.Add(nameof(MyToastComponent.Title), "I'm a custom toast component with parameters");
+        _toastParameters.Add(nameof(MyToastComponent.ToastParam), "I'm a parameter");
+        _toastParameters.Add(nameof(MyToastComponent.Status), ToastLevel.Info);
+    }
+
+    private void OnShowHtml()
+    {
+        RenderFragment message =@<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>;
+        ToastService.ShowToast(ToastLevel.Info, message);
+    }
+
+    private void ClearAll()
+        => ToastService.ClearAll();
+
+    private void ClearWarnings()
+        => ToastService.ClearToasts(ToastLevel.Warning);
+
+    private void ClearInfos()
+        => ToastService.ClearInfoToasts();
+
+    private void ClearCustom()
+        => ToastService.ClearCustomToasts();
+
+    private void ClearQueue()
+        => ToastService.ClearQueue();
+
+    private void ClearQueueWarnings()
+        => ToastService.ClearQueueToasts(ToastLevel.Warning);
+
+    private void ClearQueueInfos()
+        => ToastService.ClearQueueInfoToasts();
+}
