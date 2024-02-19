@@ -7,40 +7,31 @@ This is a JavaScript free toast implementation for [Blazor](https://blazor.net) 
 
 ![Screenshot of component in action](screenshot.png)
 
-## Getting Setup
-You can install the package via the NuGet package manager just search for *Blazored.Toast*. You can also install via powershell using the following command.
+## Installing
 
-```powershell
-Install-Package Blazored.Toast
+To install the package add the following line to you csproj file replacing x.x.x with the latest version number (found at the top of this file):
+
+```
+<PackageReference Include="Blazored.Toast" Version="x.x.x" />
 ```
 
-Or via the dotnet CLI.
+You can also install via the .NET CLI with the following command:
 
-```bash
+```
 dotnet add package Blazored.Toast
 ```
 
-### 1. Register Services
-You will need to register the Blazored Toast service in your application
+If you're using Visual Studio or JetBrains Rider you can also install via the built in NuGet package manager.
 
-#### Blazor Server
-Add the following line to your applications `Startup.ConfigureServices` method.
+## Setup
 
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddBlazoredToast();
-}
-```
+You will need to register the Blazored Toast service with the service collection in your _Program.cs_ file.
 
-#### Blazor WebAssembly
-Add the following line to your applications `Program.Main` method.
-
-```csharp
+```c#
 builder.Services.AddBlazoredToast();
 ```
 
-### 2. Add Imports
+### Add Imports
 Add the following to your *_Imports.razor*
 
 ```razor
@@ -48,7 +39,7 @@ Add the following to your *_Imports.razor*
 @using Blazored.Toast.Services
 ```
 
-### 3. Add reference to style sheet(s)
+### Add reference to style sheet(s)
 Blazored Toast uses CSS isolation. If your application is already using CSS isolation then the styles for Toast will be included automatically and you can skip this step. However, if your application isn't using isolated CSS, you will need to add a reference to the CSS bundle. You can checkout the [Microsoft Docs](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0#css-isolation-bundling) for additional details.
 
 ```razor
@@ -57,11 +48,12 @@ Blazored Toast uses CSS isolation. If your application is already using CSS isol
 
 Presumably, if you want to use the Material Icons your project already includes some form of the icons. If not see [Material Design Icons](https://dev.materialdesignicons.com/getting-started/webfont) for the available alternatives.
 
-### 4. Register and Configure Toasts Component
+### Register and Configure Toasts Component
 Add the `<BlazoredToasts />` tag into your applications *MainLayout.razor*.
 
 Toasts are configured using parameters on the `<BlazoredToasts />` component. The following options are available.
 
+- IconType (Default: `IconType.Blazored`)
 - InfoClass
 - InfoIcon
 - SuccessClass
@@ -70,21 +62,23 @@ Toasts are configured using parameters on the `<BlazoredToasts />` component. Th
 - WarningIcon
 - ErrorClass
 - ErrorIcon
-- IconType (Default: IconType.FontAwesome)
-- Position (Default: ToastPosition.TopRight)
+- Position (Default: `ToastPosition.TopRight`)
 - Timeout (Default: 5)
-- ShowProgressBar (Default: false)
-- ShowCloseButton (Default: true)
-- CloseButtonContent (provide custom close button)
 - MaxToastCount (Default: `int.MaxValue`)
-- RemoveToastsOnNavigation (Default: false)
+- RemoveToastsOnNavigation
+- ShowProgressBar
+- CloseButtonContent (provide custom close button)
+- ShowCloseButton (Default: `true`)
+- DisableTimeout
+- PauseProgressOnHover (Default: `false`)
+- ExtendedTimeout
 
 By default, you don't need to provide any settings everything will just work. But if you want to add icons to toasts or override the default styling then you can use the options above to do that. 
 
 For example, to add an icon from Font Awesome to all success toasts you can do the following:
 
 ```razor
-<BlazoredToasts SuccessIcon="fa fa-thumbs-up"/>
+<BlazoredToasts IconType="IconType.FontAwesome" SuccessIcon="fa fa-thumbs-up"/>
 ```
 
 Setting the position also requires a reference to `Blazored.Toast.Configuration`, for example:
@@ -99,21 +93,8 @@ Setting the position also requires a reference to `Blazored.Toast.Configuration`
                 SuccessIcon="fa fa-thumbs-up"
                 ErrorIcon="fa fa-bug" />
 ```
-The example above is from the [client side samples](https://github.com/Blazored/Toast/tree/master/samples).
 
-```razor
-<BlazoredToasts Position="ToastPosition.BottomRight"
-                Timeout="10"
-                IconType="IconType.Material"
-                ErrorIcon="error_outline"
-                InfoIcon="school"
-                SuccessIcon="done_outline"
-                WarningIcon="warning" />
-```
-The example above is from the [server side samples](https://github.com/Blazored/Toast/tree/master/samples) and demonstrates the use of Material Design icons.
-
-
-If you want to have your own custom close button:
+If you want to have your own custom close button, that can be configured via the `CloseButtonContent` parameter:
 ```razor
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="10">
@@ -217,5 +198,4 @@ For Example if you want to change the duration of the timeout and disable the pr
 <button class="btn btn-primary" @onclick="@(() => toastService.ShowToast<MyToast>(new ToastInstanceSettings(5, false)))">Custom Toast</button>
 ```
 
-Full examples for client and server-side Blazor are included in the [samples](https://github.com/Blazored/Toast/tree/master/samples).
-
+Full examples for Blazor WebAssembly and Blazor Interactive Server are included in the [samples](https://github.com/Blazored/Toast/tree/main/samples).
