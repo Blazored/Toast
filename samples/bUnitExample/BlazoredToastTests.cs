@@ -13,13 +13,13 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
+            var cut = RenderComponent<Home>();
 
             // Act
             cut.Find("#InfoButton").Click();
 
             // Assert
-            Assert.Equal(1, toastService.Toasts.Count);
+            Assert.Single(toastService.Toasts);
         }
 
         [Fact]
@@ -27,10 +27,10 @@ namespace bUnitExample
         {
             // Arrange Act
             var toastService = this.AddBlazoredToast();
-            RenderComponent<Index>();
+            RenderComponent<Home>();
 
             // Assert
-            Assert.Equal(0, toastService.Toasts.Count);
+            Assert.Empty(toastService.Toasts);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
+            var cut = RenderComponent<Home>();
 
             // Act
             var button = cut.Find("#InfoButton");
@@ -54,7 +54,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
+            var cut = RenderComponent<Home>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -68,7 +68,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
+            var cut = RenderComponent<Home>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -76,8 +76,8 @@ namespace bUnitExample
 
             // Assert
             Assert.Collection(toastService.Toasts,
-                _ => Assert.Equal(ToastLevel.Info, _.ToastLevel),
-                _ => Assert.Equal(ToastLevel.Success, _.ToastLevel));
+                toastLevel => Assert.Equal(ToastLevel.Info, toastLevel.ToastLevel),
+                toastLevel => Assert.Equal(ToastLevel.Success, toastLevel.ToastLevel));
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
+            var cut = RenderComponent<Home>();
 
             // Act
             cut.Find("#InfoButton").Click();
@@ -100,13 +100,13 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
+            var cut = RenderComponent<Home>();
 
             // Act
             cut.Find("#CustomButton").Click();
 
             // Assert
-            Assert.Equal(1, toastService.Toasts.Count(_ => _.ToastType == typeof(MyToastComponent)));
+            Assert.Equal(1, toastService.Toasts.Count(toast => toast.ToastType == typeof(MyToastComponent)));
         }
         
         [Fact]
@@ -114,7 +114,7 @@ namespace bUnitExample
         {
             // Arrange
             var toastService = this.AddBlazoredToast();
-            var cut = RenderComponent<Index>();
+            var cut = RenderComponent<Home>();
 
             // Act
             cut.Find("#CustomButton").Click();
