@@ -21,13 +21,13 @@ public class InMemoryToastService : IToastService
         => _toasts.Add(new InMemoryToast(typeof(TComponent)));
 
     public void ShowToast<TComponent>(ToastParameters parameters) where TComponent : IComponent 
-        => _toasts.Add(new InMemoryToast(typeof(TComponent)));
+        => _toasts.Add(new InMemoryToast(typeof(TComponent), parameters));
 
     public void ShowToast<TComponent>(Action<ToastSettings>? settings) where TComponent : IComponent 
         => _toasts.Add(new InMemoryToast(typeof(TComponent)));
 
     public void ShowToast<TComponent>(ToastParameters parameters, Action<ToastSettings>? settings) where TComponent : IComponent 
-        => _toasts.Add(new InMemoryToast(typeof(TComponent)));
+        => _toasts.Add(new InMemoryToast(typeof(TComponent), parameters));
 
     public void ShowError(string message, Action<ToastSettings>? settings = null)
         => ShowToast(ToastLevel.Error, message, settings);
