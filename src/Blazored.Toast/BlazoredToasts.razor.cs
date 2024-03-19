@@ -67,6 +67,7 @@ public partial class BlazoredToasts
         instanceToastSettings.PauseProgressOnHover ??= PauseProgressOnHover;
         instanceToastSettings.ExtendedTimeout ??= ExtendedTimeout;
         instanceToastSettings.Position ??= Position;
+        instanceToastSettings.ShowProgressBar ??= ShowProgressBar;
 
         return instanceToastSettings;
     }
